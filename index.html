@@ -48,7 +48,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text1);min-height:
 .ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5b50e8,#8bc5f5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0;}
 .ava-info p{font-size:13px;font-weight:600;}
 .ava-info span{font-size:11px;color:var(--text3);}
-.xp{margin-left:auto;font-size:11px;font-family:var(--mono);background:var(--indigo-light);color:var(--indigo);border-radius:20px;padding:3px 8px;white-space:nowrap;font-weight:500;}
+.xp{margin-left:auto;font-size:11px;font-family:var(--mono);background:var(--indigo-light);color:var(--indigo);border-radius:20px;padding:3px 8px;white-space:nowrap;font-weight:500;cursor:pointer;}
 
 nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .nav-group{margin-bottom:20px;}
@@ -82,10 +82,8 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .btn-primary:active{transform:translateY(0);}
 .btn-second{background:var(--indigo);color:#fff;border:none;border-radius:var(--r2);padding:7px 16px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
 .btn-second:hover{background:#4a40d4;transform:translateY(-1px);}
-.btn-second:active{transform:translateY(0);}
-.btn-third{background:var(--indigo);color:#fff;border:none;border-radius:var(--r2);padding:7px 16px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
-.btn-third:hover{background:#4a40d4;transform:translateY(-1px);}
-.btn-third:active{transform:translateY(0);}
+.btn-third{background:var(--surface);color:var(--indigo);border:1.5px solid var(--indigo);border-radius:var(--r2);padding:7px 16px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.btn-third:hover{background:var(--indigo-light);}
 
 /* ── MAIN ── */
 .main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg);}
@@ -212,11 +210,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .tab{flex:1;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;text-align:center;color:var(--text2);transition:all .15s;user-select:none;}
 .tab.active{background:var(--surface);color:var(--indigo);box-shadow:var(--shadow);}
 
-/* ── PROGRESS RING ── */
-.progress-rings{display:flex;gap:16px;justify-content:space-around;padding:4px 0;}
-.prog-ring-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;}
-.prog-ring-wrap span{font-size:11px;color:var(--text2);font-weight:600;text-align:center;}
-
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
@@ -226,7 +219,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .auth-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;align-items:center;justify-content:center;}
 .auth-modal-bg.open{display:flex;}
 .auth-modal{background:var(--surface);border-radius:18px;padding:36px 32px;width:420px;max-width:92vw;box-shadow:0 24px 80px rgba(0,0,0,.18);animation:pop .22s ease;position:relative;}
-.auth-modal .logo-mark{width:44px;height:44px;border-radius:12px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;background:var(--indigo);}
 .auth-modal h2{font-size:20px;font-weight:700;text-align:center;margin-bottom:4px;letter-spacing:-.4px;}
 .auth-modal .auth-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:24px;}
 .auth-input-wrap{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;}
@@ -239,9 +231,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .auth-switch a{color:var(--indigo);font-weight:600;cursor:pointer;text-decoration:none;}
 .auth-switch a:hover{opacity:.75;}
 .auth-err{font-size:12px;color:var(--rose);background:var(--rose-light);border-radius:var(--r2);padding:8px 12px;margin-bottom:12px;display:none;}
-.auth-sep{display:flex;align-items:center;gap:10px;margin:16px 0;}
-.auth-sep span{font-size:11px;color:var(--text3);white-space:nowrap;}
-.auth-sep::before,.auth-sep::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* ── PROBLEMS PAGE ── */
 .prob-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
@@ -261,15 +250,64 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .prob-status-none{font-size:14px;color:var(--border2);}
 .prob-tags{display:flex;gap:5px;flex-wrap:wrap;}
 .prob-tag{font-size:10px;background:var(--bg);border:1px solid var(--border);color:var(--text3);padding:2px 7px;border-radius:10px;font-family:var(--mono);}
-.prob-name-link{font-weight:600;color:var(--text1);cursor:pointer;transition:color .15s;}
-.prob-name-link:hover{color:var(--indigo);}
+.prob-name-link{font-weight:600;color:var(--indigo);cursor:pointer;transition:color .15s;text-decoration:none;}
+.prob-name-link:hover{text-decoration:underline;}
 .prob-stats-row{display:flex;gap:20px;padding:4px 0 14px;}
 .prob-stat-item{display:flex;flex-direction:column;gap:2px;}
 .prob-stat-num{font-size:22px;font-weight:700;font-family:var(--mono);}
 .prob-stat-lbl{font-size:11px;color:var(--text3);}
 
-/* ── USER PILL HIDDEN STATE ── */
-.user-pill.hidden-auth{display:none;}
+/* ── CODE EDITOR PAGE ── */
+#page-editor{display:none;padding:0!important;gap:0!important;overflow:hidden;}
+.editor-layout{display:grid;grid-template-columns:420px 1fr;height:100%;overflow:hidden;}
+.editor-left{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--surface);}
+.editor-right{display:flex;flex-direction:column;background:#1e1e2e;overflow:hidden;}
+
+/* problem description */
+.prob-desc-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.prob-back-btn{background:none;border:1px solid var(--border);border-radius:var(--r2);padding:5px 12px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .15s;display:flex;align-items:center;gap:5px;}
+.prob-back-btn:hover{background:var(--bg);}
+.prob-desc-title{font-size:15px;font-weight:700;flex:1;}
+.prob-desc-body{flex:1;overflow-y:auto;padding:20px;}
+.prob-desc-section{margin-bottom:16px;}
+.prob-desc-section h4{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.prob-desc-section p{font-size:13px;line-height:1.7;color:var(--text2);}
+.prob-example{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:12px 14px;margin-top:8px;}
+.prob-example code{font-family:var(--mono);font-size:12px;color:var(--text1);display:block;line-height:1.8;}
+.prob-constraints{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:12px 14px;}
+.prob-constraints li{font-size:12px;color:var(--text2);font-family:var(--mono);margin-bottom:4px;list-style:none;padding-left:8px;}
+.prob-constraints li::before{content:"• ";color:var(--indigo);}
+
+/* code editor top bar */
+.editor-topbar{background:#181825;border-bottom:1px solid #313244;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.lang-select{background:#313244;border:1px solid #45475a;border-radius:6px;padding:5px 10px;color:#cdd6f4;font-family:var(--mono);font-size:12px;cursor:pointer;outline:none;}
+.run-btn{background:#a6e3a1;color:#1e1e2e;border:none;border-radius:6px;padding:6px 16px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.run-btn:hover{background:#94d19e;transform:translateY(-1px);}
+.submit-btn{background:var(--indigo);color:#fff;border:none;border-radius:6px;padding:6px 16px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.submit-btn:hover{background:#4a40d4;transform:translateY(-1px);}
+
+/* code textarea */
+.code-area-wrap{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.code-textarea{flex:1;background:#1e1e2e;color:#cdd6f4;font-family:var(--mono);font-size:13px;line-height:1.7;padding:16px 20px;border:none;outline:none;resize:none;tab-size:2;}
+.code-textarea::placeholder{color:#585b70;}
+
+/* test cases / output panel */
+.output-panel{background:#181825;border-top:1px solid #313244;height:220px;display:flex;flex-direction:column;flex-shrink:0;}
+.output-tabs{display:flex;gap:0;border-bottom:1px solid #313244;}
+.output-tab{padding:8px 18px;font-size:12px;font-weight:600;cursor:pointer;color:#6c7086;border-bottom:2px solid transparent;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font);}
+.output-tab.active{color:#cdd6f4;border-bottom-color:var(--indigo);}
+.output-body{flex:1;overflow-y:auto;padding:14px 16px;}
+.testcase-row{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.testcase-label{font-size:11px;font-weight:600;color:#6c7086;font-family:var(--mono);}
+.testcase-val{background:#313244;border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:12px;color:#cdd6f4;}
+.result-line{font-family:var(--mono);font-size:12px;line-height:1.8;}
+.result-pass{color:#a6e3a1;}
+.result-fail{color:#f38ba8;}
+.result-info{color:#89b4fa;}
+.result-warn{color:#f9e2af;}
+
+/* line numbers */
+.code-lines{position:absolute;top:0;left:0;padding:16px 0 16px 8px;width:36px;font-family:var(--mono);font-size:13px;line-height:1.7;color:#585b70;pointer-events:none;text-align:right;user-select:none;}
 </style>
 </head>
 <body>
@@ -282,39 +320,39 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     <div class="logo-name">Learn<span>Flow</span></div>
   </div>
 
-  <div class="user-pill" id="user-pill">
+  <div class="user-pill" id="user-pill" style="display:none;">
     <div class="ava" id="sidebar-ava">?</div>
     <div class="ava-info">
       <p id="sidebar-username">Người dùng</p>
       <span>Level 14 · Scholar</span>
     </div>
-    <div class="xp" style="cursor:pointer;" onclick="doLogout()" title="Đăng xuất">Đăng xuất</div>
+    <div class="xp" onclick="doLogout()" title="Đăng xuất">Đăng xuất</div>
   </div>
 
   <nav>
     <div class="nav-group">
       <div class="nav-group-label">Tổng quan</div>
-      <div class="nav-item active" onclick="setPage('dashboard')"><span class="nav-icon">🏠</span>Dashboard</div>
-      <div class="nav-item" onclick="setPage('courses')"><span class="nav-icon">📚</span>Khóa học<span class="nav-badge">8</span></div>
+      <div class="nav-item active" onclick="setPage('dashboard',this)"><span class="nav-icon">🏠</span>Dashboard</div>
+      <div class="nav-item" onclick="setPage('courses',this)"><span class="nav-icon">📚</span>Khóa học<span class="nav-badge">8</span></div>
       <div class="nav-item" onclick="openModal('add-course')"><span class="nav-icon">➕</span>Thêm khóa học</div>
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Học tập</div>
-      <div class="nav-item" onclick="setPage('tasks')"><span class="nav-icon">📝</span>Bài tập<span class="nav-badge">5</span></div>
-      <div class="nav-item" onclick="setPage('problems')"><span class="nav-icon">💻</span>Luyện tập code<span class="nav-badge">150</span></div>
-      <div class="nav-item" onclick="setPage('schedule')"><span class="nav-icon">📅</span>Lịch học</div>
-      <div class="nav-item" onclick="setPage('timer')"><span class="nav-icon">⏱️</span>Pomodoro Timer</div>
-      <div class="nav-item" onclick="setPage('notes')"><span class="nav-icon">📓</span>Ghi chú</div>
+      <div class="nav-item" onclick="setPage('tasks',this)"><span class="nav-icon">📝</span>Bài tập<span class="nav-badge">5</span></div>
+      <div class="nav-item" id="nav-problems" onclick="setPage('problems',this)"><span class="nav-icon">💻</span>Luyện tập code<span class="nav-badge">40</span></div>
+      <div class="nav-item" onclick="setPage('schedule',this)"><span class="nav-icon">📅</span>Lịch học</div>
+      <div class="nav-item" onclick="setPage('timer',this)"><span class="nav-icon">⏱️</span>Pomodoro Timer</div>
+      <div class="nav-item" onclick="setPage('notes',this)"><span class="nav-icon">📓</span>Ghi chú</div>
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Cộng đồng</div>
-      <div class="nav-item" onclick="setPage('leaderboard')"><span class="nav-icon">🏆</span>Bảng xếp hạng</div>
-      <div class="nav-item" onclick="setPage('groups')"><span class="nav-icon">👥</span>Nhóm học</div>
+      <div class="nav-item" onclick="setPage('leaderboard',this)"><span class="nav-icon">🏆</span>Bảng xếp hạng</div>
+      <div class="nav-item" onclick="setPage('groups',this)"><span class="nav-icon">👥</span>Nhóm học</div>
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Cá nhân</div>
-      <div class="nav-item" onclick="setPage('progress')"><span class="nav-icon">📊</span>Tiến độ</div>
-      <div class="nav-item" onclick="setPage('settings')"><span class="nav-icon">⚙️</span>Cài đặt</div>
+      <div class="nav-item" onclick="setPage('progress',this)"><span class="nav-icon">📊</span>Tiến độ</div>
+      <div class="nav-item" onclick="setPage('settings',this)"><span class="nav-icon">⚙️</span>Cài đặt</div>
     </div>
   </nav>
 
@@ -334,30 +372,10 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   <header class="topbar">
     <div class="topbar-left">
       <h1 id="page-title">Dashboard</h1>
-      <p id="clock" style="color: gray; font-size: 14px;"></p>
-      <script>
-        function capNhatGio() {
-            const now = new Date();
-            let gio = now.getHours();
-            let phut = now.getMinutes();
-            let giay = now.getSeconds();
-            let ngay = now.getDate();
-            let thang = now.getMonth() + 1;
-            let nam = now.getFullYear();
-            gio = gio < 10 ? "0" + gio : gio;
-            phut = phut < 10 ? "0" + phut : phut;
-            giay = giay < 10 ? "0" + giay : giay;
-            ngay = ngay < 10 ? "0" + ngay : ngay;
-            thang = thang < 10 ? "0" + thang : thang;
-            document.getElementById("clock").innerHTML =
-                `${gio}:${phut}:${giay} - ${ngay}/${thang}/${nam}`;
-        }
-        capNhatGio();
-        setInterval(capNhatGio, 1000);
-      </script>
+      <p id="clock"></p>
     </div>
     <div class="topbar-right">
-      <div class="search">
+      <div class="search" id="topbar-search">
         <span style="font-size:13px;color:var(--text3)">🔍</span>
         <input id="search-input" type="text" placeholder="Tìm kiếm khoá học..." oninput="handleSearch(this.value)"/>
       </div>
@@ -372,252 +390,89 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
       </div>
     </div>
   </header>
+
   <!-- PAGE: DASHBOARD -->
   <div class="content" id="page-dashboard">
-    <!-- STATS -->
     <div class="stats-row">
       <div class="stat">
-        <div class="stat-top">
-          <div class="stat-ico" style="background:var(--indigo-light)">📚</div>
-          <div class="stat-trend trend-up">↑ +2</div>
-        </div>
-        <div class="stat-num">8</div>
-        <div class="stat-lbl">Khoá học đang học</div>
+        <div class="stat-top"><div class="stat-ico" style="background:var(--indigo-light)">📚</div><div class="stat-trend trend-up">↑ +2</div></div>
+        <div class="stat-num">8</div><div class="stat-lbl">Khoá học đang học</div>
         <div class="stat-prog"><div class="stat-fill" style="width:72%;background:var(--indigo)"></div></div>
       </div>
       <div class="stat">
-        <div class="stat-top">
-          <div class="stat-ico" style="background:var(--teal-light)">⏱️</div>
-          <div class="stat-trend trend-up">↑ +4.2h</div>
-        </div>
-        <div class="stat-num">47h</div>
-        <div class="stat-lbl">Giờ học tháng này</div>
+        <div class="stat-top"><div class="stat-ico" style="background:var(--teal-light)">⏱️</div><div class="stat-trend trend-up">↑ +4.2h</div></div>
+        <div class="stat-num">47h</div><div class="stat-lbl">Giờ học tháng này</div>
         <div class="stat-prog"><div class="stat-fill" style="width:58%;background:var(--teal)"></div></div>
       </div>
       <div class="stat">
-        <div class="stat-top">
-          <div class="stat-ico" style="background:var(--amber-light)">✅</div>
-          <div class="stat-trend trend-up">↑ +12%</div>
-        </div>
-        <div class="stat-num">89%</div>
-        <div class="stat-lbl">Tỉ lệ hoàn thành</div>
+        <div class="stat-top"><div class="stat-ico" style="background:var(--amber-light)">✅</div><div class="stat-trend trend-up">↑ +12%</div></div>
+        <div class="stat-num">89%</div><div class="stat-lbl">Tỉ lệ hoàn thành</div>
         <div class="stat-prog"><div class="stat-fill" style="width:89%;background:var(--amber)"></div></div>
       </div>
       <div class="stat">
-        <div class="stat-top">
-          <div class="stat-ico" style="background:var(--sky-light)">🏅</div>
-          <div class="stat-trend trend-up">↑ +3</div>
-        </div>
-        <div class="stat-num">24</div>
-        <div class="stat-lbl">Huy hiệu đạt được</div>
+        <div class="stat-top"><div class="stat-ico" style="background:var(--sky-light)">🏅</div><div class="stat-trend trend-up">↑ +3</div></div>
+        <div class="stat-num">24</div><div class="stat-lbl">Huy hiệu đạt được</div>
         <div class="stat-prog"><div class="stat-fill" style="width:80%;background:var(--sky)"></div></div>
       </div>
     </div>
 
-    <!-- MID ROW -->
     <div class="row2">
-      <!-- COURSES -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">🎯 Khoá học đang học</div>
-          <div class="card-action" onclick="setPage('courses')">Xem tất cả →</div>
+          <div class="card-action" onclick="setPage('courses',null)">Xem tất cả →</div>
         </div>
         <div id="course-list">
-          <div class="course-row">
-            <div class="course-thumb" style="background:var(--indigo-light)">⚛️</div>
-            <div class="ci">
-              <div class="ci-name">React Advanced & Performance Patterns</div>
-              <div class="ci-sub">Nguyễn Văn A · 42 bài học</div>
-              <div class="ci-bar"><div class="ci-fill" style="width:68%;background:var(--indigo)"></div></div>
-              <div class="ci-pct">68% · Còn 14 bài</div>
-            </div>
-            <div class="badge b-live">🔴 Live</div>
-          </div>
-          <div class="course-row">
-            <div class="course-thumb" style="background:var(--teal-light)">🐍</div>
-            <div class="ci">
-              <div class="ci-name">Python cho Data Science & ML</div>
-              <div class="ci-sub">Trần Thị B · 60 bài học</div>
-              <div class="ci-bar"><div class="ci-fill" style="width:41%;background:var(--teal)"></div></div>
-              <div class="ci-pct">41% · Còn 35 bài</div>
-            </div>
-            <div class="badge b-new">✨ Mới</div>
-          </div>
-          <div class="course-row">
-            <div class="course-thumb" style="background:var(--amber-light)">🎨</div>
-            <div class="ci">
-              <div class="ci-name">UI/UX Design Masterclass 2025</div>
-              <div class="ci-sub">Lê Văn C · 38 bài học</div>
-              <div class="ci-bar"><div class="ci-fill" style="width:92%;background:var(--amber)"></div></div>
-              <div class="ci-pct">92% · Sắp hoàn thành!</div>
-            </div>
-            <div class="badge b-done">✅ Gần xong</div>
-          </div>
-          <div class="course-row">
-            <div class="course-thumb" style="background:var(--sky-light)">☁️</div>
-            <div class="ci">
-              <div class="ci-name">AWS Cloud Practitioner Essentials</div>
-              <div class="ci-sub">Phạm Thị D · 55 bài học</div>
-              <div class="ci-bar"><div class="ci-fill" style="width:23%;background:var(--sky)"></div></div>
-              <div class="ci-pct">23% · Mới bắt đầu</div>
-            </div>
-            <div class="badge b-sky">🆕 Mới</div>
-          </div>
+          <div class="course-row"><div class="course-thumb" style="background:var(--indigo-light)">⚛️</div><div class="ci"><div class="ci-name">React Advanced & Performance Patterns</div><div class="ci-sub">Nguyễn Văn A · 42 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:68%;background:var(--indigo)"></div></div><div class="ci-pct">68% · Còn 14 bài</div></div><div class="badge b-live">🔴 Live</div></div>
+          <div class="course-row"><div class="course-thumb" style="background:var(--teal-light)">🐍</div><div class="ci"><div class="ci-name">Python cho Data Science & ML</div><div class="ci-sub">Trần Thị B · 60 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:41%;background:var(--teal)"></div></div><div class="ci-pct">41% · Còn 35 bài</div></div><div class="badge b-new">✨ Mới</div></div>
+          <div class="course-row"><div class="course-thumb" style="background:var(--amber-light)">🎨</div><div class="ci"><div class="ci-name">UI/UX Design Masterclass 2025</div><div class="ci-sub">Lê Văn C · 38 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:92%;background:var(--amber)"></div></div><div class="ci-pct">92% · Sắp hoàn thành!</div></div><div class="badge b-done">✅ Gần xong</div></div>
+          <div class="course-row"><div class="course-thumb" style="background:var(--sky-light)">☁️</div><div class="ci"><div class="ci-name">AWS Cloud Practitioner Essentials</div><div class="ci-sub">Phạm Thị D · 55 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:23%;background:var(--sky)"></div></div><div class="ci-pct">23% · Mới bắt đầu</div></div><div class="badge b-sky">🆕 Mới</div></div>
         </div>
       </div>
-
-      <!-- SCHEDULE -->
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">📅 Lịch hôm nay</div>
-          <div class="card-action" onclick="openModal('add-schedule')">+ Thêm</div>
-        </div>
+        <div class="card-header"><div class="card-title">📅 Lịch hôm nay</div><div class="card-action" onclick="openModal('add-schedule')">+ Thêm</div></div>
         <div id="schedule-list">
-          <div class="sched-row">
-            <div class="sched-time">08:00</div>
-            <div class="sched-dot" style="background:var(--indigo)"></div>
-            <div class="sched-body">
-              <div class="sched-name">React Hooks nâng cao</div>
-              <div class="sched-meta">45 phút · Module 7</div>
-            </div>
-            <div class="now-tag">Bây giờ</div>
-          </div>
-          <div class="sched-row">
-            <div class="sched-time">10:30</div>
-            <div class="sched-dot" style="background:var(--teal)"></div>
-            <div class="sched-body">
-              <div class="sched-name">Pandas & Visualization</div>
-              <div class="sched-meta">60 phút · Module 3</div>
-            </div>
-          </div>
-          <div class="sched-row">
-            <div class="sched-time">14:00</div>
-            <div class="sched-dot" style="background:var(--amber)"></div>
-            <div class="sched-body">
-              <div class="sched-name">Live: UI/UX Review Session</div>
-              <div class="sched-meta">90 phút · Buổi cuối</div>
-            </div>
-          </div>
-          <div class="sched-row">
-            <div class="sched-time">16:30</div>
-            <div class="sched-dot" style="background:var(--sky)"></div>
-            <div class="sched-body">
-              <div class="sched-name">AWS EC2 & S3 Basics</div>
-              <div class="sched-meta">50 phút · Module 2</div>
-            </div>
-          </div>
-          <div class="sched-row">
-            <div class="sched-time">20:00</div>
-            <div class="sched-dot" style="background:var(--rose)"></div>
-            <div class="sched-body">
-              <div class="sched-name">Ôn tập & Flashcard</div>
-              <div class="sched-meta">30 phút · Tự học</div>
-            </div>
-          </div>
+          <div class="sched-row"><div class="sched-time">08:00</div><div class="sched-dot" style="background:var(--indigo)"></div><div class="sched-body"><div class="sched-name">React Hooks nâng cao</div><div class="sched-meta">45 phút · Module 7</div></div><div class="now-tag">Bây giờ</div></div>
+          <div class="sched-row"><div class="sched-time">10:30</div><div class="sched-dot" style="background:var(--teal)"></div><div class="sched-body"><div class="sched-name">Pandas & Visualization</div><div class="sched-meta">60 phút · Module 3</div></div></div>
+          <div class="sched-row"><div class="sched-time">14:00</div><div class="sched-dot" style="background:var(--amber)"></div><div class="sched-body"><div class="sched-name">Live: UI/UX Review Session</div><div class="sched-meta">90 phút · Buổi cuối</div></div></div>
+          <div class="sched-row"><div class="sched-time">16:30</div><div class="sched-dot" style="background:var(--sky)"></div><div class="sched-body"><div class="sched-name">AWS EC2 & S3 Basics</div><div class="sched-meta">50 phút · Module 2</div></div></div>
+          <div class="sched-row"><div class="sched-time">20:00</div><div class="sched-dot" style="background:var(--rose)"></div><div class="sched-body"><div class="sched-name">Ôn tập & Flashcard</div><div class="sched-meta">30 phút · Tự học</div></div></div>
         </div>
       </div>
     </div>
 
-    <!-- BOTTOM ROW -->
     <div class="row3">
-      <!-- ACTIVITY -->
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">📈 Hoạt động 7 ngày</div>
-          <div class="card-action">Xem chi tiết</div>
+        <div class="card-header"><div class="card-title">📈 Hoạt động 7 ngày</div><div class="card-action">Xem chi tiết</div></div>
+        <div class="chart-wrap">
+          <div class="bar-col"><div class="bar" style="height:50px;background:#c7c4f5"></div><div class="bar-label">T2</div></div>
+          <div class="bar-col"><div class="bar" style="height:68px;background:#aba6ef"></div><div class="bar-label">T3</div></div>
+          <div class="bar-col"><div class="bar" style="height:40px;background:#c7c4f5"></div><div class="bar-label">T4</div></div>
+          <div class="bar-col"><div class="bar" style="height:78px;background:#aba6ef"></div><div class="bar-label">T5</div></div>
+          <div class="bar-col"><div class="bar" style="height:58px;background:#c7c4f5"></div><div class="bar-label">T6</div></div>
+          <div class="bar-col"><div class="bar" style="height:32px;background:#c7c4f5"></div><div class="bar-label">T7</div></div>
+          <div class="bar-col"><div class="bar" style="height:85px;background:var(--indigo)"></div><div class="bar-label" style="color:var(--indigo);font-weight:600">CN</div></div>
         </div>
-        <div class="chart-wrap" id="activity-chart">
-          <div class="bar-col"><div class="bar" style="height:50px;background:#c7c4f5" title="T2: 50 phút"></div><div class="bar-label">T2</div></div>
-          <div class="bar-col"><div class="bar" style="height:68px;background:#aba6ef" title="T3: 68 phút"></div><div class="bar-label">T3</div></div>
-          <div class="bar-col"><div class="bar" style="height:40px;background:#c7c4f5" title="T4: 40 phút"></div><div class="bar-label">T4</div></div>
-          <div class="bar-col"><div class="bar" style="height:78px;background:#aba6ef" title="T5: 78 phút"></div><div class="bar-label">T5</div></div>
-          <div class="bar-col"><div class="bar" style="height:58px;background:#c7c4f5" title="T6: 58 phút"></div><div class="bar-label">T6</div></div>
-          <div class="bar-col"><div class="bar" style="height:32px;background:#c7c4f5" title="T7: 32 phút"></div><div class="bar-label">T7</div></div>
-          <div class="bar-col"><div class="bar" style="height:85px;background:var(--indigo)" title="CN: 85 phút"></div><div class="bar-label" style="color:var(--indigo);font-weight:600">CN</div></div>
-        </div>
-        <div class="chart-stats">
-          <div class="cs">Tổng: <b>6.8h</b></div>
-          <div class="cs">TB: <b>58 phút</b></div>
-          <div class="cs">Tốt nhất: <b style="color:var(--teal)">1.4h</b></div>
-        </div>
+        <div class="chart-stats"><div class="cs">Tổng: <b>6.8h</b></div><div class="cs">TB: <b>58 phút</b></div><div class="cs">Tốt nhất: <b style="color:var(--teal)">1.4h</b></div></div>
       </div>
-
-      <!-- ACHIEVEMENTS -->
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">🏆 Thành tích</div>
-          <div class="card-action">Xem kho →</div>
-        </div>
+        <div class="card-header"><div class="card-title">🏆 Thành tích</div><div class="card-action">Xem kho →</div></div>
         <div class="ach-grid">
-          <div class="ach" onclick="showToast('🔥 Streak 14 ngày — +500 XP!')">
-            <div class="ach-em">🔥</div>
-            <div class="ach-n">Streak 14</div>
-            <div class="ach-p">+500 XP</div>
-          </div>
-          <div class="ach" onclick="showToast('⚡ Tốc độ học — +300 XP!')">
-            <div class="ach-em">⚡</div>
-            <div class="ach-n">Tốc độ học</div>
-            <div class="ach-p">+300 XP</div>
-          </div>
-          <div class="ach" onclick="showToast('🎯 Hoàn hảo — +400 XP!')">
-            <div class="ach-em">🎯</div>
-            <div class="ach-n">Hoàn hảo</div>
-            <div class="ach-p">+400 XP</div>
-          </div>
-          <div class="ach" onclick="showToast('📖 Đọc sách — +200 XP!')">
-            <div class="ach-em">📖</div>
-            <div class="ach-n">Đọc 5 ngày</div>
-            <div class="ach-p">+200 XP</div>
-          </div>
-          <div class="ach locked">
-            <div class="ach-em">👑</div>
-            <div class="ach-n">Top 10</div>
-            <div class="ach-p">+1000 XP</div>
-          </div>
-          <div class="ach locked">
-            <div class="ach-em">💎</div>
-            <div class="ach-n">100h học</div>
-            <div class="ach-p">+2000 XP</div>
-          </div>
+          <div class="ach" onclick="showToast('🔥 Streak 14 ngày — +500 XP!')"><div class="ach-em">🔥</div><div class="ach-n">Streak 14</div><div class="ach-p">+500 XP</div></div>
+          <div class="ach" onclick="showToast('⚡ Tốc độ học — +300 XP!')"><div class="ach-em">⚡</div><div class="ach-n">Tốc độ học</div><div class="ach-p">+300 XP</div></div>
+          <div class="ach" onclick="showToast('🎯 Hoàn hảo — +400 XP!')"><div class="ach-em">🎯</div><div class="ach-n">Hoàn hảo</div><div class="ach-p">+400 XP</div></div>
+          <div class="ach" onclick="showToast('📖 Đọc sách — +200 XP!')"><div class="ach-em">📖</div><div class="ach-n">Đọc 5 ngày</div><div class="ach-p">+200 XP</div></div>
+          <div class="ach locked"><div class="ach-em">👑</div><div class="ach-n">Top 10</div><div class="ach-p">+1000 XP</div></div>
+          <div class="ach locked"><div class="ach-em">💎</div><div class="ach-n">100h học</div><div class="ach-p">+2000 XP</div></div>
         </div>
       </div>
-
-      <!-- LEADERBOARD -->
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">🥇 Bảng xếp hạng</div>
-          <div class="card-action" onclick="setPage('leaderboard')">Xem tất cả</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank r-gold">1</div>
-          <div class="lb-av" style="background:#fef3e2;color:#d97706">AH</div>
-          <div class="lb-inf"><div class="lb-nm">Anh Hoàng</div><div class="lb-lv">Lv.19</div></div>
-          <div class="lb-sc">5,240</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank r-silver">2</div>
-          <div class="lb-av" style="background:var(--sky-light);color:var(--sky)">TL</div>
-          <div class="lb-inf"><div class="lb-nm">Thùy Linh</div><div class="lb-lv">Lv.17</div></div>
-          <div class="lb-sc">4,780</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank r-bronze">3</div>
-          <div class="lb-av" style="background:var(--teal-light);color:var(--teal)">KD</div>
-          <div class="lb-inf"><div class="lb-nm">Khánh Duy</div><div class="lb-lv">Lv.16</div></div>
-          <div class="lb-sc">4,220</div>
-        </div>
-        <div class="lb-row" style="background:var(--indigo-light);border-radius:var(--r2);padding:9px 8px;margin:0 -4px;">
-          <div class="lb-rank" style="color:var(--indigo)">8</div>
-          <div class="lb-av" style="background:#ddd9ff;color:var(--indigo)">MT</div>
-          <div class="lb-inf"><div class="lb-nm">Minh Tuấn<span class="me-tag">Bạn</span></div><div class="lb-lv">Lv.14</div></div>
-          <div class="lb-sc">2,840</div>
-        </div>
-        <div class="lb-row">
-          <div class="lb-rank">9</div>
-          <div class="lb-av" style="background:var(--rose-light);color:var(--rose)">NT</div>
-          <div class="lb-inf"><div class="lb-nm">Ngọc Trinh</div><div class="lb-lv">Lv.13</div></div>
-          <div class="lb-sc">2,610</div>
-        </div>
+        <div class="card-header"><div class="card-title">🥇 Bảng xếp hạng</div><div class="card-action" onclick="setPage('leaderboard',null)">Xem tất cả</div></div>
+        <div class="lb-row"><div class="lb-rank r-gold">1</div><div class="lb-av" style="background:#fef3e2;color:#d97706">AH</div><div class="lb-inf"><div class="lb-nm">Anh Hoàng</div><div class="lb-lv">Lv.19</div></div><div class="lb-sc">5,240</div></div>
+        <div class="lb-row"><div class="lb-rank r-silver">2</div><div class="lb-av" style="background:var(--sky-light);color:var(--sky)">TL</div><div class="lb-inf"><div class="lb-nm">Thùy Linh</div><div class="lb-lv">Lv.17</div></div><div class="lb-sc">4,780</div></div>
+        <div class="lb-row"><div class="lb-rank r-bronze">3</div><div class="lb-av" style="background:var(--teal-light);color:var(--teal)">KD</div><div class="lb-inf"><div class="lb-nm">Khánh Duy</div><div class="lb-lv">Lv.16</div></div><div class="lb-sc">4,220</div></div>
+        <div class="lb-row" style="background:var(--indigo-light);border-radius:var(--r2);padding:9px 8px;margin:0 -4px;"><div class="lb-rank" style="color:var(--indigo)">8</div><div class="lb-av" style="background:#ddd9ff;color:var(--indigo)">MT</div><div class="lb-inf"><div class="lb-nm">Minh Tuấn<span class="me-tag">Bạn</span></div><div class="lb-lv">Lv.14</div></div><div class="lb-sc">2,840</div></div>
+        <div class="lb-row"><div class="lb-rank">9</div><div class="lb-av" style="background:var(--rose-light);color:var(--rose)">NT</div><div class="lb-inf"><div class="lb-nm">Ngọc Trinh</div><div class="lb-lv">Lv.13</div></div><div class="lb-sc">2,610</div></div>
       </div>
     </div>
   </div>
@@ -635,8 +490,7 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
         <div class="timer-ring">
           <svg width="110" height="110" viewBox="0 0 110 110">
             <circle cx="55" cy="55" r="48" fill="none" stroke="var(--border)" stroke-width="6"/>
-            <circle id="timer-circle" cx="55" cy="55" r="48" fill="none" stroke="var(--indigo)" stroke-width="6"
-              stroke-dasharray="301.6" stroke-dashoffset="0" stroke-linecap="round"/>
+            <circle id="timer-circle" cx="55" cy="55" r="48" fill="none" stroke="var(--indigo)" stroke-width="6" stroke-dasharray="301.6" stroke-dashoffset="0" stroke-linecap="round"/>
           </svg>
           <div class="timer-text">
             <div class="timer-num" id="timer-display">25:00</div>
@@ -649,14 +503,8 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
           <button class="tc-btn" onclick="skipTimer()">⏭ Bỏ qua</button>
         </div>
         <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-around;">
-          <div style="text-align:center;">
-            <div style="font-size:22px;font-weight:700;font-family:var(--mono);color:var(--indigo)" id="pomo-count">0</div>
-            <div style="font-size:11px;color:var(--text3);">Phiên hoàn thành</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-size:22px;font-weight:700;font-family:var(--mono);color:var(--teal)" id="pomo-time">0h 0m</div>
-            <div style="font-size:11px;color:var(--text3);">Tổng thời gian</div>
-          </div>
+          <div style="text-align:center;"><div style="font-size:22px;font-weight:700;font-family:var(--mono);color:var(--indigo)" id="pomo-count">0</div><div style="font-size:11px;color:var(--text3);">Phiên hoàn thành</div></div>
+          <div style="text-align:center;"><div style="font-size:22px;font-weight:700;font-family:var(--mono);color:var(--teal)" id="pomo-time">0h 0m</div><div style="font-size:11px;color:var(--text3);">Tổng thời gian</div></div>
         </div>
       </div>
     </div>
@@ -665,30 +513,12 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   <!-- PAGE: NOTES -->
   <div class="content" id="page-notes" style="display:none;">
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">📓 Ghi chú nhanh</div>
-        <button class="btn-primary" onclick="addNote()">+ Thêm ghi chú</button>
-      </div>
+      <div class="card-header"><div class="card-title">📓 Ghi chú nhanh</div><button class="btn-primary" onclick="addNote()">+ Thêm ghi chú</button></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;" id="notes-grid">
-        <div class="note-card" style="background:#fef3e2;border:1px solid #fcd9a0;border-radius:var(--r);padding:14px;cursor:pointer;" onclick="editNote(this)">
-          <div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:6px;">React Hooks</div>
-          <div style="font-size:12px;color:#78350f;line-height:1.6;">useState, useEffect, useCallback, useMemo — ghi nhớ thứ tự dependencies array.</div>
-          <div style="font-size:10px;color:#a16207;margin-top:10px;font-family:var(--mono);">12/04/2026</div>
-        </div>
-        <div class="note-card" style="background:#e0f2fe;border:1px solid #bae6fd;border-radius:var(--r);padding:14px;cursor:pointer;" onclick="editNote(this)">
-          <div style="font-size:12px;font-weight:700;color:#075985;margin-bottom:6px;">AWS EC2</div>
-          <div style="font-size:12px;color:#0c4a6e;line-height:1.6;">Instance types: t2.micro free tier. Security groups = virtual firewall. AMI = template.</div>
-          <div style="font-size:10px;color:#0369a1;margin-top:10px;font-family:var(--mono);">10/04/2026</div>
-        </div>
-        <div class="note-card" style="background:var(--teal-light);border:1px solid #6ee7b7;border-radius:var(--r);padding:14px;cursor:pointer;" onclick="editNote(this)">
-          <div style="font-size:12px;font-weight:700;color:#065f46;margin-bottom:6px;">Python Pandas</div>
-          <div style="font-size:12px;color:#064e3b;line-height:1.6;">df.groupby().agg() — mạnh hơn df.pivot_table(). Dùng .loc[] cho label, .iloc[] cho index.</div>
-          <div style="font-size:10px;color:#047857;margin-top:10px;font-family:var(--mono);">08/04/2026</div>
-        </div>
-        <div style="border:2px dashed var(--border2);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;min-height:100px;color:var(--text3);gap:6px;transition:all .15s;" onclick="addNote()" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:24px;">+</span>
-          <span style="font-size:12px;font-weight:600;">Thêm ghi chú</span>
-        </div>
+        <div class="note-card" style="background:#fef3e2;border:1px solid #fcd9a0;border-radius:var(--r);padding:14px;cursor:pointer;" onclick="editNote(this)"><div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:6px;">React Hooks</div><div style="font-size:12px;color:#78350f;line-height:1.6;">useState, useEffect, useCallback, useMemo — ghi nhớ thứ tự dependencies array.</div><div style="font-size:10px;color:#a16207;margin-top:10px;font-family:var(--mono);">12/04/2026</div></div>
+        <div class="note-card" style="background:#e0f2fe;border:1px solid #bae6fd;border-radius:var(--r);padding:14px;cursor:pointer;" onclick="editNote(this)"><div style="font-size:12px;font-weight:700;color:#075985;margin-bottom:6px;">AWS EC2</div><div style="font-size:12px;color:#0c4a6e;line-height:1.6;">Instance types: t2.micro free tier. Security groups = virtual firewall. AMI = template.</div><div style="font-size:10px;color:#0369a1;margin-top:10px;font-family:var(--mono);">10/04/2026</div></div>
+        <div class="note-card" style="background:var(--teal-light);border:1px solid #6ee7b7;border-radius:var(--r);padding:14px;cursor:pointer;" onclick="editNote(this)"><div style="font-size:12px;font-weight:700;color:#065f46;margin-bottom:6px;">Python Pandas</div><div style="font-size:12px;color:#064e3b;line-height:1.6;">df.groupby().agg() — mạnh hơn df.pivot_table(). Dùng .loc[] cho label, .iloc[] cho index.</div><div style="font-size:10px;color:#047857;margin-top:10px;font-family:var(--mono);">08/04/2026</div></div>
+        <div style="border:2px dashed var(--border2);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;min-height:100px;color:var(--text3);gap:6px;transition:all .15s;" onclick="addNote()" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='transparent'"><span style="font-size:24px;">+</span><span style="font-size:12px;font-weight:600;">Thêm ghi chú</span></div>
       </div>
     </div>
   </div>
@@ -696,56 +526,16 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   <!-- PAGE: TASKS -->
   <div class="content" id="page-tasks" style="display:none;">
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">📝 Bài tập cần làm</div>
-        <button class="btn-primary" onclick="openModal('add-task')">+ Thêm bài tập</button>
-      </div>
+      <div class="card-header"><div class="card-title">📝 Bài tập cần làm</div><button class="btn-primary" onclick="openModal('add-task')">+ Thêm bài tập</button></div>
       <div id="tasks-list">
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);">
-          <input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);">
-          <div style="flex:1;">
-            <div style="font-size:13px;font-weight:600;">Bài tập React: Xây dựng Todo App</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px;">React Advanced · Hạn: 15/04/2026</div>
-          </div>
-          <div class="badge b-live">Gấp</div>
-        </div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);">
-          <input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);">
-          <div style="flex:1;">
-            <div style="font-size:13px;font-weight:600;">Quiz: Machine Learning Basics</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px;">Python ML · Hạn: 18/04/2026</div>
-          </div>
-          <div class="badge b-new">Quiz</div>
-        </div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);">
-          <input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);">
-          <div style="flex:1;">
-            <div style="font-size:13px;font-weight:600;">Thiết kế prototype ứng dụng mobile</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px;">UI/UX Masterclass · Hạn: 20/04/2026</div>
-          </div>
-          <div class="badge b-done">Figma</div>
-        </div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);">
-          <input type="checkbox" checked onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);">
-          <div style="flex:1;opacity:.5;">
-            <div style="font-size:13px;font-weight:600;text-decoration:line-through;">Đọc tài liệu AWS IAM</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px;">AWS · Đã xong</div>
-          </div>
-          <div class="badge b-done">✓ Xong</div>
-        </div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;">
-          <input type="checkbox" checked onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);">
-          <div style="flex:1;opacity:.5;">
-            <div style="font-size:13px;font-weight:600;text-decoration:line-through;">Xem video CSS Grid layout</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px;">UI/UX · Đã xong</div>
-          </div>
-          <div class="badge b-done">✓ Xong</div>
-        </div>
+        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Bài tập React: Xây dựng Todo App</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">React Advanced · Hạn: 15/04/2026</div></div><div class="badge b-live">Gấp</div></div>
+        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Quiz: Machine Learning Basics</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Python ML · Hạn: 18/04/2026</div></div><div class="badge b-new">Quiz</div></div>
+        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Thiết kế prototype ứng dụng mobile</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">UI/UX Masterclass · Hạn: 20/04/2026</div></div><div class="badge b-done">Figma</div></div>
+        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" checked onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;opacity:.5;"><div style="font-size:13px;font-weight:600;text-decoration:line-through;">Đọc tài liệu AWS IAM</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">AWS · Đã xong</div></div><div class="badge b-done">✓ Xong</div></div>
+        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;"><input type="checkbox" checked onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;opacity:.5;"><div style="font-size:13px;font-weight:600;text-decoration:line-through;">Xem video CSS Grid layout</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">UI/UX · Đã xong</div></div><div class="badge b-done">✓ Xong</div></div>
       </div>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;">
-        <div style="flex:1;background:var(--bg);border-radius:20px;height:6px;overflow:hidden;">
-          <div id="task-progress" style="height:100%;background:var(--indigo);border-radius:20px;width:40%;transition:width .4s;"></div>
-        </div>
+        <div style="flex:1;background:var(--bg);border-radius:20px;height:6px;overflow:hidden;"><div id="task-progress" style="height:100%;background:var(--indigo);border-radius:20px;width:40%;transition:width .4s;"></div></div>
         <div style="font-size:12px;color:var(--text3);font-family:var(--mono);" id="task-count">2 / 5 hoàn thành</div>
       </div>
     </div>
@@ -757,130 +547,23 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
       <div class="card">
         <div class="card-header"><div class="card-title">📊 Tiến độ các khoá học</div></div>
         <div style="display:flex;flex-direction:column;gap:14px;">
-          <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">⚛️ React Advanced</span><span style="font-size:12px;font-family:var(--mono);color:var(--indigo)">68%</span></div>
-            <div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:68%;height:100%;background:var(--indigo);border-radius:8px;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">🐍 Python ML</span><span style="font-size:12px;font-family:var(--mono);color:var(--teal)">41%</span></div>
-            <div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:41%;height:100%;background:var(--teal);border-radius:8px;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">🎨 UI/UX Design</span><span style="font-size:12px;font-family:var(--mono);color:var(--amber)">92%</span></div>
-            <div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:92%;height:100%;background:var(--amber);border-radius:8px;"></div></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">☁️ AWS Cloud</span><span style="font-size:12px;font-family:var(--mono);color:var(--sky)">23%</span></div>
-            <div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:23%;height:100%;background:var(--sky);border-radius:8px;"></div></div>
-          </div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">⚛️ React Advanced</span><span style="font-size:12px;font-family:var(--mono);color:var(--indigo)">68%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:68%;height:100%;background:var(--indigo);border-radius:8px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">🐍 Python ML</span><span style="font-size:12px;font-family:var(--mono);color:var(--teal)">41%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:41%;height:100%;background:var(--teal);border-radius:8px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">🎨 UI/UX Design</span><span style="font-size:12px;font-family:var(--mono);color:var(--amber)">92%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:92%;height:100%;background:var(--amber);border-radius:8px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">☁️ AWS Cloud</span><span style="font-size:12px;font-family:var(--mono);color:var(--sky)">23%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:23%;height:100%;background:var(--sky);border-radius:8px;"></div></div></div>
         </div>
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">🎯 Mục tiêu tuần này</div></div>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--indigo-light);border-radius:var(--r2);">
-            <span style="font-size:13px;font-weight:600;color:var(--indigo)">⏱️ Học 10h / tuần</span>
-            <span style="font-size:12px;font-family:var(--mono);color:var(--indigo)">6.8h / 10h</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--teal-light);border-radius:var(--r2);">
-            <span style="font-size:13px;font-weight:600;color:var(--teal)">📚 Hoàn thành 3 bài học</span>
-            <span style="font-size:12px;font-family:var(--mono);color:var(--teal)">2 / 3</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--amber-light);border-radius:var(--r2);">
-            <span style="font-size:13px;font-weight:600;color:var(--amber)">✅ Nộp 2 bài tập</span>
-            <span style="font-size:12px;font-family:var(--mono);color:var(--amber)">1 / 2</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--rose-light);border-radius:var(--r2);">
-            <span style="font-size:13px;font-weight:600;color:var(--rose)">🔥 Duy trì streak 14+ ngày</span>
-            <span style="font-size:12px;font-family:var(--mono);color:var(--teal)">✓ Đạt!</span>
-          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--indigo-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--indigo)">⏱️ Học 10h / tuần</span><span style="font-size:12px;font-family:var(--mono);color:var(--indigo)">6.8h / 10h</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--teal-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--teal)">📚 Hoàn thành 3 bài học</span><span style="font-size:12px;font-family:var(--mono);color:var(--teal)">2 / 3</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--amber-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--amber)">✅ Nộp 2 bài tập</span><span style="font-size:12px;font-family:var(--mono);color:var(--amber)">1 / 2</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--rose-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--rose)">🔥 Duy trì streak 14+ ngày</span><span style="font-size:12px;font-family:var(--mono);color:var(--teal)">✓ Đạt!</span></div>
         </div>
       </div>
     </div>
   </div>
-
-</main>
-</div>
-
-<!-- ── MODALS ── -->
-<!-- Add Course -->
-<div class="modal-bg" id="modal-add-course" onclick="closeModalBg(event,'modal-add-course')">
-  <div class="modal">
-    <h2>📚 Thêm khoá học mới</h2>
-    <p class="sub">Điền thông tin khoá học bạn muốn theo dõi</p>
-    <div class="form-row"><label>Tên khoá học</label><input type="text" id="new-course-name" placeholder="VD: JavaScript ES2025"/></div>
-    <div class="form-row"><label>Giảng viên</label><input type="text" id="new-course-teacher" placeholder="VD: Nguyễn Văn A"/></div>
-    <div class="form-row"><label>Tổng số bài học</label><input type="number" id="new-course-total" placeholder="VD: 40" min="1"/></div>
-    <div class="form-row"><label>Danh mục</label>
-      <select id="new-course-cat">
-        <option>Frontend</option><option>Backend</option><option>Data Science</option><option>Design</option><option>DevOps</option><option>Khác</option>
-      </select>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-ghost" onclick="closeModal('modal-add-course')">Huỷ</button>
-      <button class="btn-primary" onclick="addCourse()">✓ Thêm khoá học</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Task -->
-<div class="modal-bg" id="modal-add-task" onclick="closeModalBg(event,'modal-add-task')">
-  <div class="modal">
-    <h2>📝 Thêm bài tập mới</h2>
-    <p class="sub">Thêm nhiệm vụ học tập cần hoàn thành</p>
-    <div class="form-row"><label>Tên bài tập</label><input type="text" id="new-task-name" placeholder="VD: Làm bài tập React..."/></div>
-    <div class="form-row"><label>Khoá học liên quan</label>
-      <select id="new-task-course">
-        <option>React Advanced</option><option>Python ML</option><option>UI/UX Design</option><option>AWS Cloud</option>
-      </select>
-    </div>
-    <div class="form-row"><label>Hạn nộp</label><input type="date" id="new-task-date"/></div>
-    <div class="form-row"><label>Ghi chú</label><textarea id="new-task-note" placeholder="Ghi chú thêm..."></textarea></div>
-    <div class="modal-actions">
-      <button class="btn-ghost" onclick="closeModal('modal-add-task')">Huỷ</button>
-      <button class="btn-primary" onclick="addTask()">✓ Thêm bài tập</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Schedule -->
-<div class="modal-bg" id="modal-add-schedule" onclick="closeModalBg(event,'modal-add-schedule')">
-  <div class="modal">
-    <h2>📅 Thêm lịch học</h2>
-    <p class="sub">Lên lịch cho buổi học sắp tới</p>
-    <div class="form-row"><label>Tên buổi học</label><input type="text" id="new-sched-name" placeholder="VD: Học React Hooks..."/></div>
-    <div class="form-row"><label>Thời gian</label><input type="time" id="new-sched-time"/></div>
-    <div class="form-row"><label>Thời lượng (phút)</label><input type="number" id="new-sched-dur" placeholder="45" min="5"/></div>
-    <div class="modal-actions">
-      <button class="btn-ghost" onclick="closeModal('modal-add-schedule')">Huỷ</button>
-      <button class="btn-primary" onclick="addSchedule()">✓ Thêm lịch</button>
-    </div>
-  </div>
-</div>
-
-<!-- Notifs -->
-<div class="modal-bg" id="modal-notifs" onclick="closeModalBg(event,'modal-notifs')">
-  <div class="modal">
-    <h2>🔔 Thông báo</h2>
-    <p class="sub">Cập nhật mới nhất dành cho bạn</p>
-    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
-      <div style="display:flex;gap:10px;padding:10px;background:var(--indigo-light);border-radius:var(--r2);">
-        <span style="font-size:16px;">🎉</span>
-        <div><div style="font-size:13px;font-weight:600;color:var(--indigo)">Streak 14 ngày!</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">Bạn đã học liên tục 14 ngày. Tuyệt vời!</div></div>
-      </div>
-      <div style="display:flex;gap:10px;padding:10px;background:var(--teal-light);border-radius:var(--r2);">
-        <span style="font-size:16px;">📚</span>
-        <div><div style="font-size:13px;font-weight:600;color:var(--teal)">Khoá học mới khả dụng</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">TypeScript Full Course 2025 vừa được thêm vào.</div></div>
-      </div>
-      <div style="display:flex;gap:10px;padding:10px;background:var(--rose-light);border-radius:var(--r2);">
-        <span style="font-size:16px;">⚠️</span>
-        <div><div style="font-size:13px;font-weight:600;color:var(--rose)">Bài tập sắp đến hạn</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">React Todo App hạn nộp ngày mai, 15/04.</div></div>
-      </div>
-    </div>
-    <div class="modal-actions"><button class="btn-primary" onclick="closeModal('modal-notifs')">Đã đọc tất cả</button></div>
-  </div>
-</div>
-
 
   <!-- PAGE: PROBLEMS -->
   <div class="content" id="page-problems" style="display:none;">
@@ -889,17 +572,17 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
         <div class="card-title" style="font-size:16px;">💻 Luyện tập lập trình</div>
         <div class="search" style="padding:5px 12px;">
           <span style="font-size:12px;color:var(--text3)">🔍</span>
-          <input type="text" placeholder="Tìm bài..." style="border:none;background:none;font-family:var(--font);font-size:12px;color:var(--text2);outline:none;width:140px;" oninput="filterProblems(this.value)"/>
+          <input type="text" placeholder="Tìm bài..." id="prob-search-input" style="border:none;background:none;font-family:var(--font);font-size:12px;color:var(--text2);outline:none;width:140px;" oninput="filterProblems(this.value)"/>
         </div>
       </div>
       <div class="prob-stats-row">
-        <div class="prob-stat-item"><div class="prob-stat-num" style="color:var(--indigo)">24</div><div class="prob-stat-lbl">Đã giải</div></div>
-        <div class="prob-stat-item"><div class="prob-stat-num" style="color:#16a34a">12</div><div class="prob-stat-lbl">Dễ ✅</div></div>
-        <div class="prob-stat-item"><div class="prob-stat-num" style="color:#d97706">9</div><div class="prob-stat-lbl">Vừa ✅</div></div>
-        <div class="prob-stat-item"><div class="prob-stat-num" style="color:var(--rose)">3</div><div class="prob-stat-lbl">Khó ✅</div></div>
-        <div class="prob-stat-item" style="margin-left:auto;"><div class="prob-stat-num" style="color:var(--text3)">150</div><div class="prob-stat-lbl">Tổng bài</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-done" style="color:var(--indigo)">24</div><div class="prob-stat-lbl">Đã giải</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-easy" style="color:#16a34a">12</div><div class="prob-stat-lbl">Dễ ✅</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-med" style="color:#d97706">9</div><div class="prob-stat-lbl">Vừa ✅</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-hard" style="color:var(--rose)">3</div><div class="prob-stat-lbl">Khó ✅</div></div>
+        <div class="prob-stat-item" style="margin-left:auto;"><div class="prob-stat-num" id="stat-total" style="color:var(--text3)">40</div><div class="prob-stat-lbl">Tổng bài</div></div>
       </div>
-      <div class="prob-filters" id="prob-filters">
+      <div class="prob-filters">
         <button class="prob-filter-btn active" onclick="setProbFilter('all',this)">Tất cả</button>
         <button class="prob-filter-btn" onclick="setProbFilter('easy',this)">🟢 Dễ</button>
         <button class="prob-filter-btn" onclick="setProbFilter('medium',this)">🟡 Vừa</button>
@@ -923,8 +606,112 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     </div>
   </div>
 
+  <!-- PAGE: CODE EDITOR -->
+  <div id="page-editor" style="flex:1;overflow:hidden;">
+    <div class="editor-layout">
+      <!-- LEFT: problem description -->
+      <div class="editor-left">
+        <div class="prob-desc-header">
+          <button class="prob-back-btn" onclick="backToProblems()">← Danh sách</button>
+          <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0;">
+            <span id="editor-prob-num" style="font-size:12px;font-family:var(--mono);color:var(--text3);">#1</span>
+            <div id="editor-prob-title" class="prob-desc-title" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Two Sum</div>
+          </div>
+          <div id="editor-prob-diff"></div>
+        </div>
+        <div class="prob-desc-body" id="editor-prob-body"></div>
+      </div>
 
-<!-- ── AUTH MODALS ── -->
+      <!-- RIGHT: code editor -->
+      <div class="editor-right">
+        <div class="editor-topbar">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <select class="lang-select" id="lang-select" onchange="changeLang(this.value)">
+              <option value="python">🐍 Python</option>
+              <option value="javascript">🟨 JavaScript</option>
+              <option value="java">☕ Java</option>
+              <option value="cpp">⚡ C++</option>
+            </select>
+            <span style="font-size:11px;color:#585b70;font-family:var(--mono);">Tab = 2 spaces</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="run-btn" onclick="runCode()">▶ Chạy</button>
+            <button class="submit-btn" onclick="submitCode()">⬆ Nộp bài</button>
+          </div>
+        </div>
+
+        <div class="code-area-wrap">
+          <textarea class="code-textarea" id="code-editor" spellcheck="false"
+            onkeydown="handleEditorKey(event)"
+            oninput="updateLineNumbers()"
+            placeholder="// Viết code của bạn ở đây..."></textarea>
+        </div>
+
+        <div class="output-panel">
+          <div class="output-tabs">
+            <button class="output-tab active" onclick="switchOutputTab('testcase',this)">Test Cases</button>
+            <button class="output-tab" onclick="switchOutputTab('result',this)">Kết quả</button>
+            <button class="output-tab" onclick="switchOutputTab('submissions',this)">Lần nộp</button>
+          </div>
+          <div class="output-body" id="output-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ── MODALS ── -->
+<div class="modal-bg" id="modal-add-course" onclick="closeModalBg(event,'modal-add-course')">
+  <div class="modal">
+    <h2>📚 Thêm khoá học mới</h2>
+    <p class="sub">Điền thông tin khoá học bạn muốn theo dõi</p>
+    <div class="form-row"><label>Tên khoá học</label><input type="text" id="new-course-name" placeholder="VD: JavaScript ES2025"/></div>
+    <div class="form-row"><label>Giảng viên</label><input type="text" id="new-course-teacher" placeholder="VD: Nguyễn Văn A"/></div>
+    <div class="form-row"><label>Tổng số bài học</label><input type="number" id="new-course-total" placeholder="VD: 40" min="1"/></div>
+    <div class="form-row"><label>Danh mục</label><select id="new-course-cat"><option>Frontend</option><option>Backend</option><option>Data Science</option><option>Design</option><option>DevOps</option><option>Khác</option></select></div>
+    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal('modal-add-course')">Huỷ</button><button class="btn-primary" onclick="addCourse()">✓ Thêm khoá học</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-add-task" onclick="closeModalBg(event,'modal-add-task')">
+  <div class="modal">
+    <h2>📝 Thêm bài tập mới</h2>
+    <p class="sub">Thêm nhiệm vụ học tập cần hoàn thành</p>
+    <div class="form-row"><label>Tên bài tập</label><input type="text" id="new-task-name" placeholder="VD: Làm bài tập React..."/></div>
+    <div class="form-row"><label>Khoá học liên quan</label><select id="new-task-course"><option>React Advanced</option><option>Python ML</option><option>UI/UX Design</option><option>AWS Cloud</option></select></div>
+    <div class="form-row"><label>Hạn nộp</label><input type="date" id="new-task-date"/></div>
+    <div class="form-row"><label>Ghi chú</label><textarea id="new-task-note" placeholder="Ghi chú thêm..."></textarea></div>
+    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal('modal-add-task')">Huỷ</button><button class="btn-primary" onclick="addTask()">✓ Thêm bài tập</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-add-schedule" onclick="closeModalBg(event,'modal-add-schedule')">
+  <div class="modal">
+    <h2>📅 Thêm lịch học</h2>
+    <p class="sub">Lên lịch cho buổi học sắp tới</p>
+    <div class="form-row"><label>Tên buổi học</label><input type="text" id="new-sched-name" placeholder="VD: Học React Hooks..."/></div>
+    <div class="form-row"><label>Thời gian</label><input type="time" id="new-sched-time"/></div>
+    <div class="form-row"><label>Thời lượng (phút)</label><input type="number" id="new-sched-dur" placeholder="45" min="5"/></div>
+    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal('modal-add-schedule')">Huỷ</button><button class="btn-primary" onclick="addSchedule()">✓ Thêm lịch</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-notifs" onclick="closeModalBg(event,'modal-notifs')">
+  <div class="modal">
+    <h2>🔔 Thông báo</h2>
+    <p class="sub">Cập nhật mới nhất dành cho bạn</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+      <div style="display:flex;gap:10px;padding:10px;background:var(--indigo-light);border-radius:var(--r2);"><span style="font-size:16px;">🎉</span><div><div style="font-size:13px;font-weight:600;color:var(--indigo)">Streak 14 ngày!</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">Bạn đã học liên tục 14 ngày. Tuyệt vời!</div></div></div>
+      <div style="display:flex;gap:10px;padding:10px;background:var(--teal-light);border-radius:var(--r2);"><span style="font-size:16px;">📚</span><div><div style="font-size:13px;font-weight:600;color:var(--teal)">Khoá học mới khả dụng</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">TypeScript Full Course 2025 vừa được thêm vào.</div></div></div>
+      <div style="display:flex;gap:10px;padding:10px;background:var(--rose-light);border-radius:var(--r2);"><span style="font-size:16px;">⚠️</span><div><div style="font-size:13px;font-weight:600;color:var(--rose)">Bài tập sắp đến hạn</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">React Todo App hạn nộp ngày mai, 15/04.</div></div></div>
+    </div>
+    <div class="modal-actions"><button class="btn-primary" onclick="closeModal('modal-notifs')">Đã đọc tất cả</button></div>
+  </div>
+</div>
+
+<!-- AUTH MODALS -->
 <div class="auth-modal-bg" id="auth-modal-bg" onclick="if(event.target===this)closeAuthModal()">
   <div class="auth-modal">
     <div id="auth-view-login">
@@ -955,119 +742,116 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"><span class="toast-icon" id="toast-icon">✓</span><span id="toast-msg"></span></div>
 
 <script>
-// ── AUTH SYSTEM ──
-function getUsers(){ try{ return JSON.parse(localStorage.getItem('lf_users')||'[]'); }catch(e){return[];} }
-function saveUsers(u){ localStorage.setItem('lf_users', JSON.stringify(u)); }
-function getCurrentUser(){ try{ return JSON.parse(localStorage.getItem('lf_current')||'null'); }catch(e){return null;} }
-function setCurrentUser(u){ if(u) localStorage.setItem('lf_current', JSON.stringify(u)); else localStorage.removeItem('lf_current'); }
+// ── CLOCK ──
+function capNhatGio(){
+  const now=new Date();
+  const pad=n=>String(n).padStart(2,'0');
+  document.getElementById('clock').textContent=`${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} - ${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+}
+capNhatGio();
+setInterval(capNhatGio,1000);
+
+// ── AUTH ──
+function getUsers(){try{return JSON.parse(localStorage.getItem('lf_users')||'[]');}catch(e){return[];}}
+function saveUsers(u){localStorage.setItem('lf_users',JSON.stringify(u));}
+function getCurrentUser(){try{return JSON.parse(localStorage.getItem('lf_current')||'null');}catch(e){return null;}}
+function setCurrentUser(u){if(u)localStorage.setItem('lf_current',JSON.stringify(u));else localStorage.removeItem('lf_current');}
 
 function initAuth(){
-  const user = getCurrentUser();
-  const pill = document.getElementById('user-pill');
-  const authBtns = document.getElementById('auth-btns');
+  const user=getCurrentUser();
+  const pill=document.getElementById('user-pill');
+  const authBtns=document.getElementById('auth-btns');
   if(user){
-    pill.style.display = 'flex';
-    authBtns.style.display = 'none';
-    document.getElementById('sidebar-username').textContent = user.name;
-    const initials = user.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    document.getElementById('sidebar-ava').textContent = initials;
-    updateGreeting(user.name);
+    pill.style.display='flex';
+    authBtns.style.display='none';
+    document.getElementById('sidebar-username').textContent=user.name;
+    const initials=user.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('sidebar-ava').textContent=initials;
   } else {
-    pill.style.display = 'none';
-    authBtns.style.display = 'block';
-    updateGreeting(null);
+    pill.style.display='none';
+    authBtns.style.display='block';
   }
+  updateGreeting(user?user.name:null);
 }
 
 function updateGreeting(name){
-  const h = new Date().getHours();
-  const time = h < 12 ? 'sáng' : h < 18 ? 'chiều' : 'tối';
-  const titleEl = document.getElementById('page-title');
-  if(name){
-    titleEl.textContent = `Chào buổi ${time}, ${name} 👋`;
-  } else {
-    titleEl.textContent = 'Dashboard';
-  }
+  const h=new Date().getHours();
+  const time=h<12?'sáng':h<18?'chiều':'tối';
+  const titleEl=document.getElementById('page-title');
+  titleEl.textContent=name?`Chào buổi ${time}, ${name} 👋`:'Dashboard';
 }
 
 function openAuthModal(view){
   document.getElementById('auth-modal-bg').classList.add('open');
-  document.getElementById('auth-view-login').style.display = view==='login' ? 'block' : 'none';
-  document.getElementById('auth-view-signup').style.display = view==='signup' ? 'block' : 'none';
-  document.getElementById('login-err').style.display = 'none';
-  document.getElementById('signup-err').style.display = 'none';
+  document.getElementById('auth-view-login').style.display=view==='login'?'block':'none';
+  document.getElementById('auth-view-signup').style.display=view==='signup'?'block':'none';
+  document.getElementById('login-err').style.display='none';
+  document.getElementById('signup-err').style.display='none';
 }
-function closeAuthModal(){
-  document.getElementById('auth-modal-bg').classList.remove('open');
-}
+function closeAuthModal(){document.getElementById('auth-modal-bg').classList.remove('open');}
 function switchAuth(view){
-  document.getElementById('auth-view-login').style.display = view==='login' ? 'block' : 'none';
-  document.getElementById('auth-view-signup').style.display = view==='signup' ? 'block' : 'none';
-  document.getElementById('login-err').style.display = 'none';
-  document.getElementById('signup-err').style.display = 'none';
+  document.getElementById('auth-view-login').style.display=view==='login'?'block':'none';
+  document.getElementById('auth-view-signup').style.display=view==='signup'?'block':'none';
+  document.getElementById('login-err').style.display='none';
+  document.getElementById('signup-err').style.display='none';
 }
-
 function doLogin(){
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
-  const pw = document.getElementById('login-pw').value;
-  const users = getUsers();
-  const user = users.find(u => u.email === email && u.pw === pw);
-  if(!user){ document.getElementById('login-err').style.display = 'block'; return; }
+  const email=document.getElementById('login-email').value.trim().toLowerCase();
+  const pw=document.getElementById('login-pw').value;
+  const user=getUsers().find(u=>u.email===email&&u.pw===pw);
+  if(!user){document.getElementById('login-err').style.display='block';return;}
   setCurrentUser(user);
   closeAuthModal();
   initAuth();
   showToast(`Chào mừng trở lại, ${user.name}! 🎉`,'👋');
-  setPage('dashboard');
+  setPage('dashboard',null);
 }
-
 function doSignup(){
-  const name = document.getElementById('signup-name').value.trim();
-  const email = document.getElementById('signup-email').value.trim().toLowerCase();
-  const pw = document.getElementById('signup-pw').value;
-  const errEl = document.getElementById('signup-err');
-  if(!name || !email || pw.length < 6){
-    errEl.textContent = !name ? 'Vui lòng nhập họ tên.' : !email ? 'Vui lòng nhập email.' : 'Mật khẩu tối thiểu 6 ký tự.';
-    errEl.style.display = 'block'; return;
+  const name=document.getElementById('signup-name').value.trim();
+  const email=document.getElementById('signup-email').value.trim().toLowerCase();
+  const pw=document.getElementById('signup-pw').value;
+  const errEl=document.getElementById('signup-err');
+  if(!name||!email||pw.length<6){
+    errEl.textContent=!name?'Vui lòng nhập họ tên.':!email?'Vui lòng nhập email.':'Mật khẩu tối thiểu 6 ký tự.';
+    errEl.style.display='block';return;
   }
-  const users = getUsers();
-  if(users.find(u => u.email === email)){
-    errEl.textContent = 'Email này đã được đăng ký.';
-    errEl.style.display = 'block'; return;
-  }
-  const newUser = {name, email, pw};
+  const users=getUsers();
+  if(users.find(u=>u.email===email)){errEl.textContent='Email này đã được đăng ký.';errEl.style.display='block';return;}
+  const newUser={name,email,pw};
   users.push(newUser);
   saveUsers(users);
   setCurrentUser(newUser);
   closeAuthModal();
   initAuth();
   showToast(`Đăng ký thành công! Chào ${name} 🎊`,'🎉');
-  setPage('dashboard');
+  setPage('dashboard',null);
 }
-
 function doLogout(){
-  if(!confirm('Bạn có muốn đăng xuất không?')) return;
+  if(!confirm('Bạn có muốn đăng xuất không?'))return;
   setCurrentUser(null);
   initAuth();
   showToast('Đã đăng xuất','👋');
 }
 
 // ── PAGE NAVIGATION ──
-const pages = ['dashboard','timer','notes','tasks','progress','problems'];
-function setPage(id){
-  pages.forEach(p=>{
+const allPages=['dashboard','timer','notes','tasks','progress','problems','editor'];
+function setPage(id,navEl){
+  allPages.forEach(p=>{
     const el=document.getElementById('page-'+p);
-    if(el) el.style.display = p===id ? 'flex' : 'none';
+    if(el)el.style.display='none';
   });
+  const target=document.getElementById('page-'+id);
+  if(target){
+    target.style.display=(id==='editor')?'flex':'flex';
+    // editor uses its own layout, others use content flex
+  }
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  event && event.currentTarget && event.currentTarget.classList.add('active');
-  const user = getCurrentUser();
-  const name = user ? user.name : null;
+  if(navEl)navEl.classList.add('active');
+
   const titles={
-    dashboard: null, // handled by updateGreeting
     timer:'⏱️ Pomodoro Timer',
     notes:'📓 Ghi chú của tôi',
     tasks:'📝 Bài tập & Nhiệm vụ',
@@ -1077,112 +861,15 @@ function setPage(id){
     groups:'👥 Nhóm học',
     schedule:'📅 Lịch học',
     settings:'⚙️ Cài đặt',
-    problems:'💻 Luyện tập lập trình'
+    problems:'💻 Luyện tập lập trình',
+    editor:'💻 Code Editor'
   };
-  if(id === 'dashboard') updateGreeting(name);
-  else document.getElementById('page-title').textContent = titles[id]||'Dashboard';
-  if(document.getElementById('page-sub')) document.getElementById('page-sub').textContent = 'LearnFlow';
-}
+  if(id==='dashboard')updateGreeting(getCurrentUser()?getCurrentUser().name:null);
+  else document.getElementById('page-title').textContent=titles[id]||'Dashboard';
 
-// ── PROBLEMS DATA ──
-const problemsData = [
-  {id:1,name:'Two Sum',diff:'easy',status:'done',tags:['Array','Hash Table'],ac:'47.2%'},
-  {id:2,name:'Add Two Numbers',diff:'medium',status:'done',tags:['Linked List','Math'],ac:'40.1%'},
-  {id:3,name:'Longest Substring Without Repeating',diff:'medium',status:'done',tags:['Sliding Window','String'],ac:'33.8%'},
-  {id:4,name:'Median of Two Sorted Arrays',diff:'hard',status:'done',tags:['Binary Search','Array'],ac:'36.2%'},
-  {id:5,name:'Longest Palindromic Substring',diff:'medium',status:'try',tags:['DP','String'],ac:'32.4%'},
-  {id:6,name:'ZigZag Conversion',diff:'medium',status:'none',tags:['String'],ac:'45.3%'},
-  {id:7,name:'Reverse Integer',diff:'medium',status:'done',tags:['Math'],ac:'27.9%'},
-  {id:8,name:'String to Integer (atoi)',diff:'medium',status:'none',tags:['String','Two Pointers'],ac:'17.6%'},
-  {id:9,name:'Palindrome Number',diff:'easy',status:'done',tags:['Math'],ac:'52.1%'},
-  {id:10,name:'Regular Expression Matching',diff:'hard',status:'none',tags:['DP','Recursion'],ac:'28.3%'},
-  {id:11,name:'Container With Most Water',diff:'medium',status:'done',tags:['Two Pointers','Greedy'],ac:'54.2%'},
-  {id:12,name:'Integer to Roman',diff:'medium',status:'none',tags:['Math','Hash Table'],ac:'62.0%'},
-  {id:13,name:'Roman to Integer',diff:'easy',status:'done',tags:['Math','String'],ac:'58.9%'},
-  {id:14,name:'Longest Common Prefix',diff:'easy',status:'done',tags:['String','Trie'],ac:'41.3%'},
-  {id:15,name:'3Sum',diff:'medium',status:'try',tags:['Two Pointers','Array'],ac:'32.5%'},
-  {id:16,name:'Letter Combinations of Phone Number',diff:'medium',status:'none',tags:['Backtracking','DFS'],ac:'57.4%'},
-  {id:17,name:'Valid Parentheses',diff:'easy',status:'done',tags:['Stack','String'],ac:'40.7%'},
-  {id:18,name:'Merge Two Sorted Lists',diff:'easy',status:'done',tags:['Linked List','Recursion'],ac:'62.8%'},
-  {id:19,name:'Generate Parentheses',diff:'medium',status:'try',tags:['Backtracking','DP'],ac:'73.1%'},
-  {id:20,name:'Merge k Sorted Lists',diff:'hard',status:'done',tags:['Heap','Divide & Conquer'],ac:'48.2%'},
-  {id:21,name:'Search in Rotated Sorted Array',diff:'medium',status:'none',tags:['Binary Search','Array'],ac:'38.5%'},
-  {id:22,name:'Find First and Last Position',diff:'medium',status:'none',tags:['Binary Search'],ac:'41.7%'},
-  {id:23,name:'Climbing Stairs',diff:'easy',status:'done',tags:['DP','Math'],ac:'51.8%'},
-  {id:24,name:'Binary Tree Inorder Traversal',diff:'easy',status:'done',tags:['Tree','DFS','Stack'],ac:'74.5%'},
-  {id:25,name:'Symmetric Tree',diff:'easy',status:'none',tags:['Tree','BFS','DFS'],ac:'53.2%'},
-  {id:26,name:'Maximum Depth of Binary Tree',diff:'easy',status:'done',tags:['Tree','DFS','BFS'],ac:'73.9%'},
-  {id:27,name:'Best Time to Buy and Sell Stock',diff:'easy',status:'done',tags:['Array','DP'],ac:'54.4%'},
-  {id:28,name:'Single Number',diff:'easy',status:'done',tags:['Bit Manipulation','Array'],ac:'70.2%'},
-  {id:29,name:'Linked List Cycle',diff:'easy',status:'none',tags:['Linked List','Two Pointers'],ac:'45.9%'},
-  {id:30,name:'Min Stack',diff:'medium',status:'none',tags:['Stack','Design'],ac:'51.7%'},
-  {id:31,name:'Intersection of Two Linked Lists',diff:'easy',status:'none',tags:['Linked List','Hash Table'],ac:'55.1%'},
-  {id:32,name:'Majority Element',diff:'easy',status:'done',tags:['Array','Sorting'],ac:'63.4%'},
-  {id:33,name:'House Robber',diff:'medium',status:'try',tags:['DP','Array'],ac:'49.8%'},
-  {id:34,name:'Reverse Linked List',diff:'easy',status:'done',tags:['Linked List','Recursion'],ac:'73.1%'},
-  {id:35,name:'Course Schedule',diff:'medium',status:'none',tags:['Graph','Topological Sort'],ac:'46.0%'},
-  {id:36,name:'Implement Trie (Prefix Tree)',diff:'medium',status:'none',tags:['Trie','Design'],ac:'62.3%'},
-  {id:37,name:'Kth Largest Element in Array',diff:'medium',status:'try',tags:['Heap','Sorting'],ac:'65.3%'},
-  {id:38,name:'Number of Islands',diff:'medium',status:'done',tags:['BFS','DFS','Union Find'],ac:'56.7%'},
-  {id:39,name:'Product of Array Except Self',diff:'medium',status:'none',tags:['Array','Prefix Sum'],ac:'64.5%'},
-  {id:40,name:'Find Median from Data Stream',diff:'hard',status:'none',tags:['Heap','Design'],ac:'51.9%'},
-];
-
-let currentProbFilter = 'all';
-let currentProbSearch = '';
-
-function renderProblems(){
-  const tbody = document.getElementById('prob-tbody');
-  if(!tbody) return;
-  let list = problemsData.filter(p => {
-    if(currentProbFilter === 'easy') return p.diff === 'easy';
-    if(currentProbFilter === 'medium') return p.diff === 'medium';
-    if(currentProbFilter === 'hard') return p.diff === 'hard';
-    if(currentProbFilter === 'done') return p.status === 'done';
-    if(currentProbFilter === 'todo') return p.status !== 'done';
-    return true;
-  }).filter(p => !currentProbSearch || p.name.toLowerCase().includes(currentProbSearch.toLowerCase()) || p.tags.some(t=>t.toLowerCase().includes(currentProbSearch.toLowerCase())));
-
-  tbody.innerHTML = list.map(p => {
-    const diffHtml = p.diff==='easy'?'<span class="diff-easy">Dễ</span>':p.diff==='medium'?'<span class="diff-med">Vừa</span>':'<span class="diff-hard">Khó</span>';
-    const statusHtml = p.status==='done'?'<span class="prob-status-done" title="Đã giải">✅</span>':p.status==='try'?'<span class="prob-status-try" title="Đang thử">⚡</span>':'<span class="prob-status-none">○</span>';
-    const tagsHtml = p.tags.map(t=>`<span class="prob-tag">${t}</span>`).join('');
-    return `<tr>
-      <td style="color:var(--text3);font-family:var(--mono);font-size:12px;">${p.id}</td>
-      <td>${statusHtml}</td>
-      <td><span class="prob-name-link" onclick="showToast('Mở bài: ${p.name}','💻')">${p.name}</span></td>
-      <td>${diffHtml}</td>
-      <td><div class="prob-tags">${tagsHtml}</div></td>
-      <td style="font-family:var(--mono);font-size:12px;color:var(--text3);">${p.ac}</td>
-    </tr>`;
-  }).join('');
-}
-
-function setProbFilter(filter, btn){
-  currentProbFilter = filter;
-  document.querySelectorAll('.prob-filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderProblems();
-}
-
-function filterProblems(val){
-  currentProbSearch = val;
-  renderProblems();
-}
-
-// ── INIT ──
-initAuth();
-renderProblems();
-
-// ── MODAL ──
-function openModal(id){
-  document.getElementById('modal-'+id).classList.add('open');
-}
-function closeModal(id){
-  document.getElementById('modal-'+id).classList.remove('open');
-}
-function closeModalBg(e,id){
-  if(e.target===e.currentTarget) closeModal(id);
+  // hide topbar search/buttons in editor for cleaner look
+  const searchBar=document.getElementById('topbar-search');
+  if(searchBar)searchBar.style.display=id==='editor'?'none':'flex';
 }
 
 // ── TOAST ──
@@ -1194,6 +881,445 @@ function showToast(msg,icon='✓'){
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── MODAL ──
+function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
+function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');}
+function closeModalBg(e,id){if(e.target===e.currentTarget)closeModal(id);}
+
+// ── PROBLEMS DATA ──
+const problemsData=[
+  {id:1,name:'Two Sum',diff:'easy',status:'done',tags:['Array','Hash Table'],ac:'47.2%',
+    description:'Cho một mảng số nguyên <code>nums</code> và một số nguyên <code>target</code>, hãy trả về chỉ số (indices) của hai số sao cho chúng cộng lại bằng <code>target</code>.\n\nBạn có thể giả định rằng mỗi đầu vào sẽ có đúng một lời giải, và bạn không thể sử dụng cùng một phần tử hai lần.',
+    examples:[{input:'nums = [2,7,11,15], target = 9',output:'[0,1]',explain:'Vì nums[0] + nums[1] = 2 + 7 = 9, ta trả về [0, 1].'},{input:'nums = [3,2,4], target = 6',output:'[1,2]'}],
+    constraints:['2 ≤ nums.length ≤ 10⁴','-10⁹ ≤ nums[i] ≤ 10⁹','-10⁹ ≤ target ≤ 10⁹','Chỉ tồn tại đúng một đáp án hợp lệ.'],
+    testcases:[{input:'nums = [2,7,11,15]\ntarget = 9',expected:'[0,1]'},{input:'nums = [3,2,4]\ntarget = 6',expected:'[1,2]'},{input:'nums = [3,3]\ntarget = 6',expected:'[0,1]'}],
+    starter:{python:'class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        # Viết code của bạn ở đây\n        pass\n',javascript:'/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nvar twoSum = function(nums, target) {\n    // Viết code của bạn ở đây\n};\n',java:'class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Viết code của bạn ở đây\n        return new int[]{};\n    }\n}\n',cpp:'class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Viết code của bạn ở đây\n        return {};\n    }\n};\n'}
+  },
+  {id:2,name:'Add Two Numbers',diff:'medium',status:'done',tags:['Linked List','Math'],ac:'40.1%',
+    description:'Bạn được cho hai danh sách liên kết không rỗng đại diện cho hai số nguyên không âm. Các chữ số được lưu trữ theo thứ tự ngược lại, và mỗi nút chứa một chữ số đơn. Cộng hai số và trả về kết quả dưới dạng một danh sách liên kết.',
+    examples:[{input:'l1 = [2,4,3], l2 = [5,6,4]',output:'[7,0,8]',explain:'342 + 465 = 807.'},{input:'l1 = [0], l2 = [0]',output:'[0]'}],
+    constraints:['Số lượng nút mỗi danh sách trong khoảng [1, 100]','0 ≤ Node.val ≤ 9','Đảm bảo danh sách không có số 0 dẫn đầu ngoại trừ số 0.'],
+    testcases:[{input:'l1 = [2,4,3]\nl2 = [5,6,4]',expected:'[7,0,8]'},{input:'l1 = [0]\nl2 = [0]',expected:'[0]'}],
+    starter:{python:'class Solution:\n    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:\n        # Viết code của bạn ở đây\n        pass\n',javascript:'var addTwoNumbers = function(l1, l2) {\n    // Viết code của bạn ở đây\n};\n',java:'class Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        // Viết code của bạn ở đây\n        return null;\n    }\n}\n',cpp:'class Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        // Viết code của bạn ở đây\n        return nullptr;\n    }\n};\n'}
+  },
+  {id:3,name:'Longest Substring Without Repeating',diff:'medium',status:'done',tags:['Sliding Window','String'],ac:'33.8%',
+    description:'Cho một chuỗi <code>s</code>, hãy tìm độ dài của chuỗi con dài nhất không chứa ký tự lặp lại.',
+    examples:[{input:'s = "abcabcbb"',output:'3',explain:'Chuỗi con là "abc" với độ dài 3.'},{input:'s = "bbbbb"',output:'1',explain:'Chuỗi con là "b" với độ dài 1.'},{input:'s = "pwwkew"',output:'3',explain:'Chuỗi con là "wke" với độ dài 3.'}],
+    constraints:['0 ≤ s.length ≤ 5 * 10⁴','s bao gồm chữ cái tiếng Anh, chữ số, ký hiệu và khoảng trắng.'],
+    testcases:[{input:'s = "abcabcbb"',expected:'3'},{input:'s = "bbbbb"',expected:'1'},{input:'s = "pwwkew"',expected:'3'}],
+    starter:{python:'class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        # Viết code của bạn ở đây\n        pass\n',javascript:'var lengthOfLongestSubstring = function(s) {\n    // Viết code của bạn ở đây\n};\n',java:'class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        return 0;\n    }\n};\n'}
+  },
+  {id:4,name:'Median of Two Sorted Arrays',diff:'hard',status:'done',tags:['Binary Search','Array'],ac:'36.2%',
+    description:'Cho hai mảng đã sắp xếp <code>nums1</code> và <code>nums2</code> với kích thước lần lượt là <code>m</code> và <code>n</code>, hãy trả về trung vị (median) của hai mảng sau khi ghép lại. Độ phức tạp phải là O(log(m+n)).',
+    examples:[{input:'nums1 = [1,3], nums2 = [2]',output:'2.00000',explain:'Mảng ghép = [1,2,3], trung vị = 2.'},{input:'nums1 = [1,2], nums2 = [3,4]',output:'2.50000',explain:'Mảng ghép = [1,2,3,4], trung vị = (2+3)/2 = 2.5.'}],
+    constraints:['nums1.length == m','nums2.length == n','0 ≤ m,n ≤ 1000','1 ≤ m+n ≤ 2000','-10⁶ ≤ nums1[i], nums2[i] ≤ 10⁶'],
+    testcases:[{input:'nums1 = [1,3]\nnums2 = [2]',expected:'2.00000'},{input:'nums1 = [1,2]\nnums2 = [3,4]',expected:'2.50000'}],
+    starter:{python:'class Solution:\n    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:\n        pass\n',javascript:'var findMedianSortedArrays = function(nums1, nums2) {\n};\n',java:'class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        return 0.0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        return 0.0;\n    }\n};\n'}
+  },
+  {id:5,name:'Longest Palindromic Substring',diff:'medium',status:'try',tags:['DP','String'],ac:'32.4%',
+    description:'Cho một chuỗi <code>s</code>, hãy trả về chuỗi con palindrome dài nhất trong <code>s</code>. Palindrome là chuỗi đọc xuôi ngược như nhau.',
+    examples:[{input:'s = "babad"',output:'"bab"',explain:'"aba" cũng là đáp án hợp lệ.'},{input:'s = "cbbd"',output:'"bb"'}],
+    constraints:['1 ≤ s.length ≤ 1000','s chỉ bao gồm chữ số và chữ cái tiếng Anh.'],
+    testcases:[{input:'s = "babad"',expected:'"bab"'},{input:'s = "cbbd"',expected:'"bb"'}],
+    starter:{python:'class Solution:\n    def longestPalindrome(self, s: str) -> str:\n        pass\n',javascript:'var longestPalindrome = function(s) {\n};\n',java:'class Solution {\n    public String longestPalindrome(String s) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string longestPalindrome(string s) {\n        return "";\n    }\n};\n'}
+  },
+  {id:6,name:'ZigZag Conversion',diff:'medium',status:'none',tags:['String'],ac:'45.3%',
+    description:'Chuỗi "PAYPALISHIRING" được viết theo kiểu zigzag trên số hàng nhất định như sau (bạn có thể muốn hiển thị mẫu này với phông chữ cố định để dễ đọc hơn):\n\nP   A   H   N\nA P L S I I G\nY   I   R\n\nVà sau đó đọc dòng theo dòng: "PAHNAPLSIIGYIR"\n\nViết code chuyển đổi một chuỗi đã cho theo mẫu này và trả về chuỗi đã được đọc dòng theo dòng.',
+    examples:[{input:'s = "PAYPALISHIRING", numRows = 3',output:'"PAHNAPLSIIGYIR"'},{input:'s = "PAYPALISHIRING", numRows = 4',output:'"PINALSIGYAHRPI"'}],
+    constraints:['1 ≤ s.length ≤ 1000','s bao gồm chữ cái và ký tự ",".','.','1 ≤ numRows ≤ 1000'],
+    testcases:[{input:'s = "PAYPALISHIRING"\nnumRows = 3',expected:'"PAHNAPLSIIGYIR"'},{input:'s = "A"\nnumRows = 1',expected:'"A"'}],
+    starter:{python:'class Solution:\n    def convert(self, s: str, numRows: int) -> str:\n        pass\n',javascript:'var convert = function(s, numRows) {\n};\n',java:'class Solution {\n    public String convert(String s, int numRows) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string convert(string s, int numRows) {\n        return "";\n    }\n};\n'}
+  },
+  {id:7,name:'Reverse Integer',diff:'medium',status:'done',tags:['Math'],ac:'27.9%',
+    description:'Cho một số nguyên 32-bit có dấu <code>x</code>, hãy trả về <code>x</code> với các chữ số của nó bị đảo ngược. Nếu khi đảo ngược <code>x</code> gây ra giá trị ngoài phạm vi số nguyên 32-bit có dấu [-2³¹, 2³¹ - 1], hãy trả về 0.',
+    examples:[{input:'x = 123',output:'321'},{input:'x = -123',output:'-321'},{input:'x = 120',output:'21'}],
+    constraints:['-2³¹ ≤ x ≤ 2³¹ - 1'],
+    testcases:[{input:'x = 123',expected:'321'},{input:'x = -123',expected:'-321'},{input:'x = 120',expected:'21'}],
+    starter:{python:'class Solution:\n    def reverse(self, x: int) -> int:\n        pass\n',javascript:'var reverse = function(x) {\n};\n',java:'class Solution {\n    public int reverse(int x) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int reverse(int x) {\n        return 0;\n    }\n};\n'}
+  },
+  {id:8,name:'String to Integer (atoi)',diff:'medium',status:'none',tags:['String','Two Pointers'],ac:'17.6%',
+    description:'Triển khai hàm <code>myAtoi(string s)</code> chuyển đổi một chuỗi thành số nguyên 32-bit có dấu (tương tự hàm <code>atoi</code> trong C/C++).',
+    examples:[{input:'s = "42"',output:'42'},{input:'s = "   -42"',output:'-42'},{input:'s = "4193 with words"',output:'4193'}],
+    constraints:['0 ≤ s.length ≤ 200','s bao gồm chữ cái tiếng Anh (chữ thường và in hoa), chữ số (0-9), khoảng trắng, dấu +, -, và dấu .'],
+    testcases:[{input:'s = "42"',expected:'42'},{input:'s = "   -42"',expected:'-42'}],
+    starter:{python:'class Solution:\n    def myAtoi(self, s: str) -> int:\n        pass\n',javascript:'var myAtoi = function(s) {\n};\n',java:'class Solution {\n    public int myAtoi(String s) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int myAtoi(string s) {\n        return 0;\n    }\n};\n'}
+  },
+  {id:9,name:'Palindrome Number',diff:'easy',status:'done',tags:['Math'],ac:'52.1%',
+    description:'Cho một số nguyên <code>x</code>, trả về <code>true</code> nếu <code>x</code> là palindrome, ngược lại trả về <code>false</code>.\n\nMột số nguyên là palindrome khi nó đọc ngược bằng đọc xuôi.',
+    examples:[{input:'x = 121',output:'true',explain:'121 đọc ngược là 121.'},{input:'x = -121',output:'false',explain:'-121 đọc ngược là 121-.'},{input:'x = 10',output:'false'}],
+    constraints:['-2³¹ ≤ x ≤ 2³¹ - 1'],
+    testcases:[{input:'x = 121',expected:'true'},{input:'x = -121',expected:'false'},{input:'x = 10',expected:'false'}],
+    starter:{python:'class Solution:\n    def isPalindrome(self, x: int) -> bool:\n        pass\n',javascript:'var isPalindrome = function(x) {\n};\n',java:'class Solution {\n    public boolean isPalindrome(int x) {\n        return false;\n    }\n}\n',cpp:'class Solution {\npublic:\n    bool isPalindrome(int x) {\n        return false;\n    }\n};\n'}
+  },
+  {id:10,name:'Regular Expression Matching',diff:'hard',status:'none',tags:['DP','Recursion'],ac:'28.3%',
+    description:'Cho một chuỗi đầu vào <code>s</code> và một mẫu <code>p</code>, triển khai khớp biểu thức chính quy với hỗ trợ cho <code>\'.\' </code> và <code>\'*\'</code>:\n- <code>\'.\' </code> Khớp với bất kỳ ký tự đơn nào.\n- <code>\'*\'</code> Khớp với không hoặc nhiều phần tử đứng trước.',
+    examples:[{input:'s = "aa", p = "a"',output:'false',explain:'"a" không khớp toàn bộ chuỗi "aa".'},{input:'s = "aa", p = "a*"',output:'true'},{input:'s = "ab", p = ".*"',output:'true'}],
+    constraints:['1 ≤ s.length ≤ 20','1 ≤ p.length ≤ 30'],
+    testcases:[{input:'s = "aa"\np = "a"',expected:'false'},{input:'s = "aa"\np = "a*"',expected:'true'}],
+    starter:{python:'class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        pass\n',javascript:'var isMatch = function(s, p) {\n};\n',java:'class Solution {\n    public boolean isMatch(String s, String p) {\n        return false;\n    }\n}\n',cpp:'class Solution {\npublic:\n    bool isMatch(string s, string p) {\n        return false;\n    }\n};\n'}
+  },
+  {id:11,name:'Container With Most Water',diff:'medium',status:'done',tags:['Two Pointers','Greedy'],ac:'54.2%',
+    description:'Bạn được cho một mảng số nguyên <code>height</code> có độ dài <code>n</code>. Có <code>n</code> đường thẳng đứng được vẽ sao cho hai điểm cuối của đường thứ <code>i</code> là <code>(i, 0)</code> và <code>(i, height[i])</code>.\n\nTìm hai đường cùng với trục x tạo thành một thùng chứa nhiều nước nhất. Trả về lượng nước tối đa mà thùng có thể chứa.',
+    examples:[{input:'height = [1,8,6,2,5,4,8,3,7]',output:'49',explain:'Các đường thẳng đứng được đại diện bởi mảng [1,8,6,2,5,4,8,3,7]. Thùng lớn nhất chứa được 49 đơn vị nước.'},{input:'height = [1,1]',output:'1'}],
+    constraints:['n == height.length','2 ≤ n ≤ 10⁵','0 ≤ height[i] ≤ 10⁴'],
+    testcases:[{input:'height = [1,8,6,2,5,4,8,3,7]',expected:'49'},{input:'height = [1,1]',expected:'1'}],
+    starter:{python:'class Solution:\n    def maxArea(self, height: List[int]) -> int:\n        pass\n',javascript:'var maxArea = function(height) {\n};\n',java:'class Solution {\n    public int maxArea(int[] height) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        return 0;\n    }\n};\n'}
+  },
+  {id:12,name:'Integer to Roman',diff:'medium',status:'none',tags:['Math','Hash Table'],ac:'62.0%',
+    description:'Cho một số nguyên, hãy chuyển đổi nó thành số La Mã (Roman numeral). Số La Mã được biểu diễn bởi bảy ký hiệu: I(1), V(5), X(10), L(50), C(100), D(500), M(1000).',
+    examples:[{input:'num = 3749',output:'"MMMDCCXLIX"'},{input:'num = 58',output:'"LVIII"'}],
+    constraints:['1 ≤ num ≤ 3999'],
+    testcases:[{input:'num = 3',expected:'"III"'},{input:'num = 58',expected:'"LVIII"'}],
+    starter:{python:'class Solution:\n    def intToRoman(self, num: int) -> str:\n        pass\n',javascript:'var intToRoman = function(num) {\n};\n',java:'class Solution {\n    public String intToRoman(int num) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string intToRoman(int num) {\n        return "";\n    }\n};\n'}
+  },
+  {id:13,name:'Roman to Integer',diff:'easy',status:'done',tags:['Math','String'],ac:'58.9%',
+    description:'Cho một chuỗi số La Mã, hãy chuyển đổi nó thành số nguyên. Input đảm bảo trong khoảng từ 1 đến 3999.',
+    examples:[{input:'s = "III"',output:'3'},{input:'s = "LVIII"',output:'58'},{input:'s = "MCMXCIV"',output:'1994'}],
+    constraints:['1 ≤ s.length ≤ 15','s chứa chỉ các ký tự (\'I\',\'V\',\'X\',\'L\',\'C\',\'D\',\'M\').','Đảm bảo s là một số La Mã hợp lệ.'],
+    testcases:[{input:'s = "III"',expected:'3'},{input:'s = "MCMXCIV"',expected:'1994'}],
+    starter:{python:'class Solution:\n    def romanToInt(self, s: str) -> int:\n        pass\n',javascript:'var romanToInt = function(s) {\n};\n',java:'class Solution {\n    public int romanToInt(String s) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int romanToInt(string s) {\n        return 0;\n    }\n};\n'}
+  },
+  {id:14,name:'Longest Common Prefix',diff:'easy',status:'done',tags:['String','Trie'],ac:'41.3%',
+    description:'Viết hàm tìm chuỗi tiền tố chung dài nhất trong một mảng chuỗi. Nếu không có tiền tố chung, trả về chuỗi rỗng "".',
+    examples:[{input:'strs = ["flower","flow","flight"]',output:'"fl"'},{input:'strs = ["dog","racecar","car"]',output:'""',explain:'Không có tiền tố chung giữa các chuỗi đầu vào.'}],
+    constraints:['1 ≤ strs.length ≤ 200','0 ≤ strs[i].length ≤ 200','strs[i] chỉ gồm chữ cái tiếng Anh thường.'],
+    testcases:[{input:'strs = ["flower","flow","flight"]',expected:'"fl"'},{input:'strs = ["dog","racecar","car"]',expected:'""'}],
+    starter:{python:'class Solution:\n    def longestCommonPrefix(self, strs: List[str]) -> str:\n        pass\n',javascript:'var longestCommonPrefix = function(strs) {\n};\n',java:'class Solution {\n    public String longestCommonPrefix(String[] strs) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        return "";\n    }\n};\n'}
+  },
+  {id:15,name:'3Sum',diff:'medium',status:'try',tags:['Two Pointers','Array'],ac:'32.5%',
+    description:'Cho một mảng số nguyên <code>nums</code>, hãy trả về tất cả bộ ba [nums[i], nums[j], nums[k]] sao cho i, j, k khác nhau và nums[i] + nums[j] + nums[k] = 0. Chú ý rằng tập hợp giải pháp không được chứa bộ ba trùng lặp.',
+    examples:[{input:'nums = [-1,0,1,2,-1,-4]',output:'[[-1,-1,2],[-1,0,1]]'},{input:'nums = [0,1,1]',output:'[]'},{input:'nums = [0,0,0]',output:'[[0,0,0]]'}],
+    constraints:['3 ≤ nums.length ≤ 3000','-10⁵ ≤ nums[i] ≤ 10⁵'],
+    testcases:[{input:'nums = [-1,0,1,2,-1,-4]',expected:'[[-1,-1,2],[-1,0,1]]'},{input:'nums = [0,0,0]',expected:'[[0,0,0]]'}],
+    starter:{python:'class Solution:\n    def threeSum(self, nums: List[int]) -> List[List[int]]:\n        pass\n',javascript:'var threeSum = function(nums) {\n};\n',java:'class Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        return new ArrayList<>();\n    }\n}\n',cpp:'class Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        return {};\n    }\n};\n'}
+  },
+  // short entries for remaining problems
+  ...[
+    {id:16,name:'Letter Combinations of Phone Number',diff:'medium',status:'none',tags:['Backtracking','DFS'],ac:'57.4%'},
+    {id:17,name:'Valid Parentheses',diff:'easy',status:'done',tags:['Stack','String'],ac:'40.7%'},
+    {id:18,name:'Merge Two Sorted Lists',diff:'easy',status:'done',tags:['Linked List','Recursion'],ac:'62.8%'},
+    {id:19,name:'Generate Parentheses',diff:'medium',status:'try',tags:['Backtracking','DP'],ac:'73.1%'},
+    {id:20,name:'Merge k Sorted Lists',diff:'hard',status:'done',tags:['Heap','Divide & Conquer'],ac:'48.2%'},
+    {id:21,name:'Search in Rotated Sorted Array',diff:'medium',status:'none',tags:['Binary Search','Array'],ac:'38.5%'},
+    {id:22,name:'Find First and Last Position',diff:'medium',status:'none',tags:['Binary Search'],ac:'41.7%'},
+    {id:23,name:'Climbing Stairs',diff:'easy',status:'done',tags:['DP','Math'],ac:'51.8%'},
+    {id:24,name:'Binary Tree Inorder Traversal',diff:'easy',status:'done',tags:['Tree','DFS','Stack'],ac:'74.5%'},
+    {id:25,name:'Symmetric Tree',diff:'easy',status:'none',tags:['Tree','BFS','DFS'],ac:'53.2%'},
+    {id:26,name:'Maximum Depth of Binary Tree',diff:'easy',status:'done',tags:['Tree','DFS','BFS'],ac:'73.9%'},
+    {id:27,name:'Best Time to Buy and Sell Stock',diff:'easy',status:'done',tags:['Array','DP'],ac:'54.4%'},
+    {id:28,name:'Single Number',diff:'easy',status:'done',tags:['Bit Manipulation','Array'],ac:'70.2%'},
+    {id:29,name:'Linked List Cycle',diff:'easy',status:'none',tags:['Linked List','Two Pointers'],ac:'45.9%'},
+    {id:30,name:'Min Stack',diff:'medium',status:'none',tags:['Stack','Design'],ac:'51.7%'},
+    {id:31,name:'Intersection of Two Linked Lists',diff:'easy',status:'none',tags:['Linked List','Hash Table'],ac:'55.1%'},
+    {id:32,name:'Majority Element',diff:'easy',status:'done',tags:['Array','Sorting'],ac:'63.4%'},
+    {id:33,name:'House Robber',diff:'medium',status:'try',tags:['DP','Array'],ac:'49.8%'},
+    {id:34,name:'Reverse Linked List',diff:'easy',status:'done',tags:['Linked List','Recursion'],ac:'73.1%'},
+    {id:35,name:'Course Schedule',diff:'medium',status:'none',tags:['Graph','Topological Sort'],ac:'46.0%'},
+    {id:36,name:'Implement Trie (Prefix Tree)',diff:'medium',status:'none',tags:['Trie','Design'],ac:'62.3%'},
+    {id:37,name:'Kth Largest Element in Array',diff:'medium',status:'try',tags:['Heap','Sorting'],ac:'65.3%'},
+    {id:38,name:'Number of Islands',diff:'medium',status:'done',tags:['BFS','DFS','Union Find'],ac:'56.7%'},
+    {id:39,name:'Product of Array Except Self',diff:'medium',status:'none',tags:['Array','Prefix Sum'],ac:'64.5%'},
+    {id:40,name:'Find Median from Data Stream',diff:'hard',status:'none',tags:['Heap','Design'],ac:'51.9%'},
+  ].map(p=>({
+    ...p,
+    description:`Bài toán <b>${p.name}</b>. Nhấp vào tên bài để xem chi tiết đề bài đầy đủ.`,
+    examples:[{input:'Xem đề bài chi tiết',output:''}],
+    constraints:['Xem đề bài chi tiết'],
+    testcases:[{input:'// Test case mẫu',expected:'// Expected output'}],
+    starter:{
+      python:`class Solution:\n    def solve(self):\n        # Viết code cho ${p.name}\n        pass\n`,
+      javascript:`var solve = function() {\n    // Viết code cho ${p.name}\n};\n`,
+      java:`class Solution {\n    public void solve() {\n        // Viết code cho ${p.name}\n    }\n}\n`,
+      cpp:`class Solution {\npublic:\n    void solve() {\n        // Viết code cho ${p.name}\n    }\n};\n`
+    }
+  }))
+];
+
+let currentProbFilter='all';
+let currentProbSearch='';
+let currentProbId=null;
+let currentLang='python';
+let currentOutputTab='testcase';
+let submissionsHistory=[];
+
+function saveProblemsStatus(){
+  const m={};
+  problemsData.forEach(p=>m[p.id]=p.status);
+  localStorage.setItem('problems_status',JSON.stringify(m));
+}
+function loadProblemsStatus(){
+  try{
+    const m=JSON.parse(localStorage.getItem('problems_status')||'{}');
+    problemsData.forEach(p=>{if(m[p.id])p.status=m[p.id];});
+  }catch(e){}
+}
+
+function updateProblemStats(){
+  const done=problemsData.filter(p=>p.status==='done').length;
+  document.getElementById('stat-done').textContent=done;
+  document.getElementById('stat-easy').textContent=problemsData.filter(p=>p.diff==='easy'&&p.status==='done').length;
+  document.getElementById('stat-med').textContent=problemsData.filter(p=>p.diff==='medium'&&p.status==='done').length;
+  document.getElementById('stat-hard').textContent=problemsData.filter(p=>p.diff==='hard'&&p.status==='done').length;
+  document.getElementById('stat-total').textContent=problemsData.length;
+}
+
+function setProbFilter(filter,btn){
+  currentProbFilter=filter;
+  document.querySelectorAll('.prob-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProblems();
+}
+
+function filterProblems(val){
+  currentProbSearch=val;
+  renderProblems();
+}
+
+function toggleProblemStatus(id){
+  const prob=problemsData.find(p=>p.id===id);
+  if(!prob)return;
+  if(prob.status==='none')prob.status='try';
+  else if(prob.status==='try')prob.status='done';
+  else prob.status='none';
+  saveProblemsStatus();
+  renderProblems();
+  updateProblemStats();
+}
+
+function openProblem(id){
+  const prob=problemsData.find(p=>p.id===id);
+  if(!prob)return;
+  currentProbId=id;
+
+  // set title
+  document.getElementById('editor-prob-num').textContent='#'+prob.id;
+  document.getElementById('editor-prob-title').textContent=prob.name;
+  const diffEl=document.getElementById('editor-prob-diff');
+  diffEl.innerHTML=prob.diff==='easy'?'<span class="diff-easy">Dễ</span>':prob.diff==='medium'?'<span class="diff-med">Vừa</span>':'<span class="diff-hard">Khó</span>';
+
+  // build description
+  let html='';
+  html+=`<div class="prob-desc-section"><p>${prob.description.replace(/`/g,'').replace(/<code>/g,'<code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--indigo)">').replace(/<\/code>/g,'</code>').replace(/\n/g,'<br>')}</p></div>`;
+
+  if(prob.examples&&prob.examples.length){
+    html+='<div class="prob-desc-section"><h4>Ví dụ</h4>';
+    prob.examples.forEach((ex,i)=>{
+      html+=`<div class="prob-example"><code><b>Input:</b> ${ex.input}\n<b>Output:</b> ${ex.output}${ex.explain?'\n<b>Giải thích:</b> '+ex.explain:''}</code></div>`;
+    });
+    html+='</div>';
+  }
+
+  if(prob.constraints&&prob.constraints.length){
+    html+='<div class="prob-desc-section"><h4>Ràng buộc</h4><div class="prob-constraints"><ul>';
+    prob.constraints.forEach(c=>{html+=`<li>${c}</li>`;});
+    html+='</ul></div></div>';
+  }
+
+  document.getElementById('editor-prob-body').innerHTML=html;
+
+  // set starter code
+  const starter=prob.starter||{};
+  document.getElementById('code-editor').value=starter[currentLang]||'// Viết code của bạn ở đây\n';
+
+  // render test cases
+  renderTestCases(prob);
+
+  // navigate
+  setPage('editor',null);
+  document.getElementById('page-title').textContent=`💻 ${prob.name}`;
+}
+
+function renderTestCases(prob){
+  if(currentOutputTab!=='testcase')return;
+  let html='';
+  (prob.testcases||[]).forEach((tc,i)=>{
+    html+=`<div class="testcase-row">
+      <div class="testcase-label">Test Case ${i+1}</div>
+      <div class="testcase-val">${tc.input.replace(/\n/g,'<br>')}</div>
+      <div class="testcase-label" style="margin-top:6px;">Expected Output</div>
+      <div class="testcase-val">${tc.expected}</div>
+    </div>`;
+  });
+  document.getElementById('output-body').innerHTML=html||'<div style="color:#585b70;font-size:12px;font-family:var(--mono);">Chưa có test case.</div>';
+}
+
+function switchOutputTab(tab,btn){
+  currentOutputTab=tab;
+  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const prob=problemsData.find(p=>p.id===currentProbId);
+  if(tab==='testcase'&&prob)renderTestCases(prob);
+  else if(tab==='result'){
+    document.getElementById('output-body').innerHTML='<div class="result-line result-info">▶ Nhấn "Chạy" để xem kết quả</div>';
+  } else if(tab==='submissions'){
+    renderSubmissions();
+  }
+}
+
+function renderSubmissions(){
+  if(!submissionsHistory.length){
+    document.getElementById('output-body').innerHTML='<div style="color:#585b70;font-size:12px;font-family:var(--mono);">Chưa có lần nộp nào.</div>';
+    return;
+  }
+  const html=submissionsHistory.filter(s=>s.probId===currentProbId).reverse().map(s=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #313244;">
+      <span class="${s.pass?'result-pass':'result-fail'} result-line">${s.pass?'✅ Accepted':'❌ Wrong Answer'}</span>
+      <span style="color:#6c7086;font-size:11px;font-family:var(--mono);margin-left:auto;">${s.lang} · ${s.time}</span>
+    </div>`).join('')||'<div style="color:#585b70;font-size:12px;font-family:var(--mono);">Chưa có lần nộp bài này.</div>';
+  document.getElementById('output-body').innerHTML=html;
+}
+
+function changeLang(lang){
+  currentLang=lang;
+  const prob=problemsData.find(p=>p.id===currentProbId);
+  if(prob&&prob.starter&&prob.starter[lang]){
+    // only set if editor seems empty or has default
+    if(confirm('Đổi ngôn ngữ sẽ reset code hiện tại. Tiếp tục?')){
+      document.getElementById('code-editor').value=prob.starter[lang];
+    } else {
+      document.getElementById('lang-select').value=currentLang;
+      return;
+    }
+  }
+  currentLang=lang;
+}
+
+function runCode(){
+  const code=document.getElementById('code-editor').value.trim();
+  if(!code){showToast('Viết code trước đã!','⚠️');return;}
+
+  const prob=problemsData.find(p=>p.id===currentProbId);
+  // switch to result tab
+  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.output-tab')[1].classList.add('active');
+  currentOutputTab='result';
+
+  document.getElementById('output-body').innerHTML='<div class="result-line result-info">⏳ Đang chạy test cases...</div>';
+
+  setTimeout(()=>{
+    // simulate running
+    const tc=prob?prob.testcases:[];
+    const pass=Math.random()>0.35;
+    let html='';
+    tc.forEach((t,i)=>{
+      const tcPass=i<tc.length-1?true:pass;
+      html+=`<div style="margin-bottom:12px;">
+        <div class="result-line ${tcPass?'result-pass':'result-fail'}">${tcPass?'✅':'❌'} Test Case ${i+1}</div>
+        <div style="margin-top:6px;background:#313244;border-radius:6px;padding:8px 10px;">
+          <div class="result-line result-info">Input: ${t.input.replace(/\n/g,' | ')}</div>
+          <div class="result-line" style="color:#cdd6f4;">Expected: ${t.expected}</div>
+          <div class="result-line ${tcPass?'result-pass':'result-fail'}">Output: ${tcPass?t.expected:'Wrong'}</div>
+        </div>
+      </div>`;
+    });
+    const allPass=pass;
+    html=`<div class="result-line ${allPass?'result-pass':'result-fail'}" style="font-size:13px;font-weight:700;margin-bottom:12px;">${allPass?'✅ Chạy thành công!':'❌ Một số test case thất bại'}</div>`+html;
+    document.getElementById('output-body').innerHTML=html;
+    showToast(allPass?'Code chạy thành công! 🎉':'Có test case thất bại, xem lại nhé',allPass?'✅':'❌');
+  },800);
+}
+
+function submitCode(){
+  const code=document.getElementById('code-editor').value.trim();
+  if(!code){showToast('Viết code trước đã!','⚠️');return;}
+  const prob=problemsData.find(p=>p.id===currentProbId);
+
+  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.output-tab')[1].classList.add('active');
+  currentOutputTab='result';
+  document.getElementById('output-body').innerHTML='<div class="result-line result-info">⏳ Đang nộp và chấm bài...</div>';
+
+  setTimeout(()=>{
+    const accepted=Math.random()>0.3;
+    const runtime=Math.floor(Math.random()*80+20);
+    const memory=Math.floor(Math.random()*10+14);
+    const beats=Math.floor(Math.random()*30+65);
+
+    if(accepted&&prob&&prob.status!=='done'){
+      prob.status='done';
+      saveProblemsStatus();
+      updateProblemStats();
+    }
+
+    const now=new Date();
+    submissionsHistory.push({probId:currentProbId,pass:accepted,lang:currentLang,time:`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`});
+
+    const html=accepted?`
+      <div class="result-line result-pass" style="font-size:15px;font-weight:700;margin-bottom:16px;">✅ Accepted</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div style="background:#313244;border-radius:6px;padding:10px 12px;">
+          <div style="font-size:10px;color:#6c7086;font-family:var(--mono);margin-bottom:4px;">RUNTIME</div>
+          <div style="font-size:16px;font-weight:700;color:#a6e3a1;font-family:var(--mono);">${runtime} ms</div>
+          <div style="font-size:10px;color:#6c7086;">Beats ${beats}% submissions</div>
+        </div>
+        <div style="background:#313244;border-radius:6px;padding:10px 12px;">
+          <div style="font-size:10px;color:#6c7086;font-family:var(--mono);margin-bottom:4px;">MEMORY</div>
+          <div style="font-size:16px;font-weight:700;color:#89b4fa;font-family:var(--mono);">${memory}.2 MB</div>
+          <div style="font-size:10px;color:#6c7086;">Beats ${100-beats}% submissions</div>
+        </div>
+      </div>
+      <div class="result-line result-pass">Tất cả test cases đều pass! 🎉</div>
+    `:`
+      <div class="result-line result-fail" style="font-size:15px;font-weight:700;margin-bottom:12px;">❌ Wrong Answer</div>
+      <div style="background:#313244;border-radius:6px;padding:10px 12px;margin-bottom:8px;">
+        <div class="result-line result-info">Test case thất bại:</div>
+        <div class="result-line" style="color:#cdd6f4;margin-top:4px;">Input: ${(prob&&prob.testcases&&prob.testcases[0])?prob.testcases[0].input:'N/A'}</div>
+        <div class="result-line" style="color:#cdd6f4;">Expected: ${(prob&&prob.testcases&&prob.testcases[0])?prob.testcases[0].expected:'N/A'}</div>
+        <div class="result-line result-fail">Output: Wrong</div>
+      </div>
+      <div class="result-line result-warn">Kiểm tra lại logic và thử nộp lại.</div>
+    `;
+    document.getElementById('output-body').innerHTML=html;
+    showToast(accepted?`Accepted! +100 XP 🎉`:'Wrong Answer, thử lại nhé!',accepted?'🏆':'❌');
+  },1200);
+}
+
+function handleEditorKey(e){
+  if(e.key==='Tab'){
+    e.preventDefault();
+    const ta=e.target;
+    const start=ta.selectionStart,end=ta.selectionEnd;
+    ta.value=ta.value.substring(0,start)+'  '+ta.value.substring(end);
+    ta.selectionStart=ta.selectionEnd=start+2;
+  }
+}
+
+function backToProblems(){
+  setPage('problems',document.getElementById('nav-problems'));
+}
+
+function renderProblems(){
+  const tbody=document.getElementById('prob-tbody');
+  if(!tbody)return;
+  let list=problemsData.filter(p=>{
+    if(currentProbFilter==='easy')return p.diff==='easy';
+    if(currentProbFilter==='medium')return p.diff==='medium';
+    if(currentProbFilter==='hard')return p.diff==='hard';
+    if(currentProbFilter==='done')return p.status==='done';
+    if(currentProbFilter==='todo')return p.status!=='done';
+    return true;
+  }).filter(p=>{
+    if(!currentProbSearch)return true;
+    const q=currentProbSearch.toLowerCase();
+    return p.name.toLowerCase().includes(q)||p.tags.some(t=>t.toLowerCase().includes(q));
+  });
+
+  tbody.innerHTML=list.map(p=>{
+    const diffHtml=p.diff==='easy'?'<span class="diff-easy">Dễ</span>':p.diff==='medium'?'<span class="diff-med">Vừa</span>':'<span class="diff-hard">Khó</span>';
+    const statusHtml=p.status==='done'?'<span class="prob-status-done" title="Đã giải">✅</span>':p.status==='try'?'<span class="prob-status-try" title="Đang thử">⚡</span>':'<span class="prob-status-none" title="Chưa làm">○</span>';
+    const tagsHtml=p.tags.map(t=>`<span class="prob-tag">${t}</span>`).join('');
+    return `<tr>
+      <td style="color:var(--text3);font-family:var(--mono);font-size:12px;">${p.id}</td>
+      <td style="cursor:pointer;" onclick="toggleProblemStatus(${p.id})" title="Nhấp để đổi trạng thái">${statusHtml}</td>
+      <td><span class="prob-name-link" onclick="openProblem(${p.id})">${p.name}</span></td>
+      <td>${diffHtml}</td>
+      <td><div class="prob-tags">${tagsHtml}</div></td>
+      <td style="font-family:var(--mono);font-size:12px;color:var(--text3);">${p.ac}</td>
+    </tr>`;
+  }).join('');
+  updateProblemStats();
 }
 
 // ── ADD COURSE ──
@@ -1210,12 +1336,9 @@ function addCourse(){
   const div=document.createElement('div');
   div.className='course-row';
   div.innerHTML=`<div class="course-thumb" style="background:${colorMap[cat]}">${emojiMap[cat]}</div>
-  <div class="ci">
-    <div class="ci-name">${name}</div>
-    <div class="ci-sub">${teacher||'Chưa rõ'} · ${total} bài học</div>
-    <div class="ci-bar"><div class="ci-fill" style="width:0%;background:${fillMap[cat]}"></div></div>
-    <div class="ci-pct">0% · Mới bắt đầu</div>
-  </div>
+  <div class="ci"><div class="ci-name">${name}</div><div class="ci-sub">${teacher||'Chưa rõ'} · ${total} bài học</div>
+  <div class="ci-bar"><div class="ci-fill" style="width:0%;background:${fillMap[cat]}"></div></div>
+  <div class="ci-pct">0% · Mới bắt đầu</div></div>
   <div class="badge ${badgeMap[cat]}">🆕 Mới</div>`;
   document.getElementById('course-list').appendChild(div);
   closeModal('modal-add-course');
@@ -1249,24 +1372,26 @@ function addTask(){
 }
 function toggleTask(cb){
   const row=cb.closest('.task-row');
-  const info=row.querySelector('div[style*="flex:1"]')||row.querySelector('div[style*="flex: 1"]');
+  const info=row.querySelector('div[style*="flex:1"]');
   if(cb.checked){
     taskDone++;
-    if(info){info.style.opacity='.5';}
-    const nameEl=row.querySelector('[style*="font-weight:600"],[style*="font-weight: 600"]');
-    if(nameEl) nameEl.style.textDecoration='line-through';
+    if(info)info.style.opacity='.5';
+    const nameEl=row.querySelector('div[style*="font-weight:600"]');
+    if(nameEl)nameEl.style.textDecoration='line-through';
   } else {
     taskDone=Math.max(0,taskDone-1);
-    if(info){info.style.opacity='1';}
-    const nameEl=row.querySelector('[style*="text-decoration"]');
-    if(nameEl) nameEl.style.textDecoration='none';
+    if(info)info.style.opacity='1';
+    const nameEl=row.querySelector('div[style*="font-weight:600"]');
+    if(nameEl)nameEl.style.textDecoration='none';
   }
   updateTaskProgress();
 }
 function updateTaskProgress(){
   const pct=taskTotal>0?Math.round(taskDone/taskTotal*100):0;
-  document.getElementById('task-progress').style.width=pct+'%';
-  document.getElementById('task-count').textContent=`${taskDone} / ${taskTotal} hoàn thành`;
+  const progEl=document.getElementById('task-progress');
+  const countEl=document.getElementById('task-count');
+  if(progEl)progEl.style.width=pct+'%';
+  if(countEl)countEl.textContent=`${taskDone} / ${taskTotal} hoàn thành`;
 }
 
 // ── ADD SCHEDULE ──
@@ -1299,7 +1424,7 @@ const noteColors=[
 let noteColorIdx=0;
 function addNote(){
   const title=prompt('Tiêu đề ghi chú:');
-  if(!title) return;
+  if(!title)return;
   const content=prompt('Nội dung:');
   const c=noteColors[noteColorIdx%noteColors.length];
   noteColorIdx++;
@@ -1320,66 +1445,57 @@ function editNote(el){
   const titleEl=el.querySelector('div:first-child');
   const bodyEl=el.querySelector('div:nth-child(2)');
   const newTitle=prompt('Sửa tiêu đề:',titleEl.textContent);
-  if(newTitle===null) return;
+  if(newTitle===null)return;
   const newBody=prompt('Sửa nội dung:',bodyEl.textContent);
-  if(newTitle) titleEl.textContent=newTitle;
-  if(newBody!==null) bodyEl.textContent=newBody;
+  if(newTitle)titleEl.textContent=newTitle;
+  if(newBody!==null)bodyEl.textContent=newBody;
   showToast('Đã cập nhật ghi chú','✏️');
 }
 
 // ── SEARCH ──
 function handleSearch(val){
-  const rows=document.querySelectorAll('#course-list .course-row');
-  rows.forEach(row=>{
+  document.querySelectorAll('#course-list .course-row').forEach(row=>{
     const name=row.querySelector('.ci-name').textContent.toLowerCase();
     row.style.display=name.includes(val.toLowerCase())?'flex':'none';
   });
 }
 
-// ── POMODORO TIMER ──
+// ── POMODORO ──
 let timerInterval=null,timerRunning=false;
 let timerTotal=25*60,timerRemaining=25*60,pomoCount=0,pomoTotalSec=0;
 const timerModes={focus:25*60,short:5*60,long:15*60};
-const modeLabels={focus:'Tập trung',short:'Nghỉ ngắn',long:'Nghỉ dài'};
-const modeColors={focus:'var(--indigo)',short:'var(--teal)',long:'var(--sky)'};
 let currentMode='focus';
-
 function setTimerMode(mode,tabEl){
   document.querySelectorAll('#timer-tabs .tab').forEach(t=>t.classList.remove('active'));
   tabEl.classList.add('active');
   currentMode=mode;
   timerTotal=timerModes[mode];
   timerRemaining=timerTotal;
-  timerRunning=false;
   clearInterval(timerInterval);
+  timerRunning=false;
   document.getElementById('timer-btn').textContent='▶ Bắt đầu';
-  document.getElementById('timer-btn').classList.add('active');
-  document.getElementById('timer-mode-lbl').textContent=modeLabels[mode];
-  document.getElementById('timer-circle').style.stroke=modeColors[mode];
+  document.getElementById('timer-mode-lbl').textContent=mode==='focus'?'Tập trung':mode==='short'?'Nghỉ ngắn':'Nghỉ dài';
   renderTimer();
 }
 function renderTimer(){
   const m=Math.floor(timerRemaining/60),s=timerRemaining%60;
-  document.getElementById('timer-display').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  const circ=301.6;
-  const offset=circ*(1-timerRemaining/timerTotal);
-  document.getElementById('timer-circle').style.strokeDashoffset=offset;
+  const disp=document.getElementById('timer-display');
+  const circ=document.getElementById('timer-circle');
+  if(disp)disp.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  if(circ)circ.style.strokeDashoffset=301.6*(1-timerRemaining/timerTotal);
 }
 function toggleTimer(){
   if(timerRunning){
-    clearInterval(timerInterval);
-    timerRunning=false;
+    clearInterval(timerInterval);timerRunning=false;
     document.getElementById('timer-btn').textContent='▶ Tiếp tục';
   } else {
     timerRunning=true;
     document.getElementById('timer-btn').textContent='⏸ Dừng';
     timerInterval=setInterval(()=>{
       if(timerRemaining<=0){
-        clearInterval(timerInterval);
-        timerRunning=false;
+        clearInterval(timerInterval);timerRunning=false;
         if(currentMode==='focus'){
-          pomoCount++;
-          pomoTotalSec+=timerTotal;
+          pomoCount++;pomoTotalSec+=timerTotal;
           document.getElementById('pomo-count').textContent=pomoCount;
           const h=Math.floor(pomoTotalSec/3600),mn=Math.floor((pomoTotalSec%3600)/60);
           document.getElementById('pomo-time').textContent=`${h}h ${mn}m`;
@@ -1390,30 +1506,29 @@ function toggleTimer(){
         document.getElementById('timer-btn').textContent='▶ Bắt đầu';
         return;
       }
-      timerRemaining--;
-      renderTimer();
+      timerRemaining--;renderTimer();
     },1000);
   }
 }
 function resetTimer(){
-  clearInterval(timerInterval);
-  timerRunning=false;
-  timerRemaining=timerTotal;
+  clearInterval(timerInterval);timerRunning=false;timerRemaining=timerTotal;
   document.getElementById('timer-btn').textContent='▶ Bắt đầu';
   renderTimer();
 }
 function skipTimer(){
-  clearInterval(timerInterval);
-  timerRunning=false;
-  timerRemaining=0;
-  renderTimer();
-  showToast('Đã bỏ qua phiên này','⏭');
+  clearInterval(timerInterval);timerRunning=false;timerRemaining=0;
+  renderTimer();showToast('Đã bỏ qua phiên này','⏭');
   document.getElementById('timer-btn').textContent='▶ Bắt đầu';
 }
 
-// ── STREAK REALTIME ──
-const streakVal=parseInt(localStorage.getItem('lf_streak')||'14');
-document.getElementById('streak-val').textContent=streakVal;
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  loadProblemsStatus();
+  renderProblems();
+  initAuth();
+  const streakVal=parseInt(localStorage.getItem('lf_streak')||'14');
+  document.getElementById('streak-val').textContent=streakVal;
+});
 </script>
 </body>
 </html>
