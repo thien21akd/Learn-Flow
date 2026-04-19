@@ -308,6 +308,106 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 
 /* line numbers */
 .code-lines{position:absolute;top:0;left:0;padding:16px 0 16px 8px;width:36px;font-family:var(--mono);font-size:13px;line-height:1.7;color:#585b70;pointer-events:none;text-align:right;user-select:none;}
+
+/* ── COURSES PAGE ── */
+#page-courses{display:none;}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+.course-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:all .2s;cursor:pointer;}
+.course-card:hover{transform:translateY(-3px);box-shadow:var(--shadow2);border-color:var(--border2);}
+.course-card-banner{height:80px;display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;}
+.course-card-body{padding:16px;}
+.course-card-title{font-size:14px;font-weight:700;line-height:1.4;margin-bottom:4px;}
+.course-card-meta{font-size:11px;color:var(--text3);margin-bottom:12px;}
+.course-prog-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.course-prog-pct{font-size:11px;font-family:var(--mono);font-weight:600;}
+.course-prog-bar{height:5px;background:var(--bg);border-radius:5px;overflow:hidden;margin-bottom:12px;}
+.course-prog-fill{height:100%;border-radius:5px;transition:width .5s ease;}
+.course-card-footer{display:flex;align-items:center;justify-content:space-between;}
+.course-lessons-count{font-size:11px;color:var(--text3);}
+
+/* course detail panel */
+.course-detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:150;align-items:flex-start;justify-content:flex-end;}
+.course-detail-overlay.open{display:flex;}
+.course-detail-panel{background:var(--surface);width:540px;max-width:95vw;height:100vh;overflow-y:auto;animation:slideIn .25s ease;box-shadow:-8px 0 40px rgba(0,0,0,.12);}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.cdp-banner{height:140px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;}
+.cdp-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:rgba(0,0,0,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background .15s;}
+.cdp-close:hover{background:rgba(0,0,0,.4);}
+.cdp-body{padding:20px 24px;}
+.cdp-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+.cdp-meta{font-size:12px;color:var(--text3);margin-bottom:16px;}
+.cdp-prog-big{margin-bottom:20px;}
+.cdp-prog-nums{display:flex;justify-content:space-between;margin-bottom:6px;}
+.cdp-prog-nums span:first-child{font-size:14px;font-weight:700;}
+.cdp-prog-nums span:last-child{font-size:13px;font-family:var(--mono);color:var(--indigo);}
+.cdp-prog-track{height:8px;background:var(--bg);border-radius:8px;overflow:hidden;}
+.cdp-prog-fill{height:100%;border-radius:8px;transition:width .6s ease;}
+.cdp-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:10px;margin-top:4px;}
+.cdp-lessons{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.lesson-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all .15s;}
+.lesson-row:hover{background:var(--bg);border-color:var(--border2);}
+.lesson-row.done{background:#f0fdf4;border-color:#86efac;}
+.lesson-row.active-lesson{background:var(--indigo-light);border-color:var(--indigo);}
+.lesson-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.lesson-num.ln-done{background:#16a34a;color:#fff;}
+.lesson-num.ln-active{background:var(--indigo);color:#fff;}
+.lesson-num.ln-lock{background:var(--bg);color:var(--text3);border:1.5px solid var(--border2);}
+.lesson-info{flex:1;}
+.lesson-name{font-size:12.5px;font-weight:600;}
+.lesson-dur{font-size:11px;color:var(--text3);margin-top:1px;}
+.lesson-tick{font-size:14px;color:#16a34a;}
+.lesson-play{font-size:13px;color:var(--indigo);}
+
+/* ── SESSION TRACKER ── */
+.session-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:6px 28px;display:flex;align-items:center;gap:16px;font-size:12px;}
+.session-live{display:flex;align-items:center;gap:6px;color:var(--text2);}
+.session-dot-live{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.session-time{font-family:var(--mono);font-weight:600;color:var(--teal);}
+.session-divider{width:1px;height:14px;background:var(--border);}
+.session-stats{display:flex;gap:14px;}
+.session-stat{font-size:11px;color:var(--text3);}
+.session-stat b{color:var(--text1);font-family:var(--mono);}
+
+/* ── CODE CHALLENGE TIMER ── */
+.challenge-timer-bar{display:none;background:#181825;border-bottom:1px solid #313244;padding:8px 16px;align-items:center;gap:12px;}
+.challenge-timer-bar.active{display:flex;}
+.ct-ring{position:relative;width:36px;height:36px;flex-shrink:0;}
+.ct-ring svg{transform:rotate(-90deg);}
+.ct-time-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-family:var(--mono);font-weight:700;color:#cdd6f4;}
+.ct-time-text.warning{color:#f38ba8;}
+.ct-info{flex:1;}
+.ct-label{font-size:11px;color:#6c7086;font-family:var(--mono);}
+.ct-remaining{font-size:13px;font-weight:700;font-family:var(--mono);color:#cdd6f4;}
+.ct-remaining.warning{color:#f38ba8;}
+.ct-btn-stop{background:#45475a;border:none;border-radius:6px;padding:5px 12px;color:#cdd6f4;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.ct-btn-stop:hover{background:#585b70;}
+.challenge-timer-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;}
+.challenge-timer-modal.open{display:flex;}
+.ctm-box{background:#1e1e2e;border:1px solid #45475a;border-radius:16px;padding:28px;width:360px;max-width:90vw;animation:pop .2s ease;}
+.ctm-box h3{font-size:16px;font-weight:700;color:#cdd6f4;margin-bottom:6px;}
+.ctm-box p{font-size:13px;color:#6c7086;margin-bottom:20px;}
+.ctm-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.ctm-preset{background:#313244;border:1.5px solid #45475a;border-radius:8px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .15s;}
+.ctm-preset:hover,.ctm-preset.selected{background:#4a40d4;border-color:var(--indigo);color:#fff;}
+.ctm-preset .preset-time{font-size:18px;font-weight:700;font-family:var(--mono);color:#cdd6f4;display:block;}
+.ctm-preset .preset-label{font-size:10px;color:#6c7086;margin-top:2px;display:block;}
+.ctm-preset:hover .preset-time,.ctm-preset.selected .preset-time{color:#fff;}
+.ctm-custom-row{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.ctm-custom-row label{font-size:12px;color:#6c7086;white-space:nowrap;}
+.ctm-input{background:#313244;border:1.5px solid #45475a;border-radius:6px;padding:6px 10px;color:#cdd6f4;font-family:var(--mono);font-size:13px;outline:none;width:80px;transition:border-color .15s;}
+.ctm-input:focus{border-color:var(--indigo);}
+.ctm-actions{display:flex;gap:8px;justify-content:flex-end;}
+.ctm-cancel{background:#313244;border:1px solid #45475a;border-radius:6px;padding:7px 14px;color:#6c7086;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;}
+.ctm-start{background:var(--indigo);border:none;border-radius:6px;padding:7px 18px;color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.ctm-start:hover{background:#4a40d4;}
+.ct-finished-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:250;align-items:center;justify-content:center;}
+.ct-finished-overlay.open{display:flex;}
+.ctf-box{background:#1e1e2e;border:1px solid #45475a;border-radius:16px;padding:32px;text-align:center;animation:pop .2s ease;max-width:360px;width:90vw;}
+.ctf-emoji{font-size:48px;margin-bottom:12px;}
+.ctf-title{font-size:18px;font-weight:700;color:#cdd6f4;margin-bottom:8px;}
+.ctf-msg{font-size:13px;color:#6c7086;margin-bottom:20px;}
+.ctf-close{background:var(--indigo);border:none;border-radius:8px;padding:9px 24px;color:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -390,6 +490,21 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
       </div>
     </div>
   </header>
+
+  <!-- SESSION TRACKER BAR -->
+  <div class="session-bar" id="session-bar">
+    <div class="session-live">
+      <div class="session-dot-live"></div>
+      <span>Phiên học hôm nay</span>
+      <span class="session-time" id="session-display">00:00:00</span>
+    </div>
+    <div class="session-divider"></div>
+    <div class="session-stats">
+      <div class="session-stat">Hôm nay: <b id="session-today">0h 0m</b></div>
+      <div class="session-stat">Tuần này: <b id="session-week">6h 48m</b></div>
+      <div class="session-stat">Tháng: <b id="session-month">47h 12m</b></div>
+    </div>
+  </div>
 
   <!-- PAGE: DASHBOARD -->
   <div class="content" id="page-dashboard">
@@ -505,6 +620,56 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
         <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-around;">
           <div style="text-align:center;"><div style="font-size:22px;font-weight:700;font-family:var(--mono);color:var(--indigo)" id="pomo-count">0</div><div style="font-size:11px;color:var(--text3);">Phiên hoàn thành</div></div>
           <div style="text-align:center;"><div style="font-size:22px;font-weight:700;font-family:var(--mono);color:var(--teal)" id="pomo-time">0h 0m</div><div style="font-size:11px;color:var(--text3);">Tổng thời gian</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: COURSES -->
+  <div class="content" id="page-courses" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+      <div>
+        <div style="font-size:16px;font-weight:700;">📚 Tất cả khoá học</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="courses-summary">8 khoá học · <span style="color:var(--teal)">1 hoàn thành</span></div>
+      </div>
+      <button class="btn-primary" onclick="openModal('add-course')">+ Thêm khoá học</button>
+    </div>
+
+    <!-- filter tabs -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="prob-filter-btn active" onclick="setCourseFilter('all',this)">Tất cả</button>
+      <button class="prob-filter-btn" onclick="setCourseFilter('active',this)">📖 Đang học</button>
+      <button class="prob-filter-btn" onclick="setCourseFilter('done',this)">✅ Hoàn thành</button>
+      <button class="prob-filter-btn" onclick="setCourseFilter('frontend',this)">⚛️ Frontend</button>
+      <button class="prob-filter-btn" onclick="setCourseFilter('backend',this)">🔧 Backend</button>
+      <button class="prob-filter-btn" onclick="setCourseFilter('data',this)">🐍 Data Science</button>
+    </div>
+
+    <div class="courses-grid" id="courses-grid"></div>
+  </div>
+
+  <!-- COURSE DETAIL PANEL -->
+  <div class="course-detail-overlay" id="course-detail-overlay" onclick="if(event.target===this)closeCourseDetail()">
+    <div class="course-detail-panel" id="course-detail-panel">
+      <div class="cdp-banner" id="cdp-banner">📚
+        <div class="cdp-close" onclick="closeCourseDetail()">✕</div>
+      </div>
+      <div class="cdp-body">
+        <div class="cdp-title" id="cdp-title">Khoá học</div>
+        <div class="cdp-meta" id="cdp-meta">Giảng viên · Danh mục</div>
+        <div class="cdp-prog-big">
+          <div class="cdp-prog-nums">
+            <span id="cdp-prog-label">Tiến độ</span>
+            <span id="cdp-prog-pct">0%</span>
+          </div>
+          <div class="cdp-prog-track"><div class="cdp-prog-fill" id="cdp-prog-fill" style="width:0%;background:var(--indigo)"></div></div>
+          <div style="font-size:11px;color:var(--text3);margin-top:5px;" id="cdp-prog-sub">0 / 0 bài đã hoàn thành</div>
+        </div>
+        <div class="cdp-section-title">Nội dung khoá học</div>
+        <div class="cdp-lessons" id="cdp-lessons"></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-primary" style="flex:1;justify-content:center;" id="cdp-continue-btn" onclick="continueLesson()">▶ Tiếp tục học</button>
+          <button class="btn-ghost" onclick="closeCourseDetail()">Đóng</button>
         </div>
       </div>
     </div>
@@ -635,9 +800,26 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
             <span style="font-size:11px;color:#585b70;font-family:var(--mono);">Tab = 2 spaces</span>
           </div>
           <div style="display:flex;gap:8px;">
+            <button class="tc-btn" style="background:#313244;border-color:#45475a;color:#89b4fa;" onclick="openChallengeModal()">⏱ Timer</button>
             <button class="run-btn" onclick="runCode()">▶ Chạy</button>
             <button class="submit-btn" onclick="submitCode()">⬆ Nộp bài</button>
           </div>
+        </div>
+
+        <!-- CHALLENGE TIMER BAR -->
+        <div class="challenge-timer-bar" id="challenge-timer-bar">
+          <div class="ct-ring">
+            <svg width="36" height="36" viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="15" fill="none" stroke="#45475a" stroke-width="3"/>
+              <circle id="ct-circle" cx="18" cy="18" r="15" fill="none" stroke="var(--indigo)" stroke-width="3" stroke-dasharray="94.2" stroke-dashoffset="0" stroke-linecap="round"/>
+            </svg>
+            <div class="ct-time-text" id="ct-mini-display">--</div>
+          </div>
+          <div class="ct-info">
+            <div class="ct-label">⚡ Thử thách thời gian</div>
+            <div class="ct-remaining" id="ct-remaining-display">--:--</div>
+          </div>
+          <button class="ct-btn-stop" onclick="stopChallengeTimer()">✕ Dừng</button>
         </div>
 
         <div class="code-area-wrap">
@@ -660,6 +842,40 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   </div>
 
 </main>
+</div>
+
+<!-- CHALLENGE TIMER MODAL -->
+<div class="challenge-timer-modal" id="challenge-timer-modal">
+  <div class="ctm-box">
+    <h3>⏱️ Thử thách thời gian</h3>
+    <p>Chọn giới hạn thời gian để thử thách bản thân giải bài nhanh hơn!</p>
+    <div class="ctm-presets">
+      <div class="ctm-preset selected" onclick="selectChallengePreset(5,this)"><span class="preset-time">5:00</span><span class="preset-label">Nhanh</span></div>
+      <div class="ctm-preset" onclick="selectChallengePreset(10,this)"><span class="preset-time">10:00</span><span class="preset-label">Vừa</span></div>
+      <div class="ctm-preset" onclick="selectChallengePreset(15,this)"><span class="preset-time">15:00</span><span class="preset-label">Bình thường</span></div>
+      <div class="ctm-preset" onclick="selectChallengePreset(20,this)"><span class="preset-time">20:00</span><span class="preset-label">Thoải mái</span></div>
+      <div class="ctm-preset" onclick="selectChallengePreset(30,this)"><span class="preset-time">30:00</span><span class="preset-label">Khó</span></div>
+      <div class="ctm-preset" onclick="selectChallengePreset(45,this)"><span class="preset-time">45:00</span><span class="preset-label">Marathon</span></div>
+    </div>
+    <div class="ctm-custom-row">
+      <label>Tuỳ chỉnh (phút):</label>
+      <input class="ctm-input" type="number" id="challenge-custom-min" min="1" max="120" placeholder="..."/>
+    </div>
+    <div class="ctm-actions">
+      <button class="ctm-cancel" onclick="closeChallengeModal()">Huỷ</button>
+      <button class="ctm-start" onclick="startChallengeTimer()">🚀 Bắt đầu!</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHALLENGE FINISHED OVERLAY -->
+<div class="ct-finished-overlay" id="ct-finished-overlay">
+  <div class="ctf-box">
+    <div class="ctf-emoji" id="ctf-emoji">⏰</div>
+    <div class="ctf-title" id="ctf-title">Hết giờ!</div>
+    <div class="ctf-msg" id="ctf-msg">Thời gian thử thách đã kết thúc.</div>
+    <button class="ctf-close" onclick="document.getElementById('ct-finished-overlay').classList.remove('open')">OK, tiếp tục</button>
+  </div>
 </div>
 
 <!-- ── MODALS ── -->
@@ -837,7 +1053,7 @@ function doLogout(){
 }
 
 // ── PAGE NAVIGATION ──
-const allPages=['dashboard','timer','notes','tasks','progress','problems','editor'];
+const allPages=['dashboard','timer','notes','tasks','progress','problems','editor','courses'];
 function setPage(id,navEl){
   allPages.forEach(p=>{
     const el=document.getElementById('page-'+p);
@@ -866,6 +1082,7 @@ function setPage(id,navEl){
   };
   if(id==='dashboard')updateGreeting(getCurrentUser()?getCurrentUser().name:null);
   else document.getElementById('page-title').textContent=titles[id]||'Dashboard';
+  if(id==='courses')renderCoursesPage();
 
   // hide topbar search/buttons in editor for cleaner look
   const searchBar=document.getElementById('topbar-search');
@@ -1330,9 +1547,10 @@ const badgeMap={'Frontend':'b-new','Backend':'b-sky','Data Science':'b-done','De
 function addCourse(){
   const name=document.getElementById('new-course-name').value.trim();
   const teacher=document.getElementById('new-course-teacher').value.trim();
-  const total=document.getElementById('new-course-total').value||'?';
+  const total=parseInt(document.getElementById('new-course-total').value)||10;
   const cat=document.getElementById('new-course-cat').value;
   if(!name){showToast('Vui lòng nhập tên khoá học!','⚠️');return;}
+  // add to DOM dashboard
   const div=document.createElement('div');
   div.className='course-row';
   div.innerHTML=`<div class="course-thumb" style="background:${colorMap[cat]}">${emojiMap[cat]}</div>
@@ -1341,6 +1559,13 @@ function addCourse(){
   <div class="ci-pct">0% · Mới bắt đầu</div></div>
   <div class="badge ${badgeMap[cat]}">🆕 Mới</div>`;
   document.getElementById('course-list').appendChild(div);
+  // add to courses data for courses page
+  const newId='c_'+Date.now();
+  const lessons=Array.from({length:total},(_, i)=>({name:`Bài ${i+1}`,dur:'30 phút',done:false,active:i===0}));
+  const newCourse={id:newId,name,teacher:teacher||'Chưa rõ',category:cat,emoji:emojiMap[cat],color:colorMap[cat],fill:fillMap[cat],totalLessons:total,tag:badgeMap[cat],tagText:'🆕 Mới',lessons};
+  const saved=JSON.parse(localStorage.getItem('lf_custom_courses')||'[]');
+  saved.push(newCourse);
+  localStorage.setItem('lf_custom_courses',JSON.stringify(saved));
   closeModal('modal-add-course');
   document.getElementById('new-course-name').value='';
   document.getElementById('new-course-teacher').value='';
@@ -1521,6 +1746,532 @@ function skipTimer(){
   document.getElementById('timer-btn').textContent='▶ Bắt đầu';
 }
 
+
+// ── COURSES DATA ──
+const coursesData = [
+  {
+    id:'c1', name:'React Advanced & Performance Patterns', teacher:'Nguyễn Văn A',
+    category:'Frontend', emoji:'⚛️', color:'var(--indigo-light)', fill:'var(--indigo)',
+    totalLessons:42, tag:'b-live', tagText:'🔴 Live',
+    lessons:[
+      {name:'Giới thiệu khoá học',dur:'12 phút',done:true},
+      {name:'React 18: Concurrent Mode',dur:'28 phút',done:true},
+      {name:'useTransition & useDeferredValue',dur:'35 phút',done:true},
+      {name:'useCallback & useMemo nâng cao',dur:'40 phút',done:true},
+      {name:'Custom Hooks thực chiến',dur:'45 phút',done:true},
+      {name:'Context API vs Zustand',dur:'38 phút',done:true},
+      {name:'React Query: Server State',dur:'52 phút',done:true},
+      {name:'Lazy loading & Code splitting',dur:'30 phút',done:true},
+      {name:'Virtualization với react-window',dur:'28 phút',done:true},
+      {name:'Memoization patterns',dur:'35 phút',done:true},
+      {name:'Error Boundaries',dur:'22 phút',done:true},
+      {name:'Suspense & Data Fetching',dur:'40 phút',done:true},
+      {name:'React Testing Library',dur:'50 phút',done:true},
+      {name:'Vitest & jest setup',dur:'32 phút',done:true},
+      {name:'Performance profiling',dur:'38 phút',done:true},
+      {name:'Next.js App Router basics',dur:'55 phút',done:true},
+      {name:'Server Components',dur:'48 phút',done:true},
+      {name:'Next.js Data Fetching patterns',dur:'44 phút',done:true},
+      {name:'SEO & Metadata API',dur:'25 phút',done:true},
+      {name:'Next.js Deployment',dur:'30 phút',done:true},
+      {name:'Zustand advanced patterns',dur:'42 phút',done:true},
+      {name:'Jotai vs Recoil comparison',dur:'35 phút',done:true},
+      {name:'React Hook Form',dur:'48 phút',done:true},
+      {name:'Zod validation',dur:'30 phút',done:true},
+      {name:'Framer Motion animations',dur:'55 phút',done:true},
+      {name:'Styled Components deep dive',dur:'40 phút',done:true},
+      {name:'Tailwind + React patterns',dur:'35 phút',done:true},
+      {name:'Storybook component docs',dur:'42 phút',done:true},
+      {name:'🎯 Dự án: E-commerce UI',dur:'90 phút',done:false,active:true},
+      {name:'Monorepo với Turborepo',dur:'45 phút',done:false},
+      {name:'Micro-frontends',dur:'50 phút',done:false},
+      {name:'WebSockets trong React',dur:'38 phút',done:false},
+      {name:'Server-Sent Events',dur:'28 phút',done:false},
+      {name:'PWA với React',dur:'42 phút',done:false},
+      {name:'Cypress E2E Testing',dur:'55 phút',done:false},
+      {name:'Playwright testing',dur:'48 phút',done:false},
+      {name:'CI/CD cho React apps',dur:'35 phút',done:false},
+      {name:'Docker & containerization',dur:'50 phút',done:false},
+      {name:'Performance audit tools',dur:'32 phút',done:false},
+      {name:'Accessibility (a11y)',dur:'38 phút',done:false},
+      {name:'Internationalisation (i18n)',dur:'30 phút',done:false},
+      {name:'🏆 Dự án cuối khoá',dur:'120 phút',done:false},
+    ]
+  },
+  {
+    id:'c2', name:'Python cho Data Science & Machine Learning', teacher:'Trần Thị B',
+    category:'Data Science', emoji:'🐍', color:'var(--teal-light)', fill:'var(--teal)',
+    totalLessons:60, tag:'b-new', tagText:'✨ Mới',
+    lessons:[
+      {name:'Cài đặt Python & Jupyter',dur:'15 phút',done:true},
+      {name:'NumPy cơ bản',dur:'45 phút',done:true},
+      {name:'NumPy nâng cao: broadcasting',dur:'40 phút',done:true},
+      {name:'Pandas Series & DataFrame',dur:'50 phút',done:true},
+      {name:'Pandas: Cleaning & Wrangling',dur:'55 phút',done:true},
+      {name:'Pandas groupby & pivot',dur:'45 phút',done:true},
+      {name:'Pandas merge & join',dur:'40 phút',done:true},
+      {name:'Matplotlib cơ bản',dur:'38 phút',done:true},
+      {name:'Seaborn visualization',dur:'42 phút',done:true},
+      {name:'Plotly interactive charts',dur:'50 phút',done:true},
+      {name:'EDA (Exploratory Data Analysis)',dur:'60 phút',done:true},
+      {name:'Feature Engineering',dur:'55 phút',done:true},
+      {name:'Xử lý missing values',dur:'35 phút',done:true},
+      {name:'Encoding categorical data',dur:'30 phút',done:true},
+      {name:'Scaling & Normalization',dur:'28 phút',done:true},
+      {name:'Train/Test split',dur:'20 phút',done:true},
+      {name:'Linear Regression',dur:'50 phút',done:true},
+      {name:'Logistic Regression',dur:'48 phút',done:true},
+      {name:'Decision Trees',dur:'45 phút',done:true},
+      {name:'Random Forest',dur:'52 phút',done:true},
+      {name:'Gradient Boosting (XGBoost)',dur:'55 phút',done:true},
+      {name:'SVM (Support Vector Machine)',dur:'48 phút',done:true},
+      {name:'K-Means Clustering',dur:'40 phút',done:true},
+      {name:'DBSCAN & hierarchical',dur:'38 phút',done:true},
+      {name:'PCA (Dimensionality Reduction)',dur:'50 phút',done:true},
+      {name:'🎯 Dự án: Titanic Prediction',dur:'90 phút',done:false,active:true},
+      {name:'Neural Networks với Keras',dur:'65 phút',done:false},
+      {name:'Deep Learning basics',dur:'70 phút',done:false},
+      {name:'CNN cho Image Classification',dur:'75 phút',done:false},
+      {name:'RNN & LSTM',dur:'68 phút',done:false},
+      {name:'NLP: Text Processing',dur:'60 phút',done:false},
+      {name:'NLP: Sentiment Analysis',dur:'55 phút',done:false},
+      {name:'Transformers & BERT',dur:'80 phút',done:false},
+      {name:'Time Series Analysis',dur:'65 phút',done:false},
+      {name:'Recommendation Systems',dur:'58 phút',done:false},
+      {name:'MLflow: Experiment Tracking',dur:'45 phút',done:false},
+      {name:'Model Deployment (FastAPI)',dur:'60 phút',done:false},
+      {name:'Docker cho ML',dur:'50 phút',done:false},
+      {name:'Cloud ML (AWS SageMaker)',dur:'70 phút',done:false},
+      {name:'🏆 Dự án cuối: ML Pipeline',dur:'180 phút',done:false},
+    ]
+  },
+  {
+    id:'c3', name:'UI/UX Design Masterclass 2025', teacher:'Lê Văn C',
+    category:'Design', emoji:'🎨', color:'var(--amber-light)', fill:'var(--amber)',
+    totalLessons:38, tag:'b-done', tagText:'✅ Gần xong',
+    lessons:[
+      {name:'Tổng quan UI/UX Design',dur:'20 phút',done:true},
+      {name:'Design Thinking Process',dur:'35 phút',done:true},
+      {name:'User Research methods',dur:'40 phút',done:true},
+      {name:'User Personas',dur:'30 phút',done:true},
+      {name:'User Journey Mapping',dur:'38 phút',done:true},
+      {name:'Information Architecture',dur:'32 phút',done:true},
+      {name:'Wireframing basics',dur:'45 phút',done:true},
+      {name:'Figma: công cụ thiết kế',dur:'50 phút',done:true},
+      {name:'Design Systems',dur:'55 phút',done:true},
+      {name:'Typography trong UI',dur:'35 phút',done:true},
+      {name:'Color Theory',dur:'40 phút',done:true},
+      {name:'Spacing & Layout (8pt grid)',dur:'30 phút',done:true},
+      {name:'Components & Variants',dur:'48 phút',done:true},
+      {name:'Auto Layout Figma',dur:'42 phút',done:true},
+      {name:'Responsive Design',dur:'45 phút',done:true},
+      {name:'Mobile-first approach',dur:'35 phút',done:true},
+      {name:'Prototyping trong Figma',dur:'50 phút',done:true},
+      {name:'Micro-interactions',dur:'38 phút',done:true},
+      {name:'Animation basics',dur:'42 phút',done:true},
+      {name:'Usability Testing',dur:'40 phút',done:true},
+      {name:'A/B Testing design',dur:'35 phút',done:true},
+      {name:'Heuristic Evaluation',dur:'30 phút',done:true},
+      {name:'Accessibility in Design',dur:'38 phút',done:true},
+      {name:'Dark Mode patterns',dur:'25 phút',done:true},
+      {name:'Design Handoff (Dev Mode)',dur:'30 phút',done:true},
+      {name:'App: Banking UI Case Study',dur:'60 phút',done:true},
+      {name:'App: E-commerce Case Study',dur:'65 phút',done:true},
+      {name:'App: Social Media Case Study',dur:'58 phút',done:true},
+      {name:'App: SaaS Dashboard',dur:'70 phút',done:true},
+      {name:'App: Food Delivery App',dur:'62 phút',done:true},
+      {name:'App: Fitness Tracker',dur:'55 phút',done:true},
+      {name:'App: Travel Booking',dur:'58 phút',done:true},
+      {name:'App: E-learning Platform',dur:'60 phút',done:true},
+      {name:'App: Healthcare App',dur:'55 phút',done:true},
+      {name:'Portfolio xây dựng',dur:'75 phút',done:true},
+      {name:'Trình bày dự án',dur:'45 phút',done:false,active:true},
+      {name:'Freelancing & Career path',dur:'40 phút',done:false},
+      {name:'🏆 Bảo vệ đồ án cuối khoá',dur:'90 phút',done:false},
+    ]
+  },
+  {
+    id:'c4', name:'AWS Cloud Practitioner Essentials', teacher:'Phạm Thị D',
+    category:'DevOps', emoji:'☁️', color:'var(--sky-light)', fill:'var(--sky)',
+    totalLessons:55, tag:'b-sky', tagText:'🆕 Mới bắt đầu',
+    lessons:[
+      {name:'Giới thiệu Cloud Computing',dur:'20 phút',done:true},
+      {name:'AWS Global Infrastructure',dur:'25 phút',done:true},
+      {name:'IAM: Users, Groups, Roles',dur:'40 phút',done:true},
+      {name:'IAM Policies & Permissions',dur:'38 phút',done:true},
+      {name:'IAM Best Practices',dur:'22 phút',done:true},
+      {name:'EC2: Virtual Machines',dur:'50 phút',done:true},
+      {name:'EC2 Instance Types',dur:'30 phút',done:true},
+      {name:'Security Groups & NACL',dur:'35 phút',done:true},
+      {name:'EBS & Storage options',dur:'32 phút',done:true},
+      {name:'AMI & Launch Templates',dur:'28 phút',done:true},
+      {name:'Auto Scaling Groups',dur:'45 phút',done:true},
+      {name:'Load Balancers (ALB/NLB)',dur:'40 phút',done:true},
+      {name:'🎯 Lab: Deploy Web App trên EC2',dur:'60 phút',done:false,active:true},
+      {name:'S3: Object Storage',dur:'35 phút',done:false},
+      {name:'S3 Versioning & Lifecycle',dur:'28 phút',done:false},
+      {name:'S3 Static Website Hosting',dur:'25 phút',done:false},
+      {name:'CloudFront CDN',dur:'38 phút',done:false},
+      {name:'RDS: Managed Databases',dur:'45 phút',done:false},
+      {name:'DynamoDB: NoSQL',dur:'42 phút',done:false},
+      {name:'ElastiCache',dur:'30 phút',done:false},
+      {name:'VPC: Virtual Networks',dur:'55 phút',done:false},
+      {name:'Subnets & Route Tables',dur:'40 phút',done:false},
+      {name:'VPN & Direct Connect',dur:'35 phút',done:false},
+      {name:'Route 53: DNS',dur:'30 phút',done:false},
+      {name:'Lambda: Serverless',dur:'48 phút',done:false},
+      {name:'API Gateway',dur:'40 phút',done:false},
+      {name:'SQS & SNS',dur:'38 phút',done:false},
+      {name:'EventBridge',dur:'30 phút',done:false},
+      {name:'CloudWatch Monitoring',dur:'42 phút',done:false},
+      {name:'CloudTrail & Config',dur:'35 phút',done:false},
+      {name:'ECS & Fargate: Containers',dur:'50 phút',done:false},
+      {name:'EKS: Kubernetes on AWS',dur:'55 phút',done:false},
+      {name:'CodePipeline & CI/CD',dur:'45 phút',done:false},
+      {name:'CloudFormation: IaC',dur:'48 phút',done:false},
+      {name:'Elastic Beanstalk',dur:'35 phút',done:false},
+      {name:'Billing & Cost Management',dur:'25 phút',done:false},
+      {name:'Pricing Calculator',dur:'20 phút',done:false},
+      {name:'Cost Optimization strategies',dur:'30 phút',done:false},
+      {name:'Security Hub & GuardDuty',dur:'38 phút',done:false},
+      {name:'AWS WAF & Shield',dur:'32 phút',done:false},
+      {name:'KMS: Key Management',dur:'28 phút',done:false},
+      {name:'Secrets Manager',dur:'22 phút',done:false},
+      {name:'Well-Architected Framework',dur:'45 phút',done:false},
+      {name:'Migration Strategies',dur:'35 phút',done:false},
+      {name:'AWS Organizations',dur:'28 phút',done:false},
+      {name:'Control Tower',dur:'30 phút',done:false},
+      {name:'Rekognition & Comprehend',dur:'38 phút',done:false},
+      {name:'SageMaker intro',dur:'45 phút',done:false},
+      {name:'Athena & Glue',dur:'40 phút',done:false},
+      {name:'Kinesis Data Streams',dur:'42 phút',done:false},
+      {name:'Redshift Data Warehouse',dur:'48 phút',done:false},
+      {name:'Thi thử CLF-C02 (Part 1)',dur:'60 phút',done:false},
+      {name:'Thi thử CLF-C02 (Part 2)',dur:'60 phút',done:false},
+      {name:'Review & Giải đề',dur:'75 phút',done:false},
+      {name:'🏆 Mock Exam: CLF-C02',dur:'90 phút',done:false},
+    ]
+  },
+  {
+    id:'c5', name:'TypeScript Full Course 2025', teacher:'Ngô Minh E',
+    category:'Frontend', emoji:'🔷', color:'#dbeafe', fill:'#3b82f6',
+    totalLessons:35, tag:'b-new', tagText:'✨ Mới thêm',
+    lessons:[
+      {name:'TypeScript là gì?',dur:'15 phút',done:false,active:true},
+      {name:'Types & Interfaces',dur:'35 phút',done:false},
+      {name:'Generics',dur:'45 phút',done:false},
+      {name:'Decorators',dur:'40 phút',done:false},
+      {name:'TypeScript với React',dur:'55 phút',done:false},
+    ]
+  },
+  {
+    id:'c6', name:'Node.js & Express: Backend Development', teacher:'Võ Thanh F',
+    category:'Backend', emoji:'🟢', color:'var(--teal-light)', fill:'var(--teal)',
+    totalLessons:48, tag:'b-sky', tagText:'🆕 Mới',
+    lessons:[
+      {name:'Node.js fundamentals',dur:'30 phút',done:false,active:true},
+      {name:'Express.js basics',dur:'40 phút',done:false},
+      {name:'REST API design',dur:'45 phút',done:false},
+      {name:'JWT Authentication',dur:'50 phút',done:false},
+      {name:'MongoDB & Mongoose',dur:'55 phút',done:false},
+    ]
+  },
+  {
+    id:'c7', name:'Docker & Kubernetes Mastery', teacher:'Đinh Bảo G',
+    category:'DevOps', emoji:'🐳', color:'var(--sky-light)', fill:'var(--sky)',
+    totalLessons:40, tag:'b-sky', tagText:'⚙️ DevOps',
+    lessons:[
+      {name:'Docker basics',dur:'35 phút',done:false,active:true},
+      {name:'Dockerfile',dur:'30 phút',done:false},
+      {name:'Docker Compose',dur:'40 phút',done:false},
+      {name:'Kubernetes overview',dur:'50 phút',done:false},
+      {name:'Pods & Services',dur:'45 phút',done:false},
+    ]
+  },
+  {
+    id:'c8', name:'Figma Advanced: Design Systems', teacher:'Hoàng Yến H',
+    category:'Design', emoji:'🖌️', color:'var(--rose-light)', fill:'var(--rose)',
+    totalLessons:28, tag:'b-done', tagText:'✅ Hoàn thành',
+    lessons:[
+      {name:'Variables & Tokens',dur:'40 phút',done:true},
+      {name:'Advanced Components',dur:'50 phút',done:true},
+      {name:'Figma Dev Mode',dur:'35 phút',done:true},
+      {name:'Design Tokens export',dur:'30 phút',done:true},
+      {name:'Team Libraries',dur:'25 phút',done:true},
+    ]
+  },
+];
+
+let courseFilter='all';
+let activeCourseId=null;
+
+function getCourseProgress(course){
+  const done=course.lessons.filter(l=>l.done).length;
+  const pct=Math.round(done/course.lessons.length*100);
+  return{done,total:course.lessons.length,pct};
+}
+
+function setCourseFilter(f,el){
+  courseFilter=f;
+  document.querySelectorAll('#page-courses .prob-filter-btn').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderCoursesPage();
+}
+
+function renderCoursesPage(){
+  const grid=document.getElementById('courses-grid');
+  if(!grid)return;
+  let list=coursesData.filter(c=>{
+    if(courseFilter==='active'){const p=getCourseProgress(c);return p.pct>0&&p.pct<100;}
+    if(courseFilter==='done'){const p=getCourseProgress(c);return p.pct===100;}
+    if(courseFilter==='frontend')return c.category==='Frontend';
+    if(courseFilter==='backend')return c.category==='Backend';
+    if(courseFilter==='data')return c.category==='Data Science';
+    return true;
+  });
+  // merge dynamic courses from localStorage
+  const saved=JSON.parse(localStorage.getItem('lf_custom_courses')||'[]');
+  if(courseFilter==='all')list=[...list,...saved];
+
+  grid.innerHTML=list.map(c=>{
+    const p=getCourseProgress(c);
+    return`<div class="course-card" onclick="openCourseDetail('${c.id}')">
+      <div class="course-card-banner" style="background:${c.color}">${c.emoji}</div>
+      <div class="course-card-body">
+        <div class="course-card-title">${c.name}</div>
+        <div class="course-card-meta">${c.teacher} · ${c.category}</div>
+        <div class="course-prog-row"><span style="font-size:12px;color:var(--text2)">Tiến độ</span><span class="course-prog-pct" style="color:${c.fill}">${p.pct}%</span></div>
+        <div class="course-prog-bar"><div class="course-prog-fill" style="width:${p.pct}%;background:${c.fill}"></div></div>
+        <div class="course-card-footer">
+          <span class="course-lessons-count">${p.done} / ${p.total} bài · ${c.lessons.length} tổng</span>
+          <span class="badge ${c.tag}">${c.tagText}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openCourseDetail(id){
+  const c=coursesData.find(x=>x.id===id);
+  if(!c)return;
+  activeCourseId=id;
+  const p=getCourseProgress(c);
+  document.getElementById('cdp-banner').style.background=c.color;
+  document.getElementById('cdp-banner').querySelector('div').style.display='flex'; // keep close btn
+  document.getElementById('cdp-banner').childNodes[0].textContent=c.emoji+' ';
+  document.getElementById('cdp-title').textContent=c.name;
+  document.getElementById('cdp-meta').textContent=`${c.teacher} · ${c.category} · ${c.totalLessons} bài học`;
+  document.getElementById('cdp-prog-label').textContent=`Tiến độ học`;
+  document.getElementById('cdp-prog-pct').textContent=`${p.pct}%`;
+  document.getElementById('cdp-prog-pct').style.color=c.fill;
+  document.getElementById('cdp-prog-fill').style.width=`${p.pct}%`;
+  document.getElementById('cdp-prog-fill').style.background=c.fill;
+  document.getElementById('cdp-prog-sub').textContent=`${p.done} / ${p.total} bài đã hoàn thành · Còn ${p.total-p.done} bài`;
+
+  const lessonsEl=document.getElementById('cdp-lessons');
+  const displayLessons=c.lessons.slice(0,Math.min(c.lessons.length,30));
+  lessonsEl.innerHTML=displayLessons.map((l,i)=>{
+    const isDone=l.done;
+    const isActive=l.active&&!isDone;
+    const isLocked=!isDone&&!isActive&&i>displayLessons.findIndex(x=>x.active)||false;
+    const cls=isDone?'done':isActive?'active-lesson':'';
+    const numCls=isDone?'ln-done':isActive?'ln-active':'ln-lock';
+    const tick=isDone?'<span class="lesson-tick">✓</span>':isActive?'<span class="lesson-play">▶</span>':'<span style="font-size:12px;color:var(--text3)">🔒</span>';
+    return`<div class="lesson-row ${cls}" onclick="markLessonDone('${id}',${i},this)">
+      <div class="lesson-num ${numCls}">${i+1}</div>
+      <div class="lesson-info"><div class="lesson-name">${l.name}</div><div class="lesson-dur">⏱ ${l.dur}</div></div>
+      ${tick}
+    </div>`;
+  }).join('');
+  if(c.lessons.length>30){
+    lessonsEl.innerHTML+=`<div style="text-align:center;padding:12px;font-size:12px;color:var(--text3);">+${c.lessons.length-30} bài nữa...</div>`;
+  }
+
+  const nextLesson=c.lessons.find(l=>!l.done);
+  document.getElementById('cdp-continue-btn').textContent=nextLesson?`▶ Tiếp tục: ${nextLesson.name.slice(0,30)}...`:'🏆 Xem lại khoá học';
+
+  document.getElementById('course-detail-overlay').classList.add('open');
+}
+
+function markLessonDone(courseId,idx,el){
+  const c=coursesData.find(x=>x.id===courseId);
+  if(!c)return;
+  const lesson=c.lessons[idx];
+  if(!lesson)return;
+  lesson.done=!lesson.done;
+  // update active
+  c.lessons.forEach((l,i)=>{if(i<=idx)l.active=false;});
+  const nextUndone=c.lessons.find((l,i)=>i>idx&&!l.done);
+  if(nextUndone)nextUndone.active=true;
+  // re-render detail
+  openCourseDetail(courseId);
+  // sync progress page
+  syncProgressPage();
+  const p=getCourseProgress(c);
+  showToast(`${lesson.done?'✅ Hoàn thành':'↩ Bỏ đánh dấu'}: ${lesson.name}`,'📚');
+  if(p.pct===100)showToast(`🎉 Chúc mừng! Bạn đã hoàn thành khoá học "${c.name}"!`,'🏆');
+}
+
+function continueLesson(){
+  if(!activeCourseId)return;
+  const c=coursesData.find(x=>x.id===activeCourseId);
+  if(!c)return;
+  const next=c.lessons.find(l=>!l.done);
+  if(next){
+    const idx=c.lessons.indexOf(next);
+    markLessonDone(activeCourseId,idx,null);
+  }
+}
+
+function closeCourseDetail(){
+  document.getElementById('course-detail-overlay').classList.remove('open');
+  renderCoursesPage();
+}
+
+function syncProgressPage(){
+  const progressBars=document.querySelectorAll('#page-progress .card:first-child > div > div');
+  progressBars.forEach(row=>{
+    const nameEl=row.querySelector('span:first-child');
+    if(!nameEl)return;
+    const name=nameEl.textContent;
+    const course=coursesData.find(c=>name.includes(c.emoji)||name.includes(c.name.split(' ')[0]));
+    if(!course)return;
+    const p=getCourseProgress(course);
+    const pctEl=row.querySelector('span:last-child');
+    const fillEl=row.querySelector('div > div');
+    if(pctEl)pctEl.textContent=`${p.pct}%`;
+    if(fillEl)fillEl.style.width=`${p.pct}%`;
+  });
+  // sync dashboard course list
+  syncDashboardCourses();
+}
+
+function syncDashboardCourses(){
+  const rows=document.querySelectorAll('#course-list .course-row');
+  const map={0:'c1',1:'c2',2:'c3',3:'c4'};
+  rows.forEach((row,i)=>{
+    const c=coursesData.find(x=>x.id===map[i]);
+    if(!c)return;
+    const p=getCourseProgress(c);
+    const fill=row.querySelector('.ci-fill');
+    const pct=row.querySelector('.ci-pct');
+    if(fill)fill.style.width=`${p.pct}%`;
+    if(pct){
+      const left=p.total-p.done;
+      pct.textContent=left===0?`${p.pct}% · Hoàn thành! 🎉`:`${p.pct}% · Còn ${left} bài`;
+    }
+  });
+}
+
+// ── SESSION TIME TRACKER ──
+let sessionStartTime=Date.now();
+let sessionTodayBase=parseInt(localStorage.getItem('lf_session_today_base')||'0');
+const lastDate=localStorage.getItem('lf_session_date')||'';
+const todayStr=new Date().toDateString();
+if(lastDate!==todayStr){
+  sessionTodayBase=0;
+  localStorage.setItem('lf_session_today_base','0');
+  localStorage.setItem('lf_session_date',todayStr);
+}
+
+function formatSessionTime(ms){
+  const totalSec=Math.floor(ms/1000);
+  const h=Math.floor(totalSec/3600);
+  const m=Math.floor((totalSec%3600)/60);
+  const s=totalSec%60;
+  return`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function formatHM(ms){
+  const totalSec=Math.floor(ms/1000);
+  const h=Math.floor(totalSec/3600);
+  const m=Math.floor((totalSec%3600)/60);
+  return h>0?`${h}h ${m}m`:`${m}m`;
+}
+
+function updateSessionDisplay(){
+  const elapsed=Date.now()-sessionStartTime;
+  const todayTotal=sessionTodayBase+elapsed;
+  const dispEl=document.getElementById('session-display');
+  const todayEl=document.getElementById('session-today');
+  if(dispEl)dispEl.textContent=formatSessionTime(elapsed);
+  if(todayEl)todayEl.textContent=formatHM(todayTotal);
+  localStorage.setItem('lf_session_today_base',String(Math.floor(todayTotal)));
+}
+setInterval(updateSessionDisplay,1000);
+updateSessionDisplay();
+
+// ── CHALLENGE TIMER ──
+let challengeSelectedMin=5;
+let challengeInterval=null;
+let challengeEndTime=null;
+let challengeTotalSec=0;
+
+function openChallengeModal(){
+  document.getElementById('challenge-timer-modal').classList.add('open');
+  // reset to default selection
+  document.querySelectorAll('.ctm-preset').forEach(b=>b.classList.remove('selected'));
+  document.querySelector('.ctm-preset').classList.add('selected');
+  challengeSelectedMin=5;
+  document.getElementById('challenge-custom-min').value='';
+}
+function closeChallengeModal(){
+  document.getElementById('challenge-timer-modal').classList.remove('open');
+}
+function selectChallengePreset(min,el){
+  challengeSelectedMin=min;
+  document.querySelectorAll('.ctm-preset').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('challenge-custom-min').value='';
+}
+function startChallengeTimer(){
+  const customVal=parseInt(document.getElementById('challenge-custom-min').value);
+  const mins=(!isNaN(customVal)&&customVal>0)?customVal:challengeSelectedMin;
+  challengeTotalSec=mins*60;
+  challengeEndTime=Date.now()+challengeTotalSec*1000;
+  closeChallengeModal();
+  document.getElementById('challenge-timer-bar').classList.add('active');
+  clearInterval(challengeInterval);
+  updateChallengeDisplay();
+  challengeInterval=setInterval(updateChallengeDisplay,1000);
+  showToast(`⏱ Bắt đầu thử thách ${mins} phút! Chúc may mắn!`,'⚡');
+}
+function updateChallengeDisplay(){
+  if(!challengeEndTime)return;
+  const remaining=Math.max(0,Math.floor((challengeEndTime-Date.now())/1000));
+  const m=Math.floor(remaining/60);
+  const s=remaining%60;
+  const timeStr=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const miniStr=remaining<60?`${remaining}s`:`${m}m`;
+  const isWarning=remaining<=60;
+  const progress=1-remaining/challengeTotalSec;
+
+  const remainEl=document.getElementById('ct-remaining-display');
+  const miniEl=document.getElementById('ct-mini-display');
+  const circEl=document.getElementById('ct-circle');
+  if(remainEl){remainEl.textContent=timeStr;remainEl.className='ct-remaining'+(isWarning?' warning':'');}
+  if(miniEl){miniEl.textContent=miniStr;miniEl.className='ct-time-text'+(isWarning?' warning':'');}
+  if(circEl)circEl.style.strokeDashoffset=94.2*progress;
+  if(isWarning&&circEl)circEl.style.stroke='#f38ba8';
+  else if(circEl)circEl.style.stroke='var(--indigo)';
+
+  if(remaining<=0){
+    clearInterval(challengeInterval);
+    document.getElementById('challenge-timer-bar').classList.remove('active');
+    const ov=document.getElementById('ct-finished-overlay');
+    document.getElementById('ctf-emoji').textContent='⏰';
+    document.getElementById('ctf-title').textContent='Hết giờ thử thách!';
+    document.getElementById('ctf-msg').textContent=`Bạn đã dùng hết ${Math.round(challengeTotalSec/60)} phút. Dù đã nộp bài hay chưa, hãy nhìn lại và cải thiện nhé!`;
+    ov.classList.add('open');
+    showToast('⏰ Thời gian thử thách kết thúc!','⚡');
+  }
+}
+function stopChallengeTimer(){
+  clearInterval(challengeInterval);
+  challengeEndTime=null;
+  document.getElementById('challenge-timer-bar').classList.remove('active');
+  showToast('Đã dừng thử thách thời gian','⏹');
+}
+
 // ── INIT ──
 document.addEventListener('DOMContentLoaded',()=>{
   loadProblemsStatus();
@@ -1528,6 +2279,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   initAuth();
   const streakVal=parseInt(localStorage.getItem('lf_streak')||'14');
   document.getElementById('streak-val').textContent=streakVal;
+  syncDashboardCourses();
 });
 </script>
 </body>
