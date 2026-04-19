@@ -131,14 +131,23 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .b-sky{background:var(--sky-light);color:var(--sky);}
 
 /* ── SCHEDULE ── */
-.sched-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.sched-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);transition:background .15s;}
 .sched-row:last-child{border-bottom:none;padding-bottom:0;}
+.sched-row.sched-past{opacity:0.45;}
+.sched-row.sched-now{background:var(--indigo-light);border-radius:var(--r2);padding-left:8px;padding-right:8px;margin:0 -8px;border-bottom:none;}
+.sched-row.sched-next{border-left:3px solid var(--teal);padding-left:8px;}
 .sched-time{font-size:11px;font-family:var(--mono);color:var(--text3);width:44px;flex-shrink:0;text-align:right;}
+.sched-row.sched-now .sched-time{color:var(--indigo);font-weight:600;}
 .sched-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .sched-body{flex:1;}
 .sched-name{font-size:12.5px;font-weight:600;}
 .sched-meta{font-size:11px;color:var(--text3);margin-top:1px;}
-.now-tag{font-size:10px;background:var(--rose-light);color:var(--rose);border-radius:20px;padding:2px 8px;font-weight:600;}
+.now-tag{font-size:10px;background:var(--rose-light);color:var(--rose);border-radius:20px;padding:2px 8px;font-weight:600;white-space:nowrap;}
+.next-tag{font-size:10px;background:var(--teal-light);color:var(--teal);border-radius:20px;padding:2px 8px;font-weight:600;white-space:nowrap;}
+.done-tag{font-size:10px;background:var(--border);color:var(--text3);border-radius:20px;padding:2px 8px;font-weight:600;white-space:nowrap;}
+.sched-progress{font-size:10px;font-family:var(--mono);color:var(--indigo);margin-top:2px;}
+/* countdown for next session */
+.sched-countdown{font-size:10px;font-family:var(--mono);color:var(--teal);font-weight:600;}
 
 /* ── CHART ── */
 .chart-wrap{display:flex;align-items:flex-end;gap:6px;height:90px;}
@@ -263,7 +272,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .editor-left{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--surface);}
 .editor-right{display:flex;flex-direction:column;background:#1e1e2e;overflow:hidden;}
 
-/* problem description */
 .prob-desc-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
 .prob-back-btn{background:none;border:1px solid var(--border);border-radius:var(--r2);padding:5px 12px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .15s;display:flex;align-items:center;gap:5px;}
 .prob-back-btn:hover{background:var(--bg);}
@@ -278,7 +286,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .prob-constraints li{font-size:12px;color:var(--text2);font-family:var(--mono);margin-bottom:4px;list-style:none;padding-left:8px;}
 .prob-constraints li::before{content:"• ";color:var(--indigo);}
 
-/* code editor top bar */
 .editor-topbar{background:#181825;border-bottom:1px solid #313244;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .lang-select{background:#313244;border:1px solid #45475a;border-radius:6px;padding:5px 10px;color:#cdd6f4;font-family:var(--mono);font-size:12px;cursor:pointer;outline:none;}
 .run-btn{background:#a6e3a1;color:#1e1e2e;border:none;border-radius:6px;padding:6px 16px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
@@ -286,12 +293,10 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .submit-btn{background:var(--indigo);color:#fff;border:none;border-radius:6px;padding:6px 16px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
 .submit-btn:hover{background:#4a40d4;transform:translateY(-1px);}
 
-/* code textarea */
 .code-area-wrap{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;}
 .code-textarea{flex:1;background:#1e1e2e;color:#cdd6f4;font-family:var(--mono);font-size:13px;line-height:1.7;padding:16px 20px;border:none;outline:none;resize:none;tab-size:2;}
 .code-textarea::placeholder{color:#585b70;}
 
-/* test cases / output panel */
 .output-panel{background:#181825;border-top:1px solid #313244;height:220px;display:flex;flex-direction:column;flex-shrink:0;}
 .output-tabs{display:flex;gap:0;border-bottom:1px solid #313244;}
 .output-tab{padding:8px 18px;font-size:12px;font-weight:600;cursor:pointer;color:#6c7086;border-bottom:2px solid transparent;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font);}
@@ -305,9 +310,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .result-fail{color:#f38ba8;}
 .result-info{color:#89b4fa;}
 .result-warn{color:#f9e2af;}
-
-/* line numbers */
-.code-lines{position:absolute;top:0;left:0;padding:16px 0 16px 8px;width:36px;font-family:var(--mono);font-size:13px;line-height:1.7;color:#585b70;pointer-events:none;text-align:right;user-select:none;}
 
 /* ── COURSES PAGE ── */
 #page-courses{display:none;}
@@ -325,13 +327,12 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .course-card-footer{display:flex;align-items:center;justify-content:space-between;}
 .course-lessons-count{font-size:11px;color:var(--text3);}
 
-/* course detail panel */
 .course-detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:150;align-items:flex-start;justify-content:flex-end;}
 .course-detail-overlay.open{display:flex;}
 .course-detail-panel{background:var(--surface);width:540px;max-width:95vw;height:100vh;overflow-y:auto;animation:slideIn .25s ease;box-shadow:-8px 0 40px rgba(0,0,0,.12);}
 @keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
 .cdp-banner{height:140px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;}
-.cdp-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:rgba(0,0,0,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background .15s;}
+.cdp-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:rgba(0,0,0,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:16px;transition:background .15s;border:none;}
 .cdp-close:hover{background:rgba(0,0,0,.4);}
 .cdp-body{padding:20px 24px;}
 .cdp-title{font-size:18px;font-weight:700;margin-bottom:4px;}
@@ -408,12 +409,14 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
 .ctf-title{font-size:18px;font-weight:700;color:#cdd6f4;margin-bottom:8px;}
 .ctf-msg{font-size:13px;color:#6c7086;margin-bottom:20px;}
 .ctf-close{background:var(--indigo);border:none;border-radius:8px;padding:9px 24px;color:#fff;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;}
+
+/* ── ADD SCHEDULE MODAL TIME DISPLAY ── */
+.sched-time-now{font-size:11px;color:var(--text3);margin-top:4px;}
 </style>
 </head>
 <body>
 
 <div class="app">
-<!-- ── SIDEBAR ── -->
 <aside class="sidebar">
   <div class="logo">
     <div class="logo-mark">LF</div>
@@ -438,7 +441,7 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Học tập</div>
-      <div class="nav-item" onclick="setPage('tasks',this)"><span class="nav-icon">📝</span>Bài tập<span class="nav-badge">5</span></div>
+      <div class="nav-item" onclick="setPage('tasks',this)"><span class="nav-icon">📝</span>Bài tập<span class="nav-badge" id="tasks-badge">5</span></div>
       <div class="nav-item" id="nav-problems" onclick="setPage('problems',this)"><span class="nav-icon">💻</span>Luyện tập code<span class="nav-badge">40</span></div>
       <div class="nav-item" onclick="setPage('schedule',this)"><span class="nav-icon">📅</span>Lịch học</div>
       <div class="nav-item" onclick="setPage('timer',this)"><span class="nav-icon">⏱️</span>Pomodoro Timer</div>
@@ -447,7 +450,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     <div class="nav-group">
       <div class="nav-group-label">Cộng đồng</div>
       <div class="nav-item" onclick="setPage('leaderboard',this)"><span class="nav-icon">🏆</span>Bảng xếp hạng</div>
-      <div class="nav-item" onclick="setPage('groups',this)"><span class="nav-icon">👥</span>Nhóm học</div>
     </div>
     <div class="nav-group">
       <div class="nav-group-label">Cá nhân</div>
@@ -461,13 +463,12 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
       <div class="streak-icon">🔥</div>
       <div class="streak-info">
         <p>Streak hiện tại</p>
-        <div class="streak-val" id="streak-val">14</div>
+        <div class="streak-val" id="streak-val">0</div>
       </div>
     </div>
   </div>
 </aside>
 
-<!-- ── MAIN ── -->
 <main class="main">
   <header class="topbar">
     <div class="topbar-left">
@@ -491,7 +492,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     </div>
   </header>
 
-  <!-- SESSION TRACKER BAR -->
   <div class="session-bar" id="session-bar">
     <div class="session-live">
       <div class="session-dot-live"></div>
@@ -510,23 +510,23 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   <div class="content" id="page-dashboard">
     <div class="stats-row">
       <div class="stat">
-        <div class="stat-top"><div class="stat-ico" style="background:var(--indigo-light)">📚</div><div class="stat-trend trend-up">↑ +2</div></div>
-        <div class="stat-num">8</div><div class="stat-lbl">Khoá học đang học</div>
-        <div class="stat-prog"><div class="stat-fill" style="width:72%;background:var(--indigo)"></div></div>
+        <div class="stat-top"><div class="stat-ico" style="background:var(--indigo-light)">📚</div><div class="stat-trend trend-up" id="stat-courses-trend">↑ +2</div></div>
+        <div class="stat-num" id="stat-courses-num">8</div><div class="stat-lbl">Khoá học đang học</div>
+        <div class="stat-prog"><div class="stat-fill" id="stat-courses-fill" style="width:72%;background:var(--indigo)"></div></div>
       </div>
       <div class="stat">
         <div class="stat-top"><div class="stat-ico" style="background:var(--teal-light)">⏱️</div><div class="stat-trend trend-up">↑ +4.2h</div></div>
-        <div class="stat-num">47h</div><div class="stat-lbl">Giờ học tháng này</div>
+        <div class="stat-num" id="stat-hours-num">47h</div><div class="stat-lbl">Giờ học tháng này</div>
         <div class="stat-prog"><div class="stat-fill" style="width:58%;background:var(--teal)"></div></div>
       </div>
       <div class="stat">
-        <div class="stat-top"><div class="stat-ico" style="background:var(--amber-light)">✅</div><div class="stat-trend trend-up">↑ +12%</div></div>
-        <div class="stat-num">89%</div><div class="stat-lbl">Tỉ lệ hoàn thành</div>
-        <div class="stat-prog"><div class="stat-fill" style="width:89%;background:var(--amber)"></div></div>
+        <div class="stat-top"><div class="stat-ico" style="background:var(--amber-light)">✅</div><div class="stat-trend trend-up" id="stat-complete-trend">↑ +12%</div></div>
+        <div class="stat-num" id="stat-complete-num">89%</div><div class="stat-lbl">Tỉ lệ hoàn thành</div>
+        <div class="stat-prog"><div class="stat-fill" id="stat-complete-fill" style="background:var(--amber)"></div></div>
       </div>
       <div class="stat">
         <div class="stat-top"><div class="stat-ico" style="background:var(--sky-light)">🏅</div><div class="stat-trend trend-up">↑ +3</div></div>
-        <div class="stat-num">24</div><div class="stat-lbl">Huy hiệu đạt được</div>
+        <div class="stat-num" id="stat-badges-num">24</div><div class="stat-lbl">Huy hiệu đạt được</div>
         <div class="stat-prog"><div class="stat-fill" style="width:80%;background:var(--sky)"></div></div>
       </div>
     </div>
@@ -537,38 +537,19 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
           <div class="card-title">🎯 Khoá học đang học</div>
           <div class="card-action" onclick="setPage('courses',null)">Xem tất cả →</div>
         </div>
-        <div id="course-list">
-          <div class="course-row"><div class="course-thumb" style="background:var(--indigo-light)">⚛️</div><div class="ci"><div class="ci-name">React Advanced & Performance Patterns</div><div class="ci-sub">Nguyễn Văn A · 42 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:68%;background:var(--indigo)"></div></div><div class="ci-pct">68% · Còn 14 bài</div></div><div class="badge b-live">🔴 Live</div></div>
-          <div class="course-row"><div class="course-thumb" style="background:var(--teal-light)">🐍</div><div class="ci"><div class="ci-name">Python cho Data Science & ML</div><div class="ci-sub">Trần Thị B · 60 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:41%;background:var(--teal)"></div></div><div class="ci-pct">41% · Còn 35 bài</div></div><div class="badge b-new">✨ Mới</div></div>
-          <div class="course-row"><div class="course-thumb" style="background:var(--amber-light)">🎨</div><div class="ci"><div class="ci-name">UI/UX Design Masterclass 2025</div><div class="ci-sub">Lê Văn C · 38 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:92%;background:var(--amber)"></div></div><div class="ci-pct">92% · Sắp hoàn thành!</div></div><div class="badge b-done">✅ Gần xong</div></div>
-          <div class="course-row"><div class="course-thumb" style="background:var(--sky-light)">☁️</div><div class="ci"><div class="ci-name">AWS Cloud Practitioner Essentials</div><div class="ci-sub">Phạm Thị D · 55 bài học</div><div class="ci-bar"><div class="ci-fill" style="width:23%;background:var(--sky)"></div></div><div class="ci-pct">23% · Mới bắt đầu</div></div><div class="badge b-sky">🆕 Mới</div></div>
-        </div>
+        <div id="course-list"></div>
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">📅 Lịch hôm nay</div><div class="card-action" onclick="openModal('add-schedule')">+ Thêm</div></div>
-        <div id="schedule-list">
-          <div class="sched-row"><div class="sched-time">08:00</div><div class="sched-dot" style="background:var(--indigo)"></div><div class="sched-body"><div class="sched-name">React Hooks nâng cao</div><div class="sched-meta">45 phút · Module 7</div></div><div class="now-tag">Bây giờ</div></div>
-          <div class="sched-row"><div class="sched-time">10:30</div><div class="sched-dot" style="background:var(--teal)"></div><div class="sched-body"><div class="sched-name">Pandas & Visualization</div><div class="sched-meta">60 phút · Module 3</div></div></div>
-          <div class="sched-row"><div class="sched-time">14:00</div><div class="sched-dot" style="background:var(--amber)"></div><div class="sched-body"><div class="sched-name">Live: UI/UX Review Session</div><div class="sched-meta">90 phút · Buổi cuối</div></div></div>
-          <div class="sched-row"><div class="sched-time">16:30</div><div class="sched-dot" style="background:var(--sky)"></div><div class="sched-body"><div class="sched-name">AWS EC2 & S3 Basics</div><div class="sched-meta">50 phút · Module 2</div></div></div>
-          <div class="sched-row"><div class="sched-time">20:00</div><div class="sched-dot" style="background:var(--rose)"></div><div class="sched-body"><div class="sched-name">Ôn tập & Flashcard</div><div class="sched-meta">30 phút · Tự học</div></div></div>
-        </div>
+        <div id="schedule-list"></div>
       </div>
     </div>
 
     <div class="row3">
       <div class="card">
         <div class="card-header"><div class="card-title">📈 Hoạt động 7 ngày</div><div class="card-action">Xem chi tiết</div></div>
-        <div class="chart-wrap">
-          <div class="bar-col"><div class="bar" style="height:50px;background:#c7c4f5"></div><div class="bar-label">T2</div></div>
-          <div class="bar-col"><div class="bar" style="height:68px;background:#aba6ef"></div><div class="bar-label">T3</div></div>
-          <div class="bar-col"><div class="bar" style="height:40px;background:#c7c4f5"></div><div class="bar-label">T4</div></div>
-          <div class="bar-col"><div class="bar" style="height:78px;background:#aba6ef"></div><div class="bar-label">T5</div></div>
-          <div class="bar-col"><div class="bar" style="height:58px;background:#c7c4f5"></div><div class="bar-label">T6</div></div>
-          <div class="bar-col"><div class="bar" style="height:32px;background:#c7c4f5"></div><div class="bar-label">T7</div></div>
-          <div class="bar-col"><div class="bar" style="height:85px;background:var(--indigo)"></div><div class="bar-label" style="color:var(--indigo);font-weight:600">CN</div></div>
-        </div>
-        <div class="chart-stats"><div class="cs">Tổng: <b>6.8h</b></div><div class="cs">TB: <b>58 phút</b></div><div class="cs">Tốt nhất: <b style="color:var(--teal)">1.4h</b></div></div>
+        <div class="chart-wrap" id="activity-chart"></div>
+        <div class="chart-stats" id="activity-stats"></div>
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">🏆 Thành tích</div><div class="card-action">Xem kho →</div></div>
@@ -586,7 +567,7 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
         <div class="lb-row"><div class="lb-rank r-gold">1</div><div class="lb-av" style="background:#fef3e2;color:#d97706">AH</div><div class="lb-inf"><div class="lb-nm">Anh Hoàng</div><div class="lb-lv">Lv.19</div></div><div class="lb-sc">5,240</div></div>
         <div class="lb-row"><div class="lb-rank r-silver">2</div><div class="lb-av" style="background:var(--sky-light);color:var(--sky)">TL</div><div class="lb-inf"><div class="lb-nm">Thùy Linh</div><div class="lb-lv">Lv.17</div></div><div class="lb-sc">4,780</div></div>
         <div class="lb-row"><div class="lb-rank r-bronze">3</div><div class="lb-av" style="background:var(--teal-light);color:var(--teal)">KD</div><div class="lb-inf"><div class="lb-nm">Khánh Duy</div><div class="lb-lv">Lv.16</div></div><div class="lb-sc">4,220</div></div>
-        <div class="lb-row" style="background:var(--indigo-light);border-radius:var(--r2);padding:9px 8px;margin:0 -4px;"><div class="lb-rank" style="color:var(--indigo)">8</div><div class="lb-av" style="background:#ddd9ff;color:var(--indigo)">MT</div><div class="lb-inf"><div class="lb-nm">Minh Tuấn<span class="me-tag">Bạn</span></div><div class="lb-lv">Lv.14</div></div><div class="lb-sc">2,840</div></div>
+        <div class="lb-row" style="background:var(--indigo-light);border-radius:var(--r2);padding:9px 8px;margin:0 -4px;"><div class="lb-rank" style="color:var(--indigo)">8</div><div class="lb-av" style="background:#ddd9ff;color:var(--indigo)">MT</div><div class="lb-inf"><div class="lb-nm">Minh Tuấn<span class="me-tag">Bạn</span></div><div class="lb-lv">Lv.14</div></div><div class="lb-sc" id="user-score">2,840</div></div>
         <div class="lb-row"><div class="lb-rank">9</div><div class="lb-av" style="background:var(--rose-light);color:var(--rose)">NT</div><div class="lb-inf"><div class="lb-nm">Ngọc Trinh</div><div class="lb-lv">Lv.13</div></div><div class="lb-sc">2,610</div></div>
       </div>
     </div>
@@ -630,12 +611,10 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
       <div>
         <div style="font-size:16px;font-weight:700;">📚 Tất cả khoá học</div>
-        <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="courses-summary">8 khoá học · <span style="color:var(--teal)">1 hoàn thành</span></div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="courses-summary">8 khoá học</div>
       </div>
       <button class="btn-primary" onclick="openModal('add-course')">+ Thêm khoá học</button>
     </div>
-
-    <!-- filter tabs -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       <button class="prob-filter-btn active" onclick="setCourseFilter('all',this)">Tất cả</button>
       <button class="prob-filter-btn" onclick="setCourseFilter('active',this)">📖 Đang học</button>
@@ -644,15 +623,14 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
       <button class="prob-filter-btn" onclick="setCourseFilter('backend',this)">🔧 Backend</button>
       <button class="prob-filter-btn" onclick="setCourseFilter('data',this)">🐍 Data Science</button>
     </div>
-
     <div class="courses-grid" id="courses-grid"></div>
   </div>
 
   <!-- COURSE DETAIL PANEL -->
-  <div class="course-detail-overlay" id="course-detail-overlay" onclick="if(event.target===this)closeCourseDetail()">
+  <div class="course-detail-overlay" id="course-detail-overlay">
     <div class="course-detail-panel" id="course-detail-panel">
       <div class="cdp-banner" id="cdp-banner">📚
-        <div class="cdp-close" onclick="closeCourseDetail()">✕</div>
+        <button class="cdp-close" onclick="closeCourseDetail()">✕</button>
       </div>
       <div class="cdp-body">
         <div class="cdp-title" id="cdp-title">Khoá học</div>
@@ -692,16 +670,10 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   <div class="content" id="page-tasks" style="display:none;">
     <div class="card">
       <div class="card-header"><div class="card-title">📝 Bài tập cần làm</div><button class="btn-primary" onclick="openModal('add-task')">+ Thêm bài tập</button></div>
-      <div id="tasks-list">
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Bài tập React: Xây dựng Todo App</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">React Advanced · Hạn: 15/04/2026</div></div><div class="badge b-live">Gấp</div></div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Quiz: Machine Learning Basics</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">Python ML · Hạn: 18/04/2026</div></div><div class="badge b-new">Quiz</div></div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Thiết kế prototype ứng dụng mobile</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">UI/UX Masterclass · Hạn: 20/04/2026</div></div><div class="badge b-done">Figma</div></div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);"><input type="checkbox" checked onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;opacity:.5;"><div style="font-size:13px;font-weight:600;text-decoration:line-through;">Đọc tài liệu AWS IAM</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">AWS · Đã xong</div></div><div class="badge b-done">✓ Xong</div></div>
-        <div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;"><input type="checkbox" checked onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);"><div style="flex:1;opacity:.5;"><div style="font-size:13px;font-weight:600;text-decoration:line-through;">Xem video CSS Grid layout</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">UI/UX · Đã xong</div></div><div class="badge b-done">✓ Xong</div></div>
-      </div>
+      <div id="tasks-list"></div>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;">
-        <div style="flex:1;background:var(--bg);border-radius:20px;height:6px;overflow:hidden;"><div id="task-progress" style="height:100%;background:var(--indigo);border-radius:20px;width:40%;transition:width .4s;"></div></div>
-        <div style="font-size:12px;color:var(--text3);font-family:var(--mono);" id="task-count">2 / 5 hoàn thành</div>
+        <div style="flex:1;background:var(--bg);border-radius:20px;height:6px;overflow:hidden;"><div id="task-progress" style="height:100%;background:var(--indigo);border-radius:20px;width:0%;transition:width .4s;"></div></div>
+        <div style="font-size:12px;color:var(--text3);font-family:var(--mono);" id="task-count">0 / 0 hoàn thành</div>
       </div>
     </div>
   </div>
@@ -711,21 +683,11 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     <div class="row2">
       <div class="card">
         <div class="card-header"><div class="card-title">📊 Tiến độ các khoá học</div></div>
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">⚛️ React Advanced</span><span style="font-size:12px;font-family:var(--mono);color:var(--indigo)">68%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:68%;height:100%;background:var(--indigo);border-radius:8px;"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">🐍 Python ML</span><span style="font-size:12px;font-family:var(--mono);color:var(--teal)">41%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:41%;height:100%;background:var(--teal);border-radius:8px;"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">🎨 UI/UX Design</span><span style="font-size:12px;font-family:var(--mono);color:var(--amber)">92%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:92%;height:100%;background:var(--amber);border-radius:8px;"></div></div></div>
-          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">☁️ AWS Cloud</span><span style="font-size:12px;font-family:var(--mono);color:var(--sky)">23%</span></div><div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;"><div style="width:23%;height:100%;background:var(--sky);border-radius:8px;"></div></div></div>
-        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;" id="progress-courses-list"></div>
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">🎯 Mục tiêu tuần này</div></div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--indigo-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--indigo)">⏱️ Học 10h / tuần</span><span style="font-size:12px;font-family:var(--mono);color:var(--indigo)">6.8h / 10h</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--teal-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--teal)">📚 Hoàn thành 3 bài học</span><span style="font-size:12px;font-family:var(--mono);color:var(--teal)">2 / 3</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--amber-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--amber)">✅ Nộp 2 bài tập</span><span style="font-size:12px;font-family:var(--mono);color:var(--amber)">1 / 2</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--rose-light);border-radius:var(--r2);"><span style="font-size:13px;font-weight:600;color:var(--rose)">🔥 Duy trì streak 14+ ngày</span><span style="font-size:12px;font-family:var(--mono);color:var(--teal)">✓ Đạt!</span></div>
-        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;" id="weekly-goals"></div>
       </div>
     </div>
   </div>
@@ -741,10 +703,10 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
         </div>
       </div>
       <div class="prob-stats-row">
-        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-done" style="color:var(--indigo)">24</div><div class="prob-stat-lbl">Đã giải</div></div>
-        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-easy" style="color:#16a34a">12</div><div class="prob-stat-lbl">Dễ ✅</div></div>
-        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-med" style="color:#d97706">9</div><div class="prob-stat-lbl">Vừa ✅</div></div>
-        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-hard" style="color:var(--rose)">3</div><div class="prob-stat-lbl">Khó ✅</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-done" style="color:var(--indigo)">0</div><div class="prob-stat-lbl">Đã giải</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-easy" style="color:#16a34a">0</div><div class="prob-stat-lbl">Dễ ✅</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-med" style="color:#d97706">0</div><div class="prob-stat-lbl">Vừa ✅</div></div>
+        <div class="prob-stat-item"><div class="prob-stat-num" id="stat-hard" style="color:var(--rose)">0</div><div class="prob-stat-lbl">Khó ✅</div></div>
         <div class="prob-stat-item" style="margin-left:auto;"><div class="prob-stat-num" id="stat-total" style="color:var(--text3)">40</div><div class="prob-stat-lbl">Tổng bài</div></div>
       </div>
       <div class="prob-filters">
@@ -774,7 +736,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   <!-- PAGE: CODE EDITOR -->
   <div id="page-editor" style="flex:1;overflow:hidden;">
     <div class="editor-layout">
-      <!-- LEFT: problem description -->
       <div class="editor-left">
         <div class="prob-desc-header">
           <button class="prob-back-btn" onclick="backToProblems()">← Danh sách</button>
@@ -786,8 +747,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
         </div>
         <div class="prob-desc-body" id="editor-prob-body"></div>
       </div>
-
-      <!-- RIGHT: code editor -->
       <div class="editor-right">
         <div class="editor-topbar">
           <div style="display:flex;align-items:center;gap:10px;">
@@ -805,8 +764,6 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
             <button class="submit-btn" onclick="submitCode()">⬆ Nộp bài</button>
           </div>
         </div>
-
-        <!-- CHALLENGE TIMER BAR -->
         <div class="challenge-timer-bar" id="challenge-timer-bar">
           <div class="ct-ring">
             <svg width="36" height="36" viewBox="0 0 36 36">
@@ -821,14 +778,11 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
           </div>
           <button class="ct-btn-stop" onclick="stopChallengeTimer()">✕ Dừng</button>
         </div>
-
         <div class="code-area-wrap">
           <textarea class="code-textarea" id="code-editor" spellcheck="false"
             onkeydown="handleEditorKey(event)"
-            oninput="updateLineNumbers()"
             placeholder="// Viết code của bạn ở đây..."></textarea>
         </div>
-
         <div class="output-panel">
           <div class="output-tabs">
             <button class="output-tab active" onclick="switchOutputTab('testcase',this)">Test Cases</button>
@@ -878,8 +832,8 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
   </div>
 </div>
 
-<!-- ── MODALS ── -->
-<div class="modal-bg" id="modal-add-course" onclick="closeModalBg(event,'modal-add-course')">
+<!-- MODALS -->
+<div class="modal-bg" id="modal-add-course">
   <div class="modal">
     <h2>📚 Thêm khoá học mới</h2>
     <p class="sub">Điền thông tin khoá học bạn muốn theo dõi</p>
@@ -887,48 +841,67 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     <div class="form-row"><label>Giảng viên</label><input type="text" id="new-course-teacher" placeholder="VD: Nguyễn Văn A"/></div>
     <div class="form-row"><label>Tổng số bài học</label><input type="number" id="new-course-total" placeholder="VD: 40" min="1"/></div>
     <div class="form-row"><label>Danh mục</label><select id="new-course-cat"><option>Frontend</option><option>Backend</option><option>Data Science</option><option>Design</option><option>DevOps</option><option>Khác</option></select></div>
-    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal('modal-add-course')">Huỷ</button><button class="btn-primary" onclick="addCourse()">✓ Thêm khoá học</button></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('modal-add-course')">Huỷ</button>
+      <button class="btn-primary" onclick="addCourse()">✓ Thêm khoá học</button>
+    </div>
   </div>
 </div>
 
-<div class="modal-bg" id="modal-add-task" onclick="closeModalBg(event,'modal-add-task')">
+<div class="modal-bg" id="modal-add-task">
   <div class="modal">
     <h2>📝 Thêm bài tập mới</h2>
     <p class="sub">Thêm nhiệm vụ học tập cần hoàn thành</p>
     <div class="form-row"><label>Tên bài tập</label><input type="text" id="new-task-name" placeholder="VD: Làm bài tập React..."/></div>
     <div class="form-row"><label>Khoá học liên quan</label><select id="new-task-course"><option>React Advanced</option><option>Python ML</option><option>UI/UX Design</option><option>AWS Cloud</option></select></div>
     <div class="form-row"><label>Hạn nộp</label><input type="date" id="new-task-date"/></div>
+    <div class="form-row"><label>Mức độ ưu tiên</label><select id="new-task-priority"><option value="urgent">🔴 Gấp</option><option value="normal" selected>🟡 Bình thường</option><option value="low">🟢 Thấp</option></select></div>
     <div class="form-row"><label>Ghi chú</label><textarea id="new-task-note" placeholder="Ghi chú thêm..."></textarea></div>
-    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal('modal-add-task')">Huỷ</button><button class="btn-primary" onclick="addTask()">✓ Thêm bài tập</button></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('modal-add-task')">Huỷ</button>
+      <button class="btn-primary" onclick="addTask()">✓ Thêm bài tập</button>
+    </div>
   </div>
 </div>
 
-<div class="modal-bg" id="modal-add-schedule" onclick="closeModalBg(event,'modal-add-schedule')">
+<div class="modal-bg" id="modal-add-schedule">
   <div class="modal">
     <h2>📅 Thêm lịch học</h2>
     <p class="sub">Lên lịch cho buổi học sắp tới</p>
     <div class="form-row"><label>Tên buổi học</label><input type="text" id="new-sched-name" placeholder="VD: Học React Hooks..."/></div>
-    <div class="form-row"><label>Thời gian</label><input type="time" id="new-sched-time"/></div>
+    <div class="form-row"><label>Thời gian bắt đầu</label><input type="time" id="new-sched-time"/></div>
     <div class="form-row"><label>Thời lượng (phút)</label><input type="number" id="new-sched-dur" placeholder="45" min="5"/></div>
-    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal('modal-add-schedule')">Huỷ</button><button class="btn-primary" onclick="addSchedule()">✓ Thêm lịch</button></div>
+    <div class="form-row"><label>Màu sắc</label>
+      <select id="new-sched-color">
+        <option value="var(--indigo)">🟣 Tím</option>
+        <option value="var(--teal)">🟢 Xanh lá</option>
+        <option value="var(--amber)">🟡 Vàng</option>
+        <option value="var(--sky)">🔵 Xanh dương</option>
+        <option value="var(--rose)">🔴 Đỏ</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal('modal-add-schedule')">Huỷ</button>
+      <button class="btn-primary" onclick="addSchedule()">✓ Thêm lịch</button>
+    </div>
   </div>
 </div>
 
-<div class="modal-bg" id="modal-notifs" onclick="closeModalBg(event,'modal-notifs')">
+<div class="modal-bg" id="modal-notifs">
   <div class="modal">
     <h2>🔔 Thông báo</h2>
     <p class="sub">Cập nhật mới nhất dành cho bạn</p>
     <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
-      <div style="display:flex;gap:10px;padding:10px;background:var(--indigo-light);border-radius:var(--r2);"><span style="font-size:16px;">🎉</span><div><div style="font-size:13px;font-weight:600;color:var(--indigo)">Streak 14 ngày!</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">Bạn đã học liên tục 14 ngày. Tuyệt vời!</div></div></div>
+      <div style="display:flex;gap:10px;padding:10px;background:var(--indigo-light);border-radius:var(--r2);"><span style="font-size:16px;">🎉</span><div><div style="font-size:13px;font-weight:600;color:var(--indigo)" id="notif-streak-text">Streak!</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">Hãy duy trì streak mỗi ngày nhé!</div></div></div>
       <div style="display:flex;gap:10px;padding:10px;background:var(--teal-light);border-radius:var(--r2);"><span style="font-size:16px;">📚</span><div><div style="font-size:13px;font-weight:600;color:var(--teal)">Khoá học mới khả dụng</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">TypeScript Full Course 2025 vừa được thêm vào.</div></div></div>
-      <div style="display:flex;gap:10px;padding:10px;background:var(--rose-light);border-radius:var(--r2);"><span style="font-size:16px;">⚠️</span><div><div style="font-size:13px;font-weight:600;color:var(--rose)">Bài tập sắp đến hạn</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">React Todo App hạn nộp ngày mai, 15/04.</div></div></div>
+      <div style="display:flex;gap:10px;padding:10px;background:var(--rose-light);border-radius:var(--r2);" id="notif-task-deadline"><span style="font-size:16px;">⚠️</span><div><div style="font-size:13px;font-weight:600;color:var(--rose)">Bài tập sắp đến hạn</div><div style="font-size:11px;color:var(--text2);margin-top:2px;" id="notif-task-text">Kiểm tra bài tập của bạn!</div></div></div>
     </div>
     <div class="modal-actions"><button class="btn-primary" onclick="closeModal('modal-notifs')">Đã đọc tất cả</button></div>
   </div>
 </div>
 
 <!-- AUTH MODALS -->
-<div class="auth-modal-bg" id="auth-modal-bg" onclick="if(event.target===this)closeAuthModal()">
+<div class="auth-modal-bg" id="auth-modal-bg">
   <div class="auth-modal">
     <div id="auth-view-login">
       <div style="width:44px;height:44px;border-radius:12px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;background:var(--indigo);">LF</div>
@@ -955,26 +928,39 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
       <button class="auth-btn" onclick="doSignup()">Tạo tài khoản</button>
       <p class="auth-switch">Đã có tài khoản? <a onclick="switchAuth('login')">Đăng nhập</a></p>
     </div>
+    <button class="btn-ghost" style="width:100%;margin-top:12px;justify-content:center;" onclick="closeAuthModal()">Huỷ / Đóng</button>
   </div>
 </div>
 
 <div class="toast" id="toast"><span class="toast-icon" id="toast-icon">✓</span><span id="toast-msg"></span></div>
 
 <script>
-// ── CLOCK ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CLOCK
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function capNhatGio(){
   const now=new Date();
   const pad=n=>String(n).padStart(2,'0');
-  document.getElementById('clock').textContent=`${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} - ${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+  document.getElementById('clock').textContent=`${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} — ${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
 }
 capNhatGio();
 setInterval(capNhatGio,1000);
 
-// ── AUTH ──
-function getUsers(){try{return JSON.parse(localStorage.getItem('lf_users')||'[]');}catch(e){return[];}}
-function saveUsers(u){localStorage.setItem('lf_users',JSON.stringify(u));}
-function getCurrentUser(){try{return JSON.parse(localStorage.getItem('lf_current')||'null');}catch(e){return null;}}
-function setCurrentUser(u){if(u)localStorage.setItem('lf_current',JSON.stringify(u));else localStorage.removeItem('lf_current');}
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// STORAGE HELPERS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function ls(key,fallback){
+  try{const v=localStorage.getItem(key);return v===null?fallback:JSON.parse(v);}catch(e){return fallback;}
+}
+function ls_set(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// AUTH
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function getUsers(){return ls('lf_users',[]);}
+function saveUsers(u){ls_set('lf_users',u);}
+function getCurrentUser(){return ls('lf_current',null);}
+function setCurrentUser(u){if(u)ls_set('lf_current',u);else localStorage.removeItem('lf_current');}
 
 function initAuth(){
   const user=getCurrentUser();
@@ -986,18 +972,19 @@ function initAuth(){
     document.getElementById('sidebar-username').textContent=user.name;
     const initials=user.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
     document.getElementById('sidebar-ava').textContent=initials;
+    updateStreakOnLogin();
   } else {
     pill.style.display='none';
     authBtns.style.display='block';
   }
   updateGreeting(user?user.name:null);
+  updateNotifBadge();
 }
 
 function updateGreeting(name){
   const h=new Date().getHours();
   const time=h<12?'sáng':h<18?'chiều':'tối';
-  const titleEl=document.getElementById('page-title');
-  titleEl.textContent=name?`Chào buổi ${time}, ${name} 👋`:'Dashboard';
+  document.getElementById('page-title').textContent=name?`Chào buổi ${time}, ${name} 👋`:'Dashboard';
 }
 
 function openAuthModal(view){
@@ -1014,6 +1001,7 @@ function switchAuth(view){
   document.getElementById('login-err').style.display='none';
   document.getElementById('signup-err').style.display='none';
 }
+
 function doLogin(){
   const email=document.getElementById('login-email').value.trim().toLowerCase();
   const pw=document.getElementById('login-pw').value;
@@ -1025,6 +1013,7 @@ function doLogin(){
   showToast(`Chào mừng trở lại, ${user.name}! 🎉`,'👋');
   setPage('dashboard',null);
 }
+
 function doSignup(){
   const name=document.getElementById('signup-name').value.trim();
   const email=document.getElementById('signup-email').value.trim().toLowerCase();
@@ -1036,7 +1025,7 @@ function doSignup(){
   }
   const users=getUsers();
   if(users.find(u=>u.email===email)){errEl.textContent='Email này đã được đăng ký.';errEl.style.display='block';return;}
-  const newUser={name,email,pw};
+  const newUser={name,email,pw,createdAt:new Date().toDateString()};
   users.push(newUser);
   saveUsers(users);
   setCurrentUser(newUser);
@@ -1045,6 +1034,7 @@ function doSignup(){
   showToast(`Đăng ký thành công! Chào ${name} 🎊`,'🎉');
   setPage('dashboard',null);
 }
+
 function doLogout(){
   if(!confirm('Bạn có muốn đăng xuất không?'))return;
   setCurrentUser(null);
@@ -1052,44 +1042,61 @@ function doLogout(){
   showToast('Đã đăng xuất','👋');
 }
 
-// ── PAGE NAVIGATION ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// STREAK — persisted, auto-increments on daily login
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function updateStreakOnLogin(){
+  const todayStr=new Date().toDateString();
+  const lastLogin=ls('lf_last_login','');
+  let streak=ls('lf_streak',0);
+  if(lastLogin!==todayStr){
+    const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+    if(lastLogin===yesterday.toDateString()){
+      streak++;
+    } else if(lastLogin===''){
+      streak=1;
+    } else {
+      streak=1; // broken streak
+    }
+    ls_set('lf_streak',streak);
+    ls_set('lf_last_login',todayStr);
+  }
+  document.getElementById('streak-val').textContent=streak;
+  document.getElementById('notif-streak-text').textContent=`🔥 Streak ${streak} ngày! Tuyệt vời!`;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PAGE NAVIGATION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const allPages=['dashboard','timer','notes','tasks','progress','problems','editor','courses'];
 function setPage(id,navEl){
   allPages.forEach(p=>{
     const el=document.getElementById('page-'+p);
-    if(el)el.style.display='none';
+    if(el){el.style.display='none';}
   });
   const target=document.getElementById('page-'+id);
-  if(target){
-    target.style.display=(id==='editor')?'flex':'flex';
-    // editor uses its own layout, others use content flex
-  }
+  if(target){target.style.display='flex';}
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   if(navEl)navEl.classList.add('active');
-
   const titles={
-    timer:'⏱️ Pomodoro Timer',
-    notes:'📓 Ghi chú của tôi',
-    tasks:'📝 Bài tập & Nhiệm vụ',
-    progress:'📊 Tiến độ học tập',
-    courses:'📚 Tất cả khoá học',
-    leaderboard:'🏆 Bảng xếp hạng',
-    groups:'👥 Nhóm học',
-    schedule:'📅 Lịch học',
-    settings:'⚙️ Cài đặt',
-    problems:'💻 Luyện tập lập trình',
-    editor:'💻 Code Editor'
+    timer:'⏱️ Pomodoro Timer',notes:'📓 Ghi chú của tôi',
+    tasks:'📝 Bài tập & Nhiệm vụ',progress:'📊 Tiến độ học tập',
+    courses:'📚 Tất cả khoá học',leaderboard:'🏆 Bảng xếp hạng',
+    schedule:'📅 Lịch học',settings:'⚙️ Cài đặt',
+    problems:'💻 Luyện tập lập trình',editor:'💻 Code Editor'
   };
   if(id==='dashboard')updateGreeting(getCurrentUser()?getCurrentUser().name:null);
   else document.getElementById('page-title').textContent=titles[id]||'Dashboard';
   if(id==='courses')renderCoursesPage();
-
-  // hide topbar search/buttons in editor for cleaner look
+  if(id==='progress')renderProgressPage();
+  if(id==='tasks')renderTasksPage();
   const searchBar=document.getElementById('topbar-search');
   if(searchBar)searchBar.style.display=id==='editor'?'none':'flex';
 }
 
-// ── TOAST ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TOAST
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 let toastTimer;
 function showToast(msg,icon='✓'){
   const t=document.getElementById('toast');
@@ -1100,545 +1107,231 @@ function showToast(msg,icon='✓'){
   toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// ── MODAL ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MODAL — click-outside to close
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
 function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');}
-function closeModalBg(e,id){if(e.target===e.currentTarget)closeModal(id);}
 
-// ── PROBLEMS DATA ──
-const problemsData=[
-  {id:1,name:'Two Sum',diff:'easy',status:'done',tags:['Array','Hash Table'],ac:'47.2%',
-    description:'Cho một mảng số nguyên <code>nums</code> và một số nguyên <code>target</code>, hãy trả về chỉ số (indices) của hai số sao cho chúng cộng lại bằng <code>target</code>.\n\nBạn có thể giả định rằng mỗi đầu vào sẽ có đúng một lời giải, và bạn không thể sử dụng cùng một phần tử hai lần.',
-    examples:[{input:'nums = [2,7,11,15], target = 9',output:'[0,1]',explain:'Vì nums[0] + nums[1] = 2 + 7 = 9, ta trả về [0, 1].'},{input:'nums = [3,2,4], target = 6',output:'[1,2]'}],
-    constraints:['2 ≤ nums.length ≤ 10⁴','-10⁹ ≤ nums[i] ≤ 10⁹','-10⁹ ≤ target ≤ 10⁹','Chỉ tồn tại đúng một đáp án hợp lệ.'],
-    testcases:[{input:'nums = [2,7,11,15]\ntarget = 9',expected:'[0,1]'},{input:'nums = [3,2,4]\ntarget = 6',expected:'[1,2]'},{input:'nums = [3,3]\ntarget = 6',expected:'[0,1]'}],
-    starter:{python:'class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        # Viết code của bạn ở đây\n        pass\n',javascript:'/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nvar twoSum = function(nums, target) {\n    // Viết code của bạn ở đây\n};\n',java:'class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Viết code của bạn ở đây\n        return new int[]{};\n    }\n}\n',cpp:'class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Viết code của bạn ở đây\n        return {};\n    }\n};\n'}
-  },
-  {id:2,name:'Add Two Numbers',diff:'medium',status:'done',tags:['Linked List','Math'],ac:'40.1%',
-    description:'Bạn được cho hai danh sách liên kết không rỗng đại diện cho hai số nguyên không âm. Các chữ số được lưu trữ theo thứ tự ngược lại, và mỗi nút chứa một chữ số đơn. Cộng hai số và trả về kết quả dưới dạng một danh sách liên kết.',
-    examples:[{input:'l1 = [2,4,3], l2 = [5,6,4]',output:'[7,0,8]',explain:'342 + 465 = 807.'},{input:'l1 = [0], l2 = [0]',output:'[0]'}],
-    constraints:['Số lượng nút mỗi danh sách trong khoảng [1, 100]','0 ≤ Node.val ≤ 9','Đảm bảo danh sách không có số 0 dẫn đầu ngoại trừ số 0.'],
-    testcases:[{input:'l1 = [2,4,3]\nl2 = [5,6,4]',expected:'[7,0,8]'},{input:'l1 = [0]\nl2 = [0]',expected:'[0]'}],
-    starter:{python:'class Solution:\n    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:\n        # Viết code của bạn ở đây\n        pass\n',javascript:'var addTwoNumbers = function(l1, l2) {\n    // Viết code của bạn ở đây\n};\n',java:'class Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        // Viết code của bạn ở đây\n        return null;\n    }\n}\n',cpp:'class Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        // Viết code của bạn ở đây\n        return nullptr;\n    }\n};\n'}
-  },
-  {id:3,name:'Longest Substring Without Repeating',diff:'medium',status:'done',tags:['Sliding Window','String'],ac:'33.8%',
-    description:'Cho một chuỗi <code>s</code>, hãy tìm độ dài của chuỗi con dài nhất không chứa ký tự lặp lại.',
-    examples:[{input:'s = "abcabcbb"',output:'3',explain:'Chuỗi con là "abc" với độ dài 3.'},{input:'s = "bbbbb"',output:'1',explain:'Chuỗi con là "b" với độ dài 1.'},{input:'s = "pwwkew"',output:'3',explain:'Chuỗi con là "wke" với độ dài 3.'}],
-    constraints:['0 ≤ s.length ≤ 5 * 10⁴','s bao gồm chữ cái tiếng Anh, chữ số, ký hiệu và khoảng trắng.'],
-    testcases:[{input:'s = "abcabcbb"',expected:'3'},{input:'s = "bbbbb"',expected:'1'},{input:'s = "pwwkew"',expected:'3'}],
-    starter:{python:'class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        # Viết code của bạn ở đây\n        pass\n',javascript:'var lengthOfLongestSubstring = function(s) {\n    // Viết code của bạn ở đây\n};\n',java:'class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        return 0;\n    }\n};\n'}
-  },
-  {id:4,name:'Median of Two Sorted Arrays',diff:'hard',status:'done',tags:['Binary Search','Array'],ac:'36.2%',
-    description:'Cho hai mảng đã sắp xếp <code>nums1</code> và <code>nums2</code> với kích thước lần lượt là <code>m</code> và <code>n</code>, hãy trả về trung vị (median) của hai mảng sau khi ghép lại. Độ phức tạp phải là O(log(m+n)).',
-    examples:[{input:'nums1 = [1,3], nums2 = [2]',output:'2.00000',explain:'Mảng ghép = [1,2,3], trung vị = 2.'},{input:'nums1 = [1,2], nums2 = [3,4]',output:'2.50000',explain:'Mảng ghép = [1,2,3,4], trung vị = (2+3)/2 = 2.5.'}],
-    constraints:['nums1.length == m','nums2.length == n','0 ≤ m,n ≤ 1000','1 ≤ m+n ≤ 2000','-10⁶ ≤ nums1[i], nums2[i] ≤ 10⁶'],
-    testcases:[{input:'nums1 = [1,3]\nnums2 = [2]',expected:'2.00000'},{input:'nums1 = [1,2]\nnums2 = [3,4]',expected:'2.50000'}],
-    starter:{python:'class Solution:\n    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:\n        pass\n',javascript:'var findMedianSortedArrays = function(nums1, nums2) {\n};\n',java:'class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        return 0.0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        return 0.0;\n    }\n};\n'}
-  },
-  {id:5,name:'Longest Palindromic Substring',diff:'medium',status:'try',tags:['DP','String'],ac:'32.4%',
-    description:'Cho một chuỗi <code>s</code>, hãy trả về chuỗi con palindrome dài nhất trong <code>s</code>. Palindrome là chuỗi đọc xuôi ngược như nhau.',
-    examples:[{input:'s = "babad"',output:'"bab"',explain:'"aba" cũng là đáp án hợp lệ.'},{input:'s = "cbbd"',output:'"bb"'}],
-    constraints:['1 ≤ s.length ≤ 1000','s chỉ bao gồm chữ số và chữ cái tiếng Anh.'],
-    testcases:[{input:'s = "babad"',expected:'"bab"'},{input:'s = "cbbd"',expected:'"bb"'}],
-    starter:{python:'class Solution:\n    def longestPalindrome(self, s: str) -> str:\n        pass\n',javascript:'var longestPalindrome = function(s) {\n};\n',java:'class Solution {\n    public String longestPalindrome(String s) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string longestPalindrome(string s) {\n        return "";\n    }\n};\n'}
-  },
-  {id:6,name:'ZigZag Conversion',diff:'medium',status:'none',tags:['String'],ac:'45.3%',
-    description:'Chuỗi "PAYPALISHIRING" được viết theo kiểu zigzag trên số hàng nhất định như sau (bạn có thể muốn hiển thị mẫu này với phông chữ cố định để dễ đọc hơn):\n\nP   A   H   N\nA P L S I I G\nY   I   R\n\nVà sau đó đọc dòng theo dòng: "PAHNAPLSIIGYIR"\n\nViết code chuyển đổi một chuỗi đã cho theo mẫu này và trả về chuỗi đã được đọc dòng theo dòng.',
-    examples:[{input:'s = "PAYPALISHIRING", numRows = 3',output:'"PAHNAPLSIIGYIR"'},{input:'s = "PAYPALISHIRING", numRows = 4',output:'"PINALSIGYAHRPI"'}],
-    constraints:['1 ≤ s.length ≤ 1000','s bao gồm chữ cái và ký tự ",".','.','1 ≤ numRows ≤ 1000'],
-    testcases:[{input:'s = "PAYPALISHIRING"\nnumRows = 3',expected:'"PAHNAPLSIIGYIR"'},{input:'s = "A"\nnumRows = 1',expected:'"A"'}],
-    starter:{python:'class Solution:\n    def convert(self, s: str, numRows: int) -> str:\n        pass\n',javascript:'var convert = function(s, numRows) {\n};\n',java:'class Solution {\n    public String convert(String s, int numRows) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string convert(string s, int numRows) {\n        return "";\n    }\n};\n'}
-  },
-  {id:7,name:'Reverse Integer',diff:'medium',status:'done',tags:['Math'],ac:'27.9%',
-    description:'Cho một số nguyên 32-bit có dấu <code>x</code>, hãy trả về <code>x</code> với các chữ số của nó bị đảo ngược. Nếu khi đảo ngược <code>x</code> gây ra giá trị ngoài phạm vi số nguyên 32-bit có dấu [-2³¹, 2³¹ - 1], hãy trả về 0.',
-    examples:[{input:'x = 123',output:'321'},{input:'x = -123',output:'-321'},{input:'x = 120',output:'21'}],
-    constraints:['-2³¹ ≤ x ≤ 2³¹ - 1'],
-    testcases:[{input:'x = 123',expected:'321'},{input:'x = -123',expected:'-321'},{input:'x = 120',expected:'21'}],
-    starter:{python:'class Solution:\n    def reverse(self, x: int) -> int:\n        pass\n',javascript:'var reverse = function(x) {\n};\n',java:'class Solution {\n    public int reverse(int x) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int reverse(int x) {\n        return 0;\n    }\n};\n'}
-  },
-  {id:8,name:'String to Integer (atoi)',diff:'medium',status:'none',tags:['String','Two Pointers'],ac:'17.6%',
-    description:'Triển khai hàm <code>myAtoi(string s)</code> chuyển đổi một chuỗi thành số nguyên 32-bit có dấu (tương tự hàm <code>atoi</code> trong C/C++).',
-    examples:[{input:'s = "42"',output:'42'},{input:'s = "   -42"',output:'-42'},{input:'s = "4193 with words"',output:'4193'}],
-    constraints:['0 ≤ s.length ≤ 200','s bao gồm chữ cái tiếng Anh (chữ thường và in hoa), chữ số (0-9), khoảng trắng, dấu +, -, và dấu .'],
-    testcases:[{input:'s = "42"',expected:'42'},{input:'s = "   -42"',expected:'-42'}],
-    starter:{python:'class Solution:\n    def myAtoi(self, s: str) -> int:\n        pass\n',javascript:'var myAtoi = function(s) {\n};\n',java:'class Solution {\n    public int myAtoi(String s) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int myAtoi(string s) {\n        return 0;\n    }\n};\n'}
-  },
-  {id:9,name:'Palindrome Number',diff:'easy',status:'done',tags:['Math'],ac:'52.1%',
-    description:'Cho một số nguyên <code>x</code>, trả về <code>true</code> nếu <code>x</code> là palindrome, ngược lại trả về <code>false</code>.\n\nMột số nguyên là palindrome khi nó đọc ngược bằng đọc xuôi.',
-    examples:[{input:'x = 121',output:'true',explain:'121 đọc ngược là 121.'},{input:'x = -121',output:'false',explain:'-121 đọc ngược là 121-.'},{input:'x = 10',output:'false'}],
-    constraints:['-2³¹ ≤ x ≤ 2³¹ - 1'],
-    testcases:[{input:'x = 121',expected:'true'},{input:'x = -121',expected:'false'},{input:'x = 10',expected:'false'}],
-    starter:{python:'class Solution:\n    def isPalindrome(self, x: int) -> bool:\n        pass\n',javascript:'var isPalindrome = function(x) {\n};\n',java:'class Solution {\n    public boolean isPalindrome(int x) {\n        return false;\n    }\n}\n',cpp:'class Solution {\npublic:\n    bool isPalindrome(int x) {\n        return false;\n    }\n};\n'}
-  },
-  {id:10,name:'Regular Expression Matching',diff:'hard',status:'none',tags:['DP','Recursion'],ac:'28.3%',
-    description:'Cho một chuỗi đầu vào <code>s</code> và một mẫu <code>p</code>, triển khai khớp biểu thức chính quy với hỗ trợ cho <code>\'.\' </code> và <code>\'*\'</code>:\n- <code>\'.\' </code> Khớp với bất kỳ ký tự đơn nào.\n- <code>\'*\'</code> Khớp với không hoặc nhiều phần tử đứng trước.',
-    examples:[{input:'s = "aa", p = "a"',output:'false',explain:'"a" không khớp toàn bộ chuỗi "aa".'},{input:'s = "aa", p = "a*"',output:'true'},{input:'s = "ab", p = ".*"',output:'true'}],
-    constraints:['1 ≤ s.length ≤ 20','1 ≤ p.length ≤ 30'],
-    testcases:[{input:'s = "aa"\np = "a"',expected:'false'},{input:'s = "aa"\np = "a*"',expected:'true'}],
-    starter:{python:'class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        pass\n',javascript:'var isMatch = function(s, p) {\n};\n',java:'class Solution {\n    public boolean isMatch(String s, String p) {\n        return false;\n    }\n}\n',cpp:'class Solution {\npublic:\n    bool isMatch(string s, string p) {\n        return false;\n    }\n};\n'}
-  },
-  {id:11,name:'Container With Most Water',diff:'medium',status:'done',tags:['Two Pointers','Greedy'],ac:'54.2%',
-    description:'Bạn được cho một mảng số nguyên <code>height</code> có độ dài <code>n</code>. Có <code>n</code> đường thẳng đứng được vẽ sao cho hai điểm cuối của đường thứ <code>i</code> là <code>(i, 0)</code> và <code>(i, height[i])</code>.\n\nTìm hai đường cùng với trục x tạo thành một thùng chứa nhiều nước nhất. Trả về lượng nước tối đa mà thùng có thể chứa.',
-    examples:[{input:'height = [1,8,6,2,5,4,8,3,7]',output:'49',explain:'Các đường thẳng đứng được đại diện bởi mảng [1,8,6,2,5,4,8,3,7]. Thùng lớn nhất chứa được 49 đơn vị nước.'},{input:'height = [1,1]',output:'1'}],
-    constraints:['n == height.length','2 ≤ n ≤ 10⁵','0 ≤ height[i] ≤ 10⁴'],
-    testcases:[{input:'height = [1,8,6,2,5,4,8,3,7]',expected:'49'},{input:'height = [1,1]',expected:'1'}],
-    starter:{python:'class Solution:\n    def maxArea(self, height: List[int]) -> int:\n        pass\n',javascript:'var maxArea = function(height) {\n};\n',java:'class Solution {\n    public int maxArea(int[] height) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        return 0;\n    }\n};\n'}
-  },
-  {id:12,name:'Integer to Roman',diff:'medium',status:'none',tags:['Math','Hash Table'],ac:'62.0%',
-    description:'Cho một số nguyên, hãy chuyển đổi nó thành số La Mã (Roman numeral). Số La Mã được biểu diễn bởi bảy ký hiệu: I(1), V(5), X(10), L(50), C(100), D(500), M(1000).',
-    examples:[{input:'num = 3749',output:'"MMMDCCXLIX"'},{input:'num = 58',output:'"LVIII"'}],
-    constraints:['1 ≤ num ≤ 3999'],
-    testcases:[{input:'num = 3',expected:'"III"'},{input:'num = 58',expected:'"LVIII"'}],
-    starter:{python:'class Solution:\n    def intToRoman(self, num: int) -> str:\n        pass\n',javascript:'var intToRoman = function(num) {\n};\n',java:'class Solution {\n    public String intToRoman(int num) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string intToRoman(int num) {\n        return "";\n    }\n};\n'}
-  },
-  {id:13,name:'Roman to Integer',diff:'easy',status:'done',tags:['Math','String'],ac:'58.9%',
-    description:'Cho một chuỗi số La Mã, hãy chuyển đổi nó thành số nguyên. Input đảm bảo trong khoảng từ 1 đến 3999.',
-    examples:[{input:'s = "III"',output:'3'},{input:'s = "LVIII"',output:'58'},{input:'s = "MCMXCIV"',output:'1994'}],
-    constraints:['1 ≤ s.length ≤ 15','s chứa chỉ các ký tự (\'I\',\'V\',\'X\',\'L\',\'C\',\'D\',\'M\').','Đảm bảo s là một số La Mã hợp lệ.'],
-    testcases:[{input:'s = "III"',expected:'3'},{input:'s = "MCMXCIV"',expected:'1994'}],
-    starter:{python:'class Solution:\n    def romanToInt(self, s: str) -> int:\n        pass\n',javascript:'var romanToInt = function(s) {\n};\n',java:'class Solution {\n    public int romanToInt(String s) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int romanToInt(string s) {\n        return 0;\n    }\n};\n'}
-  },
-  {id:14,name:'Longest Common Prefix',diff:'easy',status:'done',tags:['String','Trie'],ac:'41.3%',
-    description:'Viết hàm tìm chuỗi tiền tố chung dài nhất trong một mảng chuỗi. Nếu không có tiền tố chung, trả về chuỗi rỗng "".',
-    examples:[{input:'strs = ["flower","flow","flight"]',output:'"fl"'},{input:'strs = ["dog","racecar","car"]',output:'""',explain:'Không có tiền tố chung giữa các chuỗi đầu vào.'}],
-    constraints:['1 ≤ strs.length ≤ 200','0 ≤ strs[i].length ≤ 200','strs[i] chỉ gồm chữ cái tiếng Anh thường.'],
-    testcases:[{input:'strs = ["flower","flow","flight"]',expected:'"fl"'},{input:'strs = ["dog","racecar","car"]',expected:'""'}],
-    starter:{python:'class Solution:\n    def longestCommonPrefix(self, strs: List[str]) -> str:\n        pass\n',javascript:'var longestCommonPrefix = function(strs) {\n};\n',java:'class Solution {\n    public String longestCommonPrefix(String[] strs) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        return "";\n    }\n};\n'}
-  },
-  {id:15,name:'3Sum',diff:'medium',status:'try',tags:['Two Pointers','Array'],ac:'32.5%',
-    description:'Cho một mảng số nguyên <code>nums</code>, hãy trả về tất cả bộ ba [nums[i], nums[j], nums[k]] sao cho i, j, k khác nhau và nums[i] + nums[j] + nums[k] = 0. Chú ý rằng tập hợp giải pháp không được chứa bộ ba trùng lặp.',
-    examples:[{input:'nums = [-1,0,1,2,-1,-4]',output:'[[-1,-1,2],[-1,0,1]]'},{input:'nums = [0,1,1]',output:'[]'},{input:'nums = [0,0,0]',output:'[[0,0,0]]'}],
-    constraints:['3 ≤ nums.length ≤ 3000','-10⁵ ≤ nums[i] ≤ 10⁵'],
-    testcases:[{input:'nums = [-1,0,1,2,-1,-4]',expected:'[[-1,-1,2],[-1,0,1]]'},{input:'nums = [0,0,0]',expected:'[[0,0,0]]'}],
-    starter:{python:'class Solution:\n    def threeSum(self, nums: List[int]) -> List[List[int]]:\n        pass\n',javascript:'var threeSum = function(nums) {\n};\n',java:'class Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        return new ArrayList<>();\n    }\n}\n',cpp:'class Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        return {};\n    }\n};\n'}
-  },
-  // short entries for remaining problems
-  ...[
-    {id:16,name:'Letter Combinations of Phone Number',diff:'medium',status:'none',tags:['Backtracking','DFS'],ac:'57.4%'},
-    {id:17,name:'Valid Parentheses',diff:'easy',status:'done',tags:['Stack','String'],ac:'40.7%'},
-    {id:18,name:'Merge Two Sorted Lists',diff:'easy',status:'done',tags:['Linked List','Recursion'],ac:'62.8%'},
-    {id:19,name:'Generate Parentheses',diff:'medium',status:'try',tags:['Backtracking','DP'],ac:'73.1%'},
-    {id:20,name:'Merge k Sorted Lists',diff:'hard',status:'done',tags:['Heap','Divide & Conquer'],ac:'48.2%'},
-    {id:21,name:'Search in Rotated Sorted Array',diff:'medium',status:'none',tags:['Binary Search','Array'],ac:'38.5%'},
-    {id:22,name:'Find First and Last Position',diff:'medium',status:'none',tags:['Binary Search'],ac:'41.7%'},
-    {id:23,name:'Climbing Stairs',diff:'easy',status:'done',tags:['DP','Math'],ac:'51.8%'},
-    {id:24,name:'Binary Tree Inorder Traversal',diff:'easy',status:'done',tags:['Tree','DFS','Stack'],ac:'74.5%'},
-    {id:25,name:'Symmetric Tree',diff:'easy',status:'none',tags:['Tree','BFS','DFS'],ac:'53.2%'},
-    {id:26,name:'Maximum Depth of Binary Tree',diff:'easy',status:'done',tags:['Tree','DFS','BFS'],ac:'73.9%'},
-    {id:27,name:'Best Time to Buy and Sell Stock',diff:'easy',status:'done',tags:['Array','DP'],ac:'54.4%'},
-    {id:28,name:'Single Number',diff:'easy',status:'done',tags:['Bit Manipulation','Array'],ac:'70.2%'},
-    {id:29,name:'Linked List Cycle',diff:'easy',status:'none',tags:['Linked List','Two Pointers'],ac:'45.9%'},
-    {id:30,name:'Min Stack',diff:'medium',status:'none',tags:['Stack','Design'],ac:'51.7%'},
-    {id:31,name:'Intersection of Two Linked Lists',diff:'easy',status:'none',tags:['Linked List','Hash Table'],ac:'55.1%'},
-    {id:32,name:'Majority Element',diff:'easy',status:'done',tags:['Array','Sorting'],ac:'63.4%'},
-    {id:33,name:'House Robber',diff:'medium',status:'try',tags:['DP','Array'],ac:'49.8%'},
-    {id:34,name:'Reverse Linked List',diff:'easy',status:'done',tags:['Linked List','Recursion'],ac:'73.1%'},
-    {id:35,name:'Course Schedule',diff:'medium',status:'none',tags:['Graph','Topological Sort'],ac:'46.0%'},
-    {id:36,name:'Implement Trie (Prefix Tree)',diff:'medium',status:'none',tags:['Trie','Design'],ac:'62.3%'},
-    {id:37,name:'Kth Largest Element in Array',diff:'medium',status:'try',tags:['Heap','Sorting'],ac:'65.3%'},
-    {id:38,name:'Number of Islands',diff:'medium',status:'done',tags:['BFS','DFS','Union Find'],ac:'56.7%'},
-    {id:39,name:'Product of Array Except Self',diff:'medium',status:'none',tags:['Array','Prefix Sum'],ac:'64.5%'},
-    {id:40,name:'Find Median from Data Stream',diff:'hard',status:'none',tags:['Heap','Design'],ac:'51.9%'},
-  ].map(p=>({
-    ...p,
-    description:`Bài toán <b>${p.name}</b>. Nhấp vào tên bài để xem chi tiết đề bài đầy đủ.`,
-    examples:[{input:'Xem đề bài chi tiết',output:''}],
-    constraints:['Xem đề bài chi tiết'],
-    testcases:[{input:'// Test case mẫu',expected:'// Expected output'}],
-    starter:{
-      python:`class Solution:\n    def solve(self):\n        # Viết code cho ${p.name}\n        pass\n`,
-      javascript:`var solve = function() {\n    // Viết code cho ${p.name}\n};\n`,
-      java:`class Solution {\n    public void solve() {\n        // Viết code cho ${p.name}\n    }\n}\n`,
-      cpp:`class Solution {\npublic:\n    void solve() {\n        // Viết code cho ${p.name}\n    }\n};\n`
-    }
-  }))
+// click outside to close
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('modal-bg')){
+    e.target.classList.remove('open');
+  }
+  if(e.target.id==='auth-modal-bg'){closeAuthModal();}
+  if(e.target.id==='challenge-timer-modal'){closeChallengeModal();}
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SCHEDULE DATA — persisted with time info
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const defaultSchedule=[
+  {id:'s1',name:'React Hooks nâng cao',time:'08:00',dur:45,color:'var(--indigo)',module:'Module 7'},
+  {id:'s2',name:'Pandas & Visualization',time:'10:30',dur:60,color:'var(--teal)',module:'Module 3'},
+  {id:'s3',name:'Live: UI/UX Review Session',time:'14:00',dur:90,color:'var(--amber)',module:'Buổi cuối'},
+  {id:'s4',name:'AWS EC2 & S3 Basics',time:'16:30',dur:50,color:'var(--sky)',module:'Module 2'},
+  {id:'s5',name:'Ôn tập & Flashcard',time:'20:00',dur:30,color:'var(--rose)',module:'Tự học'},
 ];
 
-let currentProbFilter='all';
-let currentProbSearch='';
-let currentProbId=null;
-let currentLang='python';
-let currentOutputTab='testcase';
-let submissionsHistory=[];
-
-function saveProblemsStatus(){
-  const m={};
-  problemsData.forEach(p=>m[p.id]=p.status);
-  localStorage.setItem('problems_status',JSON.stringify(m));
-}
-function loadProblemsStatus(){
-  try{
-    const m=JSON.parse(localStorage.getItem('problems_status')||'{}');
-    problemsData.forEach(p=>{if(m[p.id])p.status=m[p.id];});
-  }catch(e){}
+function getSchedule(){
+  const saved=ls('lf_schedule',null);
+  return saved||defaultSchedule;
 }
 
-function updateProblemStats(){
-  const done=problemsData.filter(p=>p.status==='done').length;
-  document.getElementById('stat-done').textContent=done;
-  document.getElementById('stat-easy').textContent=problemsData.filter(p=>p.diff==='easy'&&p.status==='done').length;
-  document.getElementById('stat-med').textContent=problemsData.filter(p=>p.diff==='medium'&&p.status==='done').length;
-  document.getElementById('stat-hard').textContent=problemsData.filter(p=>p.diff==='hard'&&p.status==='done').length;
-  document.getElementById('stat-total').textContent=problemsData.length;
+function timeToMinutes(t){
+  const[h,m]=t.split(':').map(Number);
+  return h*60+m;
 }
 
-function setProbFilter(filter,btn){
-  currentProbFilter=filter;
-  document.querySelectorAll('.prob-filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderProblems();
+function getScheduleStatus(item){
+  const now=new Date();
+  const curMin=now.getHours()*60+now.getMinutes();
+  const startMin=timeToMinutes(item.time);
+  const endMin=startMin+item.dur;
+  if(curMin>=startMin&&curMin<endMin)return'now';
+  if(curMin<startMin)return'upcoming';
+  return'past';
 }
 
-function filterProblems(val){
-  currentProbSearch=val;
-  renderProblems();
-}
+function renderSchedule(){
+  const list=document.getElementById('schedule-list');
+  if(!list)return;
+  const schedule=getSchedule();
+  const now=new Date();
+  const curMin=now.getHours()*60+now.getMinutes();
 
-function toggleProblemStatus(id){
-  const prob=problemsData.find(p=>p.id===id);
-  if(!prob)return;
-  if(prob.status==='none')prob.status='try';
-  else if(prob.status==='try')prob.status='done';
-  else prob.status='none';
-  saveProblemsStatus();
-  renderProblems();
-  updateProblemStats();
-}
+  // find next upcoming
+  const nextIdx=schedule.findIndex(s=>{
+    const startMin=timeToMinutes(s.time);
+    return curMin<startMin;
+  });
 
-function openProblem(id){
-  const prob=problemsData.find(p=>p.id===id);
-  if(!prob)return;
-  currentProbId=id;
-
-  // set title
-  document.getElementById('editor-prob-num').textContent='#'+prob.id;
-  document.getElementById('editor-prob-title').textContent=prob.name;
-  const diffEl=document.getElementById('editor-prob-diff');
-  diffEl.innerHTML=prob.diff==='easy'?'<span class="diff-easy">Dễ</span>':prob.diff==='medium'?'<span class="diff-med">Vừa</span>':'<span class="diff-hard">Khó</span>';
-
-  // build description
-  let html='';
-  html+=`<div class="prob-desc-section"><p>${prob.description.replace(/`/g,'').replace(/<code>/g,'<code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--indigo)">').replace(/<\/code>/g,'</code>').replace(/\n/g,'<br>')}</p></div>`;
-
-  if(prob.examples&&prob.examples.length){
-    html+='<div class="prob-desc-section"><h4>Ví dụ</h4>';
-    prob.examples.forEach((ex,i)=>{
-      html+=`<div class="prob-example"><code><b>Input:</b> ${ex.input}\n<b>Output:</b> ${ex.output}${ex.explain?'\n<b>Giải thích:</b> '+ex.explain:''}</code></div>`;
-    });
-    html+='</div>';
-  }
-
-  if(prob.constraints&&prob.constraints.length){
-    html+='<div class="prob-desc-section"><h4>Ràng buộc</h4><div class="prob-constraints"><ul>';
-    prob.constraints.forEach(c=>{html+=`<li>${c}</li>`;});
-    html+='</ul></div></div>';
-  }
-
-  document.getElementById('editor-prob-body').innerHTML=html;
-
-  // set starter code
-  const starter=prob.starter||{};
-  document.getElementById('code-editor').value=starter[currentLang]||'// Viết code của bạn ở đây\n';
-
-  // render test cases
-  renderTestCases(prob);
-
-  // navigate
-  setPage('editor',null);
-  document.getElementById('page-title').textContent=`💻 ${prob.name}`;
-}
-
-function renderTestCases(prob){
-  if(currentOutputTab!=='testcase')return;
-  let html='';
-  (prob.testcases||[]).forEach((tc,i)=>{
-    html+=`<div class="testcase-row">
-      <div class="testcase-label">Test Case ${i+1}</div>
-      <div class="testcase-val">${tc.input.replace(/\n/g,'<br>')}</div>
-      <div class="testcase-label" style="margin-top:6px;">Expected Output</div>
-      <div class="testcase-val">${tc.expected}</div>
+  list.innerHTML=schedule.map((s,i)=>{
+    const status=getScheduleStatus(s);
+    const startMin=timeToMinutes(s.time);
+    let rowClass='sched-row';
+    let tag='';
+    if(status==='now'){
+      rowClass+=' sched-now';
+      const elapsed=curMin-startMin;
+      const pct=Math.round(elapsed/s.dur*100);
+      tag=`<div><div class="now-tag">🔴 Đang học</div><div class="sched-progress">${pct}% hoàn thành</div></div>`;
+    } else if(status==='past'){
+      rowClass+=' sched-past';
+      tag=`<div class="done-tag">✓ Xong</div>`;
+    } else if(i===nextIdx){
+      rowClass+=' sched-next';
+      const diff=startMin-curMin;
+      const hrs=Math.floor(diff/60),mins=diff%60;
+      const countdown=hrs>0?`${hrs}g ${mins}p nữa`:`${mins} phút nữa`;
+      tag=`<div><div class="next-tag">Tiếp theo</div><div class="sched-countdown">${countdown}</div></div>`;
+    }
+    return`<div class="${rowClass}">
+      <div class="sched-time">${s.time}</div>
+      <div class="sched-dot" style="background:${s.color}"></div>
+      <div class="sched-body">
+        <div class="sched-name">${s.name}</div>
+        <div class="sched-meta">${s.dur} phút · ${s.module}</div>
+      </div>
+      ${tag}
     </div>`;
-  });
-  document.getElementById('output-body').innerHTML=html||'<div style="color:#585b70;font-size:12px;font-family:var(--mono);">Chưa có test case.</div>';
-}
-
-function switchOutputTab(tab,btn){
-  currentOutputTab=tab;
-  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const prob=problemsData.find(p=>p.id===currentProbId);
-  if(tab==='testcase'&&prob)renderTestCases(prob);
-  else if(tab==='result'){
-    document.getElementById('output-body').innerHTML='<div class="result-line result-info">▶ Nhấn "Chạy" để xem kết quả</div>';
-  } else if(tab==='submissions'){
-    renderSubmissions();
-  }
-}
-
-function renderSubmissions(){
-  if(!submissionsHistory.length){
-    document.getElementById('output-body').innerHTML='<div style="color:#585b70;font-size:12px;font-family:var(--mono);">Chưa có lần nộp nào.</div>';
-    return;
-  }
-  const html=submissionsHistory.filter(s=>s.probId===currentProbId).reverse().map(s=>`
-    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #313244;">
-      <span class="${s.pass?'result-pass':'result-fail'} result-line">${s.pass?'✅ Accepted':'❌ Wrong Answer'}</span>
-      <span style="color:#6c7086;font-size:11px;font-family:var(--mono);margin-left:auto;">${s.lang} · ${s.time}</span>
-    </div>`).join('')||'<div style="color:#585b70;font-size:12px;font-family:var(--mono);">Chưa có lần nộp bài này.</div>';
-  document.getElementById('output-body').innerHTML=html;
-}
-
-function changeLang(lang){
-  currentLang=lang;
-  const prob=problemsData.find(p=>p.id===currentProbId);
-  if(prob&&prob.starter&&prob.starter[lang]){
-    // only set if editor seems empty or has default
-    if(confirm('Đổi ngôn ngữ sẽ reset code hiện tại. Tiếp tục?')){
-      document.getElementById('code-editor').value=prob.starter[lang];
-    } else {
-      document.getElementById('lang-select').value=currentLang;
-      return;
-    }
-  }
-  currentLang=lang;
-}
-
-function runCode(){
-  const code=document.getElementById('code-editor').value.trim();
-  if(!code){showToast('Viết code trước đã!','⚠️');return;}
-
-  const prob=problemsData.find(p=>p.id===currentProbId);
-  // switch to result tab
-  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.output-tab')[1].classList.add('active');
-  currentOutputTab='result';
-
-  document.getElementById('output-body').innerHTML='<div class="result-line result-info">⏳ Đang chạy test cases...</div>';
-
-  setTimeout(()=>{
-    // simulate running
-    const tc=prob?prob.testcases:[];
-    const pass=Math.random()>0.35;
-    let html='';
-    tc.forEach((t,i)=>{
-      const tcPass=i<tc.length-1?true:pass;
-      html+=`<div style="margin-bottom:12px;">
-        <div class="result-line ${tcPass?'result-pass':'result-fail'}">${tcPass?'✅':'❌'} Test Case ${i+1}</div>
-        <div style="margin-top:6px;background:#313244;border-radius:6px;padding:8px 10px;">
-          <div class="result-line result-info">Input: ${t.input.replace(/\n/g,' | ')}</div>
-          <div class="result-line" style="color:#cdd6f4;">Expected: ${t.expected}</div>
-          <div class="result-line ${tcPass?'result-pass':'result-fail'}">Output: ${tcPass?t.expected:'Wrong'}</div>
-        </div>
-      </div>`;
-    });
-    const allPass=pass;
-    html=`<div class="result-line ${allPass?'result-pass':'result-fail'}" style="font-size:13px;font-weight:700;margin-bottom:12px;">${allPass?'✅ Chạy thành công!':'❌ Một số test case thất bại'}</div>`+html;
-    document.getElementById('output-body').innerHTML=html;
-    showToast(allPass?'Code chạy thành công! 🎉':'Có test case thất bại, xem lại nhé',allPass?'✅':'❌');
-  },800);
-}
-
-function submitCode(){
-  const code=document.getElementById('code-editor').value.trim();
-  if(!code){showToast('Viết code trước đã!','⚠️');return;}
-  const prob=problemsData.find(p=>p.id===currentProbId);
-
-  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.output-tab')[1].classList.add('active');
-  currentOutputTab='result';
-  document.getElementById('output-body').innerHTML='<div class="result-line result-info">⏳ Đang nộp và chấm bài...</div>';
-
-  setTimeout(()=>{
-    const accepted=Math.random()>0.3;
-    const runtime=Math.floor(Math.random()*80+20);
-    const memory=Math.floor(Math.random()*10+14);
-    const beats=Math.floor(Math.random()*30+65);
-
-    if(accepted&&prob&&prob.status!=='done'){
-      prob.status='done';
-      saveProblemsStatus();
-      updateProblemStats();
-    }
-
-    const now=new Date();
-    submissionsHistory.push({probId:currentProbId,pass:accepted,lang:currentLang,time:`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`});
-
-    const html=accepted?`
-      <div class="result-line result-pass" style="font-size:15px;font-weight:700;margin-bottom:16px;">✅ Accepted</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-        <div style="background:#313244;border-radius:6px;padding:10px 12px;">
-          <div style="font-size:10px;color:#6c7086;font-family:var(--mono);margin-bottom:4px;">RUNTIME</div>
-          <div style="font-size:16px;font-weight:700;color:#a6e3a1;font-family:var(--mono);">${runtime} ms</div>
-          <div style="font-size:10px;color:#6c7086;">Beats ${beats}% submissions</div>
-        </div>
-        <div style="background:#313244;border-radius:6px;padding:10px 12px;">
-          <div style="font-size:10px;color:#6c7086;font-family:var(--mono);margin-bottom:4px;">MEMORY</div>
-          <div style="font-size:16px;font-weight:700;color:#89b4fa;font-family:var(--mono);">${memory}.2 MB</div>
-          <div style="font-size:10px;color:#6c7086;">Beats ${100-beats}% submissions</div>
-        </div>
-      </div>
-      <div class="result-line result-pass">Tất cả test cases đều pass! 🎉</div>
-    `:`
-      <div class="result-line result-fail" style="font-size:15px;font-weight:700;margin-bottom:12px;">❌ Wrong Answer</div>
-      <div style="background:#313244;border-radius:6px;padding:10px 12px;margin-bottom:8px;">
-        <div class="result-line result-info">Test case thất bại:</div>
-        <div class="result-line" style="color:#cdd6f4;margin-top:4px;">Input: ${(prob&&prob.testcases&&prob.testcases[0])?prob.testcases[0].input:'N/A'}</div>
-        <div class="result-line" style="color:#cdd6f4;">Expected: ${(prob&&prob.testcases&&prob.testcases[0])?prob.testcases[0].expected:'N/A'}</div>
-        <div class="result-line result-fail">Output: Wrong</div>
-      </div>
-      <div class="result-line result-warn">Kiểm tra lại logic và thử nộp lại.</div>
-    `;
-    document.getElementById('output-body').innerHTML=html;
-    showToast(accepted?`Accepted! +100 XP 🎉`:'Wrong Answer, thử lại nhé!',accepted?'🏆':'❌');
-  },1200);
-}
-
-function handleEditorKey(e){
-  if(e.key==='Tab'){
-    e.preventDefault();
-    const ta=e.target;
-    const start=ta.selectionStart,end=ta.selectionEnd;
-    ta.value=ta.value.substring(0,start)+'  '+ta.value.substring(end);
-    ta.selectionStart=ta.selectionEnd=start+2;
-  }
-}
-
-function backToProblems(){
-  setPage('problems',document.getElementById('nav-problems'));
-}
-
-function renderProblems(){
-  const tbody=document.getElementById('prob-tbody');
-  if(!tbody)return;
-  let list=problemsData.filter(p=>{
-    if(currentProbFilter==='easy')return p.diff==='easy';
-    if(currentProbFilter==='medium')return p.diff==='medium';
-    if(currentProbFilter==='hard')return p.diff==='hard';
-    if(currentProbFilter==='done')return p.status==='done';
-    if(currentProbFilter==='todo')return p.status!=='done';
-    return true;
-  }).filter(p=>{
-    if(!currentProbSearch)return true;
-    const q=currentProbSearch.toLowerCase();
-    return p.name.toLowerCase().includes(q)||p.tags.some(t=>t.toLowerCase().includes(q));
-  });
-
-  tbody.innerHTML=list.map(p=>{
-    const diffHtml=p.diff==='easy'?'<span class="diff-easy">Dễ</span>':p.diff==='medium'?'<span class="diff-med">Vừa</span>':'<span class="diff-hard">Khó</span>';
-    const statusHtml=p.status==='done'?'<span class="prob-status-done" title="Đã giải">✅</span>':p.status==='try'?'<span class="prob-status-try" title="Đang thử">⚡</span>':'<span class="prob-status-none" title="Chưa làm">○</span>';
-    const tagsHtml=p.tags.map(t=>`<span class="prob-tag">${t}</span>`).join('');
-    return `<tr>
-      <td style="color:var(--text3);font-family:var(--mono);font-size:12px;">${p.id}</td>
-      <td style="cursor:pointer;" onclick="toggleProblemStatus(${p.id})" title="Nhấp để đổi trạng thái">${statusHtml}</td>
-      <td><span class="prob-name-link" onclick="openProblem(${p.id})">${p.name}</span></td>
-      <td>${diffHtml}</td>
-      <td><div class="prob-tags">${tagsHtml}</div></td>
-      <td style="font-family:var(--mono);font-size:12px;color:var(--text3);">${p.ac}</td>
-    </tr>`;
   }).join('');
-  updateProblemStats();
 }
 
-// ── ADD COURSE ──
-const emojiMap={'Frontend':'⚛️','Backend':'🔧','Data Science':'🐍','Design':'🎨','DevOps':'☁️','Khác':'📘'};
-const colorMap={'Frontend':'var(--indigo-light)','Backend':'var(--sky-light)','Data Science':'var(--teal-light)','Design':'var(--amber-light)','DevOps':'var(--rose-light)','Khác':'var(--border)'};
-const fillMap={'Frontend':'var(--indigo)','Backend':'var(--sky)','Data Science':'var(--teal)','Design':'var(--amber)','DevOps':'var(--rose)','Khác':'var(--text3)'};
-const badgeMap={'Frontend':'b-new','Backend':'b-sky','Data Science':'b-done','Design':'b-done','DevOps':'b-sky','Khác':'b-new'};
-function addCourse(){
-  const name=document.getElementById('new-course-name').value.trim();
-  const teacher=document.getElementById('new-course-teacher').value.trim();
-  const total=parseInt(document.getElementById('new-course-total').value)||10;
-  const cat=document.getElementById('new-course-cat').value;
-  if(!name){showToast('Vui lòng nhập tên khoá học!','⚠️');return;}
-  // add to DOM dashboard
-  const div=document.createElement('div');
-  div.className='course-row';
-  div.innerHTML=`<div class="course-thumb" style="background:${colorMap[cat]}">${emojiMap[cat]}</div>
-  <div class="ci"><div class="ci-name">${name}</div><div class="ci-sub">${teacher||'Chưa rõ'} · ${total} bài học</div>
-  <div class="ci-bar"><div class="ci-fill" style="width:0%;background:${fillMap[cat]}"></div></div>
-  <div class="ci-pct">0% · Mới bắt đầu</div></div>
-  <div class="badge ${badgeMap[cat]}">🆕 Mới</div>`;
-  document.getElementById('course-list').appendChild(div);
-  // add to courses data for courses page
-  const newId='c_'+Date.now();
-  const lessons=Array.from({length:total},(_, i)=>({name:`Bài ${i+1}`,dur:'30 phút',done:false,active:i===0}));
-  const newCourse={id:newId,name,teacher:teacher||'Chưa rõ',category:cat,emoji:emojiMap[cat],color:colorMap[cat],fill:fillMap[cat],totalLessons:total,tag:badgeMap[cat],tagText:'🆕 Mới',lessons};
-  const saved=JSON.parse(localStorage.getItem('lf_custom_courses')||'[]');
-  saved.push(newCourse);
-  localStorage.setItem('lf_custom_courses',JSON.stringify(saved));
-  closeModal('modal-add-course');
-  document.getElementById('new-course-name').value='';
-  document.getElementById('new-course-teacher').value='';
-  document.getElementById('new-course-total').value='';
-  showToast(`Đã thêm khoá học: ${name}`,'📚');
+// re-render schedule every 30 seconds for real-time updates
+setInterval(()=>{
+  if(document.getElementById('page-dashboard').style.display!=='none'){
+    renderSchedule();
+  }
+},30000);
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TASKS — fully persisted
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const defaultTasks=[
+  {id:'t1',name:'Bài tập React: Xây dựng Todo App',course:'React Advanced',date:'2026-04-15',priority:'urgent',done:false},
+  {id:'t2',name:'Quiz: Machine Learning Basics',course:'Python ML',date:'2026-04-18',priority:'normal',done:false},
+  {id:'t3',name:'Thiết kế prototype ứng dụng mobile',course:'UI/UX Masterclass',date:'2026-04-20',priority:'normal',done:false},
+  {id:'t4',name:'Đọc tài liệu AWS IAM',course:'AWS',date:'2026-04-10',priority:'low',done:true},
+  {id:'t5',name:'Xem video CSS Grid layout',course:'UI/UX',date:'2026-04-08',priority:'low',done:true},
+];
+
+function getTasks(){return ls('lf_tasks',defaultTasks);}
+function saveTasks(t){ls_set('lf_tasks',t);}
+
+function renderTasksPage(){
+  const tasks=getTasks();
+  const list=document.getElementById('tasks-list');
+  if(!list)return;
+  const priorityMap={urgent:'b-live',normal:'b-new',low:'b-done'};
+  const priorityLabel={urgent:'🔴 Gấp',normal:'🟡 Bình thường',low:'🟢 Thấp'};
+  list.innerHTML=tasks.map((t,i)=>{
+    const fmtDate=t.date?new Date(t.date).toLocaleDateString('vi-VN'):'Chưa có hạn';
+    return`<div class="task-row" style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);">
+      <input type="checkbox" ${t.done?'checked':''} onchange="toggleTaskById('${t.id}',this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);">
+      <div style="flex:1;${t.done?'opacity:.5':''}">
+        <div style="font-size:13px;font-weight:600;${t.done?'text-decoration:line-through':''}">${t.name}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px;">${t.course} · Hạn: ${fmtDate}</div>
+      </div>
+      <div class="badge ${priorityMap[t.priority]||'b-new'}">${priorityLabel[t.priority]||'Mới'}</div>
+      <button onclick="deleteTask('${t.id}')" style="background:none;border:none;cursor:pointer;font-size:14px;color:var(--text3);padding:0 4px;" title="Xoá">🗑</button>
+    </div>`;
+  }).join('');
+  updateTaskProgress();
+  updateTasksBadge();
 }
 
-// ── ADD TASK ──
-let taskDone=2,taskTotal=5;
+function toggleTaskById(id,cb){
+  const tasks=getTasks();
+  const t=tasks.find(x=>x.id===id);
+  if(t){t.done=cb.checked;saveTasks(tasks);}
+  renderTasksPage();
+}
+
+function deleteTask(id){
+  const tasks=getTasks().filter(t=>t.id!==id);
+  saveTasks(tasks);
+  renderTasksPage();
+  showToast('Đã xoá bài tập','🗑');
+}
+
+function updateTaskProgress(){
+  const tasks=getTasks();
+  const done=tasks.filter(t=>t.done).length;
+  const total=tasks.length;
+  const pct=total>0?Math.round(done/total*100):0;
+  const prog=document.getElementById('task-progress');
+  const count=document.getElementById('task-count');
+  if(prog)prog.style.width=pct+'%';
+  if(count)count.textContent=`${done} / ${total} hoàn thành`;
+}
+
+function updateTasksBadge(){
+  const pending=getTasks().filter(t=>!t.done).length;
+  const badge=document.getElementById('tasks-badge');
+  if(badge)badge.textContent=pending;
+}
+
 function addTask(){
   const name=document.getElementById('new-task-name').value.trim();
   const course=document.getElementById('new-task-course').value;
   const date=document.getElementById('new-task-date').value;
+  const priority=document.getElementById('new-task-priority').value;
   if(!name){showToast('Vui lòng nhập tên bài tập!','⚠️');return;}
-  const fmtDate=date?new Date(date).toLocaleDateString('vi-VN'):'Chưa có hạn';
-  const row=document.createElement('div');
-  row.className='task-row';
-  row.style.cssText='display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);';
-  row.innerHTML=`<input type="checkbox" onchange="toggleTask(this)" style="width:16px;height:16px;cursor:pointer;accent-color:var(--indigo);">
-  <div style="flex:1;"><div style="font-size:13px;font-weight:600;">${name}</div><div style="font-size:11px;color:var(--text3);margin-top:2px;">${course} · Hạn: ${fmtDate}</div></div>
-  <div class="badge b-new">Mới</div>`;
-  document.getElementById('tasks-list').appendChild(row);
-  taskTotal++;
-  updateTaskProgress();
+  const tasks=getTasks();
+  tasks.unshift({id:'t'+Date.now(),name,course,date,priority,done:false});
+  saveTasks(tasks);
   closeModal('modal-add-task');
-  document.getElementById('new-task-name').value='';
-  document.getElementById('new-task-note').value='';
+  ['new-task-name','new-task-note'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('new-task-date').value='';
+  renderTasksPage();
   showToast(`Đã thêm: ${name}`,'✅');
-}
-function toggleTask(cb){
-  const row=cb.closest('.task-row');
-  const info=row.querySelector('div[style*="flex:1"]');
-  if(cb.checked){
-    taskDone++;
-    if(info)info.style.opacity='.5';
-    const nameEl=row.querySelector('div[style*="font-weight:600"]');
-    if(nameEl)nameEl.style.textDecoration='line-through';
-  } else {
-    taskDone=Math.max(0,taskDone-1);
-    if(info)info.style.opacity='1';
-    const nameEl=row.querySelector('div[style*="font-weight:600"]');
-    if(nameEl)nameEl.style.textDecoration='none';
+  // update notification
+  const upcoming=tasks.filter(t=>!t.done&&t.date);
+  if(upcoming.length>0){
+    const next=upcoming.sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
+    document.getElementById('notif-task-text').textContent=`"${next.name}" — Hạn: ${new Date(next.date).toLocaleDateString('vi-VN')}`;
   }
-  updateTaskProgress();
-}
-function updateTaskProgress(){
-  const pct=taskTotal>0?Math.round(taskDone/taskTotal*100):0;
-  const progEl=document.getElementById('task-progress');
-  const countEl=document.getElementById('task-count');
-  if(progEl)progEl.style.width=pct+'%';
-  if(countEl)countEl.textContent=`${taskDone} / ${taskTotal} hoàn thành`;
 }
 
-// ── ADD SCHEDULE ──
+function updateNotifBadge(){
+  const tasks=getTasks();
+  const now=new Date();
+  const upcoming=tasks.filter(t=>{
+    if(t.done||!t.date)return false;
+    const d=new Date(t.date);
+    const diff=(d-now)/(1000*3600*24);
+    return diff<=3&&diff>=0;
+  });
+  if(upcoming.length>0){
+    const next=upcoming.sort((a,b)=>new Date(a.date)-new Date(b.date))[0];
+    document.getElementById('notif-task-text').textContent=`"${next.name}" — Hạn: ${new Date(next.date).toLocaleDateString('vi-VN')}`;
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SCHEDULE ADD
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function addSchedule(){
   const name=document.getElementById('new-sched-name').value.trim();
   const time=document.getElementById('new-sched-time').value;
-  const dur=document.getElementById('new-sched-dur').value||'?';
+  const dur=parseInt(document.getElementById('new-sched-dur').value)||45;
+  const color=document.getElementById('new-sched-color').value;
   if(!name){showToast('Vui lòng nhập tên buổi học!','⚠️');return;}
-  const row=document.createElement('div');
-  row.className='sched-row';
-  row.innerHTML=`<div class="sched-time">${time||'--:--'}</div>
-  <div class="sched-dot" style="background:var(--indigo)"></div>
-  <div class="sched-body"><div class="sched-name">${name}</div><div class="sched-meta">${dur} phút</div></div>`;
-  document.getElementById('schedule-list').appendChild(row);
+  if(!time){showToast('Vui lòng chọn giờ học!','⚠️');return;}
+  const schedule=getSchedule();
+  schedule.push({id:'s'+Date.now(),name,time,dur,color,module:'Tự thêm'});
+  schedule.sort((a,b)=>timeToMinutes(a.time)-timeToMinutes(b.time));
+  ls_set('lf_schedule',schedule);
   closeModal('modal-add-schedule');
-  document.getElementById('new-sched-name').value='';
-  document.getElementById('new-sched-time').value='';
-  document.getElementById('new-sched-dur').value='';
+  ['new-sched-name','new-sched-time','new-sched-dur'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderSchedule();
   showToast(`Đã thêm lịch: ${name}`,'📅');
 }
 
-// ── ADD NOTE ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// NOTES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const noteColors=[
   {bg:'#fef3e2',border:'#fcd9a0',title:'#92400e',body:'#78350f',date:'#a16207'},
   {bg:'#e0f2fe',border:'#bae6fd',title:'#075985',body:'#0c4a6e',date:'#0369a1'},
@@ -1646,13 +1339,16 @@ const noteColors=[
   {bg:'#eeedf9',border:'#c4bff5',title:'#3c3489',body:'#26215c',date:'#534ab7'},
   {bg:'#fdeaea',border:'#fca5a5',title:'#7f1d1d',body:'#450a0a',date:'#b91c1c'},
 ];
-let noteColorIdx=0;
+let noteColorIdx=ls('lf_note_color_idx',0);
+
 function addNote(){
   const title=prompt('Tiêu đề ghi chú:');
-  if(!title)return;
+  if(title===null||title.trim()==='')return;
   const content=prompt('Nội dung:');
+  if(content===null)return;
   const c=noteColors[noteColorIdx%noteColors.length];
   noteColorIdx++;
+  ls_set('lf_note_color_idx',noteColorIdx);
   const today=new Date().toLocaleDateString('vi-VN');
   const grid=document.getElementById('notes-grid');
   const addBtn=grid.lastElementChild;
@@ -1660,44 +1356,431 @@ function addNote(){
   div.className='note-card';
   div.style.cssText=`background:${c.bg};border:1px solid ${c.border};border-radius:var(--r);padding:14px;cursor:pointer;`;
   div.onclick=function(){editNote(this);};
-  div.innerHTML=`<div style="font-size:12px;font-weight:700;color:${c.title};margin-bottom:6px;">${title}</div>
+  div.innerHTML=`<div style="font-size:12px;font-weight:700;color:${c.title};margin-bottom:6px;">${title.trim()}</div>
   <div style="font-size:12px;color:${c.body};line-height:1.6;">${content||'...'}</div>
   <div style="font-size:10px;color:${c.date};margin-top:10px;font-family:var(--mono);">${today}</div>`;
   grid.insertBefore(div,addBtn);
-  showToast(`Đã thêm ghi chú: ${title}`,'📓');
+  showToast(`Đã thêm ghi chú: ${title.trim()}`,'📓');
 }
+
 function editNote(el){
   const titleEl=el.querySelector('div:first-child');
   const bodyEl=el.querySelector('div:nth-child(2)');
   const newTitle=prompt('Sửa tiêu đề:',titleEl.textContent);
   if(newTitle===null)return;
   const newBody=prompt('Sửa nội dung:',bodyEl.textContent);
-  if(newTitle)titleEl.textContent=newTitle;
+  if(newTitle.trim())titleEl.textContent=newTitle.trim();
   if(newBody!==null)bodyEl.textContent=newBody;
   showToast('Đã cập nhật ghi chú','✏️');
 }
 
-// ── SEARCH ──
-function handleSearch(val){
-  document.querySelectorAll('#course-list .course-row').forEach(row=>{
-    const name=row.querySelector('.ci-name').textContent.toLowerCase();
-    row.style.display=name.includes(val.toLowerCase())?'flex':'none';
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// COURSES DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const emojiMap={'Frontend':'⚛️','Backend':'🔧','Data Science':'🐍','Design':'🎨','DevOps':'☁️','Khác':'📘'};
+const colorMap={'Frontend':'var(--indigo-light)','Backend':'var(--sky-light)','Data Science':'var(--teal-light)','Design':'var(--amber-light)','DevOps':'var(--rose-light)','Khác':'var(--border)'};
+const fillMap={'Frontend':'var(--indigo)','Backend':'var(--sky)','Data Science':'var(--teal)','Design':'var(--amber)','DevOps':'var(--rose)','Khác':'var(--text3)'};
+
+const coursesData=[
+  {id:'c1',name:'React Advanced & Performance Patterns',teacher:'Nguyễn Văn A',category:'Frontend',emoji:'⚛️',color:'var(--indigo-light)',fill:'var(--indigo)',totalLessons:42,tag:'b-live',tagText:'🔴 Live',
+    lessons:[
+      {name:'Giới thiệu khoá học',dur:'12 phút'},{name:'React 18: Concurrent Mode',dur:'28 phút'},{name:'useTransition & useDeferredValue',dur:'35 phút'},
+      {name:'useCallback & useMemo nâng cao',dur:'40 phút'},{name:'Custom Hooks thực chiến',dur:'45 phút'},{name:'Context API vs Zustand',dur:'38 phút'},
+      {name:'React Query: Server State',dur:'52 phút'},{name:'Lazy loading & Code splitting',dur:'30 phút'},{name:'Virtualization với react-window',dur:'28 phút'},
+      {name:'Memoization patterns',dur:'35 phút'},{name:'Error Boundaries',dur:'22 phút'},{name:'Suspense & Data Fetching',dur:'40 phút'},
+      {name:'React Testing Library',dur:'50 phút'},{name:'Vitest & jest setup',dur:'32 phút'},{name:'Performance profiling',dur:'38 phút'},
+      {name:'Next.js App Router basics',dur:'55 phút'},{name:'Server Components',dur:'48 phút'},{name:'Next.js Data Fetching',dur:'44 phút'},
+      {name:'SEO & Metadata API',dur:'25 phút'},{name:'Next.js Deployment',dur:'30 phút'},{name:'Zustand advanced patterns',dur:'42 phút'},
+      {name:'Jotai vs Recoil comparison',dur:'35 phút'},{name:'React Hook Form',dur:'48 phút'},{name:'Zod validation',dur:'30 phút'},
+      {name:'Framer Motion animations',dur:'55 phút'},{name:'Styled Components deep dive',dur:'40 phút'},{name:'Tailwind + React patterns',dur:'35 phút'},
+      {name:'Storybook component docs',dur:'42 phút'},{name:'🎯 Dự án: E-commerce UI',dur:'90 phút'},
+      {name:'Monorepo với Turborepo',dur:'45 phút'},{name:'Micro-frontends',dur:'50 phút'},{name:'WebSockets trong React',dur:'38 phút'},
+      {name:'Server-Sent Events',dur:'28 phút'},{name:'PWA với React',dur:'42 phút'},{name:'Cypress E2E Testing',dur:'55 phút'},
+      {name:'Playwright testing',dur:'48 phút'},{name:'CI/CD cho React apps',dur:'35 phút'},{name:'Docker & containerization',dur:'50 phút'},
+      {name:'Performance audit tools',dur:'32 phút'},{name:'Accessibility (a11y)',dur:'38 phút'},{name:'Internationalisation (i18n)',dur:'30 phút'},
+      {name:'🏆 Dự án cuối khoá',dur:'120 phút'}
+    ]
+  },
+  {id:'c2',name:'Python cho Data Science & Machine Learning',teacher:'Trần Thị B',category:'Data Science',emoji:'🐍',color:'var(--teal-light)',fill:'var(--teal)',totalLessons:60,tag:'b-new',tagText:'✨ Mới',
+    lessons:[
+      {name:'Cài đặt Python & Jupyter',dur:'15 phút'},{name:'NumPy cơ bản',dur:'45 phút'},{name:'NumPy nâng cao',dur:'40 phút'},
+      {name:'Pandas Series & DataFrame',dur:'50 phút'},{name:'Pandas: Cleaning',dur:'55 phút'},{name:'Pandas groupby & pivot',dur:'45 phút'},
+      {name:'Pandas merge & join',dur:'40 phút'},{name:'Matplotlib cơ bản',dur:'38 phút'},{name:'Seaborn visualization',dur:'42 phút'},
+      {name:'Plotly interactive charts',dur:'50 phút'},{name:'EDA',dur:'60 phút'},{name:'Feature Engineering',dur:'55 phút'},
+      {name:'Xử lý missing values',dur:'35 phút'},{name:'Encoding categorical data',dur:'30 phút'},{name:'Scaling & Normalization',dur:'28 phút'},
+      {name:'Train/Test split',dur:'20 phút'},{name:'Linear Regression',dur:'50 phút'},{name:'Logistic Regression',dur:'48 phút'},
+      {name:'Decision Trees',dur:'45 phút'},{name:'Random Forest',dur:'52 phút'},{name:'Gradient Boosting',dur:'55 phút'},
+      {name:'SVM',dur:'48 phút'},{name:'K-Means Clustering',dur:'40 phút'},{name:'DBSCAN',dur:'38 phút'},
+      {name:'PCA',dur:'50 phút'},{name:'🎯 Dự án: Titanic Prediction',dur:'90 phút'},{name:'Neural Networks với Keras',dur:'65 phút'},
+      {name:'Deep Learning basics',dur:'70 phút'},{name:'CNN',dur:'75 phút'},{name:'RNN & LSTM',dur:'68 phút'},
+      {name:'NLP: Text Processing',dur:'60 phút'},{name:'NLP: Sentiment Analysis',dur:'55 phút'},{name:'Transformers & BERT',dur:'80 phút'},
+      {name:'Time Series Analysis',dur:'65 phút'},{name:'Recommendation Systems',dur:'58 phút'},{name:'MLflow',dur:'45 phút'},
+      {name:'Model Deployment (FastAPI)',dur:'60 phút'},{name:'Docker cho ML',dur:'50 phút'},{name:'Cloud ML',dur:'70 phút'},
+      {name:'🏆 Dự án cuối',dur:'180 phút'}
+    ]
+  },
+  {id:'c3',name:'UI/UX Design Masterclass 2025',teacher:'Lê Văn C',category:'Design',emoji:'🎨',color:'var(--amber-light)',fill:'var(--amber)',totalLessons:38,tag:'b-done',tagText:'✅ Gần xong',
+    lessons:Array.from({length:38},(_,i)=>({name:`Bài ${i+1}: Design Lesson`,dur:'40 phút'}))
+  },
+  {id:'c4',name:'AWS Cloud Practitioner Essentials',teacher:'Phạm Thị D',category:'DevOps',emoji:'☁️',color:'var(--sky-light)',fill:'var(--sky)',totalLessons:55,tag:'b-sky',tagText:'🆕 Mới bắt đầu',
+    lessons:Array.from({length:55},(_,i)=>({name:`Bài ${i+1}: AWS Module`,dur:'35 phút'}))
+  },
+  {id:'c5',name:'TypeScript Full Course 2025',teacher:'Ngô Minh E',category:'Frontend',emoji:'🔷',color:'#dbeafe',fill:'#3b82f6',totalLessons:35,tag:'b-new',tagText:'✨ Mới thêm',
+    lessons:Array.from({length:35},(_,i)=>({name:`Bài ${i+1}: TypeScript`,dur:'35 phút'}))
+  },
+  {id:'c6',name:'Node.js & Express: Backend Development',teacher:'Võ Thanh F',category:'Backend',emoji:'🟢',color:'var(--teal-light)',fill:'var(--teal)',totalLessons:48,tag:'b-sky',tagText:'🆕 Mới',
+    lessons:Array.from({length:48},(_,i)=>({name:`Bài ${i+1}: Node.js`,dur:'40 phút'}))
+  },
+  {id:'c7',name:'Docker & Kubernetes Mastery',teacher:'Đinh Bảo G',category:'DevOps',emoji:'🐳',color:'var(--sky-light)',fill:'var(--sky)',totalLessons:40,tag:'b-sky',tagText:'⚙️ DevOps',
+    lessons:Array.from({length:40},(_,i)=>({name:`Bài ${i+1}: Container`,dur:'35 phút'}))
+  },
+  {id:'c8',name:'Figma Advanced: Design Systems',teacher:'Hoàng Yến H',category:'Design',emoji:'🖌️',color:'var(--rose-light)',fill:'var(--rose)',totalLessons:28,tag:'b-done',tagText:'✅ Hoàn thành',
+    lessons:Array.from({length:28},(_,i)=>({name:`Bài ${i+1}: Figma`,dur:'40 phút'}))
+  },
+];
+
+// Lesson progress stored in localStorage
+function getLessonProgress(courseId){return ls('lf_lp_'+courseId,{});}
+function saveLessonProgress(courseId,prog){ls_set('lf_lp_'+courseId,prog);}
+
+// Default progress for existing courses (simulate prior progress)
+function initDefaultProgress(){
+  const defaults={
+    c1:{count:28},  // 68% of 42
+    c2:{count:25},  // 41% of 60
+    c3:{count:35},  // 92% of 38
+    c4:{count:12},  // 23% of 55
+    c8:{count:28},  // 100% - complete
+  };
+  Object.entries(defaults).forEach(([id,{count}])=>{
+    const existing=ls('lf_lp_'+id,null);
+    if(existing===null){
+      const prog={};
+      for(let i=0;i<count;i++)prog[i]=true;
+      ls_set('lf_lp_'+id,prog);
+    }
   });
 }
 
-// ── POMODORO ──
+function getCourseProgress(course){
+  const prog=getLessonProgress(course.id);
+  const done=Object.values(prog).filter(Boolean).length;
+  const total=course.lessons.length;
+  const pct=total>0?Math.round(done/total*100):0;
+  return{done,total,pct};
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DASHBOARD — courses list & activity
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderDashboardCourses(){
+  const list=document.getElementById('course-list');
+  if(!list)return;
+  const saved=ls('lf_custom_courses',[]);
+  const all=[...coursesData.slice(0,4),...saved.slice(0,0)]; // show top 4 built-in
+  list.innerHTML=all.map(c=>{
+    const p=getCourseProgress(c);
+    const left=p.total-p.done;
+    const sub=left===0?'Hoàn thành! 🎉':`Còn ${left} bài`;
+    let badge='';
+    if(p.pct===100)badge='<div class="badge b-done">✅ Xong</div>';
+    else if(p.pct>80)badge='<div class="badge b-done">✅ Gần xong</div>';
+    else if(c.tag==='b-live')badge='<div class="badge b-live">🔴 Live</div>';
+    else badge=`<div class="badge ${c.tag}">${c.tagText}</div>`;
+    return`<div class="course-row" onclick="openCourseDetail('${c.id}')">
+      <div class="course-thumb" style="background:${c.color}">${c.emoji}</div>
+      <div class="ci">
+        <div class="ci-name">${c.name}</div>
+        <div class="ci-sub">${c.teacher} · ${c.totalLessons} bài học</div>
+        <div class="ci-bar"><div class="ci-fill" style="width:${p.pct}%;background:${c.fill}"></div></div>
+        <div class="ci-pct">${p.pct}% · ${sub}</div>
+      </div>
+      ${badge}
+    </div>`;
+  }).join('');
+  updateDashboardStats();
+}
+
+function updateDashboardStats(){
+  const totalPct=coursesData.reduce((sum,c)=>sum+getCourseProgress(c).pct,0);
+  const avgPct=Math.round(totalPct/coursesData.length);
+  const el=document.getElementById('stat-complete-num');
+  const fill=document.getElementById('stat-complete-fill');
+  if(el)el.textContent=avgPct+'%';
+  if(fill)fill.style.width=avgPct+'%';
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ACTIVITY CHART — based on session time per day
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderActivityChart(){
+  const chart=document.getElementById('activity-chart');
+  const stats=document.getElementById('activity-stats');
+  if(!chart)return;
+  const days=['T2','T3','T4','T5','T6','T7','CN'];
+  // get saved daily activity, or use defaults
+  const activity=ls('lf_activity',[50,68,40,78,58,32,85]);
+  const maxVal=Math.max(...activity,1);
+  const total=activity.reduce((a,b)=>a+b,0);
+  const avg=Math.round(total/7);
+  const best=Math.max(...activity);
+  const today=new Date().getDay(); // 0=Sun,1=Mon...
+  const todayIdx=today===0?6:today-1;
+
+  chart.innerHTML=activity.map((v,i)=>{
+    const h=Math.round(v/maxVal*85);
+    const isToday=i===todayIdx;
+    const bg=isToday?'var(--indigo)':(v>avg?'#aba6ef':'#c7c4f5');
+    return`<div class="bar-col">
+      <div class="bar" style="height:${h}px;background:${bg}" title="${v} phút"></div>
+      <div class="bar-label" style="${isToday?'color:var(--indigo);font-weight:600':''}">${days[i]}</div>
+    </div>`;
+  }).join('');
+
+  const totalH=Math.floor(total/60);
+  const totalM=total%60;
+  stats.innerHTML=`<div class="cs">Tổng: <b>${totalH}h ${totalM}m</b></div>
+    <div class="cs">TB/ngày: <b>${avg} phút</b></div>
+    <div class="cs">Tốt nhất: <b style="color:var(--teal)">${Math.floor(best/60)}h ${best%60}m</b></div>`;
+}
+
+// Update today's activity bar when session time increases
+function updateTodayActivity(){
+  const now=new Date();
+  const today=now.getDay();
+  const todayIdx=today===0?6:today-1;
+  const elapsed=Date.now()-sessionStartTime;
+  const minutes=Math.floor(elapsed/60000);
+  const activity=ls('lf_activity',[50,68,40,78,58,32,85]);
+  const base=ls('lf_activity_base',[50,68,40,78,58,32,85]);
+  activity[todayIdx]=base[todayIdx]+minutes;
+  ls_set('lf_activity',activity);
+  renderActivityChart();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PROGRESS PAGE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderProgressPage(){
+  const list=document.getElementById('progress-courses-list');
+  if(list){
+    list.innerHTML=coursesData.map(c=>{
+      const p=getCourseProgress(c);
+      return`<div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+          <span style="font-size:13px;font-weight:600;">${c.emoji} ${c.name.split(' ').slice(0,4).join(' ')}...</span>
+          <span style="font-size:12px;font-family:var(--mono);color:${c.fill}">${p.pct}%</span>
+        </div>
+        <div style="height:8px;background:var(--bg);border-radius:8px;overflow:hidden;">
+          <div style="width:${p.pct}%;height:100%;background:${c.fill};border-radius:8px;transition:width .5s;"></div>
+        </div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;font-family:var(--mono);">${p.done} / ${p.total} bài · ${c.teacher}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Weekly goals
+  const tasks=getTasks();
+  const doneTasks=tasks.filter(t=>t.done).length;
+  const totalTasks=tasks.length;
+  const streak=ls('lf_streak',0);
+  const sessionMs=Date.now()-sessionStartTime;
+  const sessionH=Math.floor(sessionMs/3600000);
+
+  const goals=document.getElementById('weekly-goals');
+  if(goals){
+    goals.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--indigo-light);border-radius:var(--r2);">
+        <span style="font-size:13px;font-weight:600;color:var(--indigo)">⏱️ Học 10h / tuần</span>
+        <span style="font-size:12px;font-family:var(--mono);color:var(--indigo)">${sessionH}h / 10h</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--teal-light);border-radius:var(--r2);">
+        <span style="font-size:13px;font-weight:600;color:var(--teal)">✅ Hoàn thành bài tập</span>
+        <span style="font-size:12px;font-family:var(--mono);color:var(--teal)">${doneTasks} / ${totalTasks}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--amber-light);border-radius:var(--r2);">
+        <span style="font-size:13px;font-weight:600;color:var(--amber)">📚 Bài học hoàn thành tuần này</span>
+        <span style="font-size:12px;font-family:var(--mono);color:var(--amber)">${ls('lf_lessons_week',0)} bài</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:${streak>0?'var(--rose-light)':'var(--bg)'};border-radius:var(--r2);">
+        <span style="font-size:13px;font-weight:600;color:var(--rose)">🔥 Duy trì streak ${streak}+ ngày</span>
+        <span style="font-size:12px;font-family:var(--mono);color:${streak>0?'var(--teal)':'var(--text3)'}">${streak>0?'✓ Đạt!':'Chưa đạt'}</span>
+      </div>`;
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// COURSES PAGE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let courseFilter='all';
+let activeCourseId=null;
+
+function setCourseFilter(f,el){
+  courseFilter=f;
+  document.querySelectorAll('#page-courses .prob-filter-btn').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderCoursesPage();
+}
+
+function renderCoursesPage(){
+  const grid=document.getElementById('courses-grid');
+  if(!grid)return;
+  const saved=ls('lf_custom_courses',[]);
+  let list=[...coursesData,...saved];
+
+  if(courseFilter==='active') list=list.filter(c=>{const p=getCourseProgress(c);return p.pct>0&&p.pct<100;});
+  else if(courseFilter==='done') list=list.filter(c=>getCourseProgress(c).pct===100);
+  else if(courseFilter==='frontend') list=list.filter(c=>c.category==='Frontend');
+  else if(courseFilter==='backend') list=list.filter(c=>c.category==='Backend');
+  else if(courseFilter==='data') list=list.filter(c=>c.category==='Data Science');
+
+  const done=list.filter(c=>getCourseProgress(c).pct===100).length;
+  const summaryEl=document.getElementById('courses-summary');
+  if(summaryEl)summaryEl.innerHTML=`${list.length} khoá học · <span style="color:var(--teal)">${done} hoàn thành</span>`;
+
+  grid.innerHTML=list.map(c=>{
+    const p=getCourseProgress(c);
+    return`<div class="course-card" onclick="openCourseDetail('${c.id}')">
+      <div class="course-card-banner" style="background:${c.color}">${c.emoji}</div>
+      <div class="course-card-body">
+        <div class="course-card-title">${c.name}</div>
+        <div class="course-card-meta">${c.teacher} · ${c.category}</div>
+        <div class="course-prog-row"><span style="font-size:12px;color:var(--text2)">Tiến độ</span><span class="course-prog-pct" style="color:${c.fill}">${p.pct}%</span></div>
+        <div class="course-prog-bar"><div class="course-prog-fill" style="width:${p.pct}%;background:${c.fill}"></div></div>
+        <div class="course-card-footer">
+          <span class="course-lessons-count">${p.done} / ${p.total} bài đã học</span>
+          <span class="badge ${c.tag}">${c.tagText}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openCourseDetail(id){
+  const allCourses=[...coursesData,...ls('lf_custom_courses',[])];
+  const c=allCourses.find(x=>x.id===id);
+  if(!c)return;
+  activeCourseId=id;
+  const p=getCourseProgress(c);
+  const prog=getLessonProgress(id);
+
+  document.getElementById('cdp-banner').style.background=c.color;
+  document.getElementById('cdp-banner').childNodes[0].nodeValue=c.emoji+' ';
+  document.getElementById('cdp-title').textContent=c.name;
+  document.getElementById('cdp-meta').textContent=`${c.teacher} · ${c.category} · ${c.totalLessons} bài học`;
+  document.getElementById('cdp-prog-pct').textContent=`${p.pct}%`;
+  document.getElementById('cdp-prog-pct').style.color=c.fill;
+  document.getElementById('cdp-prog-fill').style.width=`${p.pct}%`;
+  document.getElementById('cdp-prog-fill').style.background=c.fill;
+  document.getElementById('cdp-prog-sub').textContent=`${p.done} / ${p.total} bài đã hoàn thành · Còn ${p.total-p.done} bài`;
+
+  const display=c.lessons.slice(0,30);
+  const firstUndoneIdx=c.lessons.findIndex((_,i)=>!prog[i]);
+
+  document.getElementById('cdp-lessons').innerHTML=display.map((l,i)=>{
+    const isDone=!!prog[i];
+    const isActive=i===firstUndoneIdx;
+    const cls=isDone?'done':isActive?'active-lesson':'';
+    const numCls=isDone?'ln-done':isActive?'ln-active':'ln-lock';
+    const tick=isDone?'<span class="lesson-tick">✓</span>':isActive?'<span class="lesson-play">▶</span>':'<span style="font-size:12px;color:var(--text3);">○</span>';
+    return`<div class="lesson-row ${cls}" onclick="markLessonDone('${id}',${i})">
+      <div class="lesson-num ${numCls}">${i+1}</div>
+      <div class="lesson-info"><div class="lesson-name">${l.name}</div><div class="lesson-dur">⏱ ${l.dur}</div></div>
+      ${tick}
+    </div>`;
+  }).join('')+(c.lessons.length>30?`<div style="text-align:center;padding:12px;font-size:12px;color:var(--text3);">+${c.lessons.length-30} bài nữa...</div>`:'');
+
+  const nextLesson=c.lessons[firstUndoneIdx];
+  document.getElementById('cdp-continue-btn').textContent=nextLesson&&firstUndoneIdx>=0?`▶ Tiếp: ${nextLesson.name.slice(0,28)}...`:'🏆 Đã hoàn thành!';
+
+  document.getElementById('course-detail-overlay').classList.add('open');
+}
+
+function markLessonDone(courseId,idx){
+  const allCourses=[...coursesData,...ls('lf_custom_courses',[])];
+  const c=allCourses.find(x=>x.id===courseId);
+  if(!c)return;
+  const prog=getLessonProgress(courseId);
+  prog[idx]=!prog[idx];
+  saveLessonProgress(courseId,prog);
+
+  // track lessons completed this week
+  if(prog[idx]){
+    ls_set('lf_lessons_week',(ls('lf_lessons_week',0)+1));
+    // increment user score
+    const score=ls('lf_user_score',2840);
+    ls_set('lf_user_score',score+50);
+    const scoreEl=document.getElementById('user-score');
+    if(scoreEl)scoreEl.textContent=(score+50).toLocaleString();
+  }
+
+  openCourseDetail(courseId);
+  renderDashboardCourses();
+  renderCoursesPage();
+
+  const p=getCourseProgress(c);
+  showToast(`${prog[idx]?'✅ Hoàn thành':'↩ Bỏ đánh dấu'}: ${c.lessons[idx].name}`,'📚');
+  if(p.pct===100)showToast(`🎉 Chúc mừng! Bạn đã hoàn thành "${c.name}"!`,'🏆');
+}
+
+function continueLesson(){
+  if(!activeCourseId)return;
+  const allCourses=[...coursesData,...ls('lf_custom_courses',[])];
+  const c=allCourses.find(x=>x.id===activeCourseId);
+  if(!c)return;
+  const prog=getLessonProgress(activeCourseId);
+  const firstUndone=c.lessons.findIndex((_,i)=>!prog[i]);
+  if(firstUndone>=0)markLessonDone(activeCourseId,firstUndone);
+}
+
+function closeCourseDetail(){
+  document.getElementById('course-detail-overlay').classList.remove('open');
+  renderCoursesPage();
+}
+
+function addCourse(){
+  const name=document.getElementById('new-course-name').value.trim();
+  const teacher=document.getElementById('new-course-teacher').value.trim();
+  const total=parseInt(document.getElementById('new-course-total').value)||10;
+  const cat=document.getElementById('new-course-cat').value;
+  if(!name){showToast('Vui lòng nhập tên khoá học!','⚠️');return;}
+  const newId='c_'+Date.now();
+  const lessons=Array.from({length:total},(_,i)=>({name:`Bài ${i+1}`,dur:'30 phút'}));
+  const newCourse={id:newId,name,teacher:teacher||'Chưa rõ',category:cat,emoji:emojiMap[cat]||'📘',color:colorMap[cat]||'var(--border)',fill:fillMap[cat]||'var(--text3)',totalLessons:total,tag:'b-new',tagText:'🆕 Mới',lessons};
+  const saved=ls('lf_custom_courses',[]);
+  saved.push(newCourse);
+  ls_set('lf_custom_courses',saved);
+  closeModal('modal-add-course');
+  ['new-course-name','new-course-teacher','new-course-total'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderCoursesPage();
+  renderDashboardCourses();
+  showToast(`Đã thêm khoá học: ${name}`,'📚');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SEARCH
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function handleSearch(val){
+  document.querySelectorAll('#course-list .course-row').forEach(row=>{
+    const name=row.querySelector('.ci-name');
+    if(name)row.style.display=name.textContent.toLowerCase().includes(val.toLowerCase())?'flex':'none';
+  });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// POMODORO TIMER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 let timerInterval=null,timerRunning=false;
-let timerTotal=25*60,timerRemaining=25*60,pomoCount=0,pomoTotalSec=0;
+let timerTotal=25*60,timerRemaining=25*60;
+let pomoCount=ls('lf_pomo_count',0),pomoTotalSec=ls('lf_pomo_sec',0);
 const timerModes={focus:25*60,short:5*60,long:15*60};
 let currentMode='focus';
+
 function setTimerMode(mode,tabEl){
   document.querySelectorAll('#timer-tabs .tab').forEach(t=>t.classList.remove('active'));
   tabEl.classList.add('active');
-  currentMode=mode;
-  timerTotal=timerModes[mode];
-  timerRemaining=timerTotal;
-  clearInterval(timerInterval);
-  timerRunning=false;
+  currentMode=mode;timerTotal=timerModes[mode];timerRemaining=timerTotal;
+  clearInterval(timerInterval);timerRunning=false;
   document.getElementById('timer-btn').textContent='▶ Bắt đầu';
   document.getElementById('timer-mode-lbl').textContent=mode==='focus'?'Tập trung':mode==='short'?'Nghỉ ngắn':'Nghỉ dài';
   renderTimer();
@@ -1721,12 +1804,22 @@ function toggleTimer(){
         clearInterval(timerInterval);timerRunning=false;
         if(currentMode==='focus'){
           pomoCount++;pomoTotalSec+=timerTotal;
+          ls_set('lf_pomo_count',pomoCount);ls_set('lf_pomo_sec',pomoTotalSec);
           document.getElementById('pomo-count').textContent=pomoCount;
           const h=Math.floor(pomoTotalSec/3600),mn=Math.floor((pomoTotalSec%3600)/60);
           document.getElementById('pomo-time').textContent=`${h}h ${mn}m`;
-          showToast(`🎉 Hoàn thành phiên số ${pomoCount}! Nghỉ ngơi nào.`,'🎯');
+          showToast(`🎉 Phiên ${pomoCount} hoàn thành! Nghỉ ngơi nào.`,'🎯');
+          // update activity
+          const activity=ls('lf_activity',[50,68,40,78,58,32,85]);
+          const base=ls('lf_activity_base',[50,68,40,78,58,32,85]);
+          const today=new Date().getDay();
+          const todayIdx=today===0?6:today-1;
+          activity[todayIdx]=(activity[todayIdx]||0)+25;
+          ls_set('lf_activity',activity);
+          if(!ls('lf_activity_base',null))ls_set('lf_activity_base',activity);
+          renderActivityChart();
         } else {
-          showToast('Hết giờ nghỉ! Sẵn sàng học tiếp chưa?','⏰');
+          showToast('Hết giờ nghỉ! Tiếp tục học thôi 💪','⏰');
         }
         document.getElementById('timer-btn').textContent='▶ Bắt đầu';
         return;
@@ -1735,459 +1828,28 @@ function toggleTimer(){
     },1000);
   }
 }
-function resetTimer(){
-  clearInterval(timerInterval);timerRunning=false;timerRemaining=timerTotal;
-  document.getElementById('timer-btn').textContent='▶ Bắt đầu';
-  renderTimer();
-}
-function skipTimer(){
-  clearInterval(timerInterval);timerRunning=false;timerRemaining=0;
-  renderTimer();showToast('Đã bỏ qua phiên này','⏭');
-  document.getElementById('timer-btn').textContent='▶ Bắt đầu';
-}
+function resetTimer(){clearInterval(timerInterval);timerRunning=false;timerRemaining=timerTotal;document.getElementById('timer-btn').textContent='▶ Bắt đầu';renderTimer();}
+function skipTimer(){clearInterval(timerInterval);timerRunning=false;timerRemaining=0;renderTimer();showToast('Đã bỏ qua phiên này','⏭');document.getElementById('timer-btn').textContent='▶ Bắt đầu';}
 
-
-// ── COURSES DATA ──
-const coursesData = [
-  {
-    id:'c1', name:'React Advanced & Performance Patterns', teacher:'Nguyễn Văn A',
-    category:'Frontend', emoji:'⚛️', color:'var(--indigo-light)', fill:'var(--indigo)',
-    totalLessons:42, tag:'b-live', tagText:'🔴 Live',
-    lessons:[
-      {name:'Giới thiệu khoá học',dur:'12 phút',done:true},
-      {name:'React 18: Concurrent Mode',dur:'28 phút',done:true},
-      {name:'useTransition & useDeferredValue',dur:'35 phút',done:true},
-      {name:'useCallback & useMemo nâng cao',dur:'40 phút',done:true},
-      {name:'Custom Hooks thực chiến',dur:'45 phút',done:true},
-      {name:'Context API vs Zustand',dur:'38 phút',done:true},
-      {name:'React Query: Server State',dur:'52 phút',done:true},
-      {name:'Lazy loading & Code splitting',dur:'30 phút',done:true},
-      {name:'Virtualization với react-window',dur:'28 phút',done:true},
-      {name:'Memoization patterns',dur:'35 phút',done:true},
-      {name:'Error Boundaries',dur:'22 phút',done:true},
-      {name:'Suspense & Data Fetching',dur:'40 phút',done:true},
-      {name:'React Testing Library',dur:'50 phút',done:true},
-      {name:'Vitest & jest setup',dur:'32 phút',done:true},
-      {name:'Performance profiling',dur:'38 phút',done:true},
-      {name:'Next.js App Router basics',dur:'55 phút',done:true},
-      {name:'Server Components',dur:'48 phút',done:true},
-      {name:'Next.js Data Fetching patterns',dur:'44 phút',done:true},
-      {name:'SEO & Metadata API',dur:'25 phút',done:true},
-      {name:'Next.js Deployment',dur:'30 phút',done:true},
-      {name:'Zustand advanced patterns',dur:'42 phút',done:true},
-      {name:'Jotai vs Recoil comparison',dur:'35 phút',done:true},
-      {name:'React Hook Form',dur:'48 phút',done:true},
-      {name:'Zod validation',dur:'30 phút',done:true},
-      {name:'Framer Motion animations',dur:'55 phút',done:true},
-      {name:'Styled Components deep dive',dur:'40 phút',done:true},
-      {name:'Tailwind + React patterns',dur:'35 phút',done:true},
-      {name:'Storybook component docs',dur:'42 phút',done:true},
-      {name:'🎯 Dự án: E-commerce UI',dur:'90 phút',done:false,active:true},
-      {name:'Monorepo với Turborepo',dur:'45 phút',done:false},
-      {name:'Micro-frontends',dur:'50 phút',done:false},
-      {name:'WebSockets trong React',dur:'38 phút',done:false},
-      {name:'Server-Sent Events',dur:'28 phút',done:false},
-      {name:'PWA với React',dur:'42 phút',done:false},
-      {name:'Cypress E2E Testing',dur:'55 phút',done:false},
-      {name:'Playwright testing',dur:'48 phút',done:false},
-      {name:'CI/CD cho React apps',dur:'35 phút',done:false},
-      {name:'Docker & containerization',dur:'50 phút',done:false},
-      {name:'Performance audit tools',dur:'32 phút',done:false},
-      {name:'Accessibility (a11y)',dur:'38 phút',done:false},
-      {name:'Internationalisation (i18n)',dur:'30 phút',done:false},
-      {name:'🏆 Dự án cuối khoá',dur:'120 phút',done:false},
-    ]
-  },
-  {
-    id:'c2', name:'Python cho Data Science & Machine Learning', teacher:'Trần Thị B',
-    category:'Data Science', emoji:'🐍', color:'var(--teal-light)', fill:'var(--teal)',
-    totalLessons:60, tag:'b-new', tagText:'✨ Mới',
-    lessons:[
-      {name:'Cài đặt Python & Jupyter',dur:'15 phút',done:true},
-      {name:'NumPy cơ bản',dur:'45 phút',done:true},
-      {name:'NumPy nâng cao: broadcasting',dur:'40 phút',done:true},
-      {name:'Pandas Series & DataFrame',dur:'50 phút',done:true},
-      {name:'Pandas: Cleaning & Wrangling',dur:'55 phút',done:true},
-      {name:'Pandas groupby & pivot',dur:'45 phút',done:true},
-      {name:'Pandas merge & join',dur:'40 phút',done:true},
-      {name:'Matplotlib cơ bản',dur:'38 phút',done:true},
-      {name:'Seaborn visualization',dur:'42 phút',done:true},
-      {name:'Plotly interactive charts',dur:'50 phút',done:true},
-      {name:'EDA (Exploratory Data Analysis)',dur:'60 phút',done:true},
-      {name:'Feature Engineering',dur:'55 phút',done:true},
-      {name:'Xử lý missing values',dur:'35 phút',done:true},
-      {name:'Encoding categorical data',dur:'30 phút',done:true},
-      {name:'Scaling & Normalization',dur:'28 phút',done:true},
-      {name:'Train/Test split',dur:'20 phút',done:true},
-      {name:'Linear Regression',dur:'50 phút',done:true},
-      {name:'Logistic Regression',dur:'48 phút',done:true},
-      {name:'Decision Trees',dur:'45 phút',done:true},
-      {name:'Random Forest',dur:'52 phút',done:true},
-      {name:'Gradient Boosting (XGBoost)',dur:'55 phút',done:true},
-      {name:'SVM (Support Vector Machine)',dur:'48 phút',done:true},
-      {name:'K-Means Clustering',dur:'40 phút',done:true},
-      {name:'DBSCAN & hierarchical',dur:'38 phút',done:true},
-      {name:'PCA (Dimensionality Reduction)',dur:'50 phút',done:true},
-      {name:'🎯 Dự án: Titanic Prediction',dur:'90 phút',done:false,active:true},
-      {name:'Neural Networks với Keras',dur:'65 phút',done:false},
-      {name:'Deep Learning basics',dur:'70 phút',done:false},
-      {name:'CNN cho Image Classification',dur:'75 phút',done:false},
-      {name:'RNN & LSTM',dur:'68 phút',done:false},
-      {name:'NLP: Text Processing',dur:'60 phút',done:false},
-      {name:'NLP: Sentiment Analysis',dur:'55 phút',done:false},
-      {name:'Transformers & BERT',dur:'80 phút',done:false},
-      {name:'Time Series Analysis',dur:'65 phút',done:false},
-      {name:'Recommendation Systems',dur:'58 phút',done:false},
-      {name:'MLflow: Experiment Tracking',dur:'45 phút',done:false},
-      {name:'Model Deployment (FastAPI)',dur:'60 phút',done:false},
-      {name:'Docker cho ML',dur:'50 phút',done:false},
-      {name:'Cloud ML (AWS SageMaker)',dur:'70 phút',done:false},
-      {name:'🏆 Dự án cuối: ML Pipeline',dur:'180 phút',done:false},
-    ]
-  },
-  {
-    id:'c3', name:'UI/UX Design Masterclass 2025', teacher:'Lê Văn C',
-    category:'Design', emoji:'🎨', color:'var(--amber-light)', fill:'var(--amber)',
-    totalLessons:38, tag:'b-done', tagText:'✅ Gần xong',
-    lessons:[
-      {name:'Tổng quan UI/UX Design',dur:'20 phút',done:true},
-      {name:'Design Thinking Process',dur:'35 phút',done:true},
-      {name:'User Research methods',dur:'40 phút',done:true},
-      {name:'User Personas',dur:'30 phút',done:true},
-      {name:'User Journey Mapping',dur:'38 phút',done:true},
-      {name:'Information Architecture',dur:'32 phút',done:true},
-      {name:'Wireframing basics',dur:'45 phút',done:true},
-      {name:'Figma: công cụ thiết kế',dur:'50 phút',done:true},
-      {name:'Design Systems',dur:'55 phút',done:true},
-      {name:'Typography trong UI',dur:'35 phút',done:true},
-      {name:'Color Theory',dur:'40 phút',done:true},
-      {name:'Spacing & Layout (8pt grid)',dur:'30 phút',done:true},
-      {name:'Components & Variants',dur:'48 phút',done:true},
-      {name:'Auto Layout Figma',dur:'42 phút',done:true},
-      {name:'Responsive Design',dur:'45 phút',done:true},
-      {name:'Mobile-first approach',dur:'35 phút',done:true},
-      {name:'Prototyping trong Figma',dur:'50 phút',done:true},
-      {name:'Micro-interactions',dur:'38 phút',done:true},
-      {name:'Animation basics',dur:'42 phút',done:true},
-      {name:'Usability Testing',dur:'40 phút',done:true},
-      {name:'A/B Testing design',dur:'35 phút',done:true},
-      {name:'Heuristic Evaluation',dur:'30 phút',done:true},
-      {name:'Accessibility in Design',dur:'38 phút',done:true},
-      {name:'Dark Mode patterns',dur:'25 phút',done:true},
-      {name:'Design Handoff (Dev Mode)',dur:'30 phút',done:true},
-      {name:'App: Banking UI Case Study',dur:'60 phút',done:true},
-      {name:'App: E-commerce Case Study',dur:'65 phút',done:true},
-      {name:'App: Social Media Case Study',dur:'58 phút',done:true},
-      {name:'App: SaaS Dashboard',dur:'70 phút',done:true},
-      {name:'App: Food Delivery App',dur:'62 phút',done:true},
-      {name:'App: Fitness Tracker',dur:'55 phút',done:true},
-      {name:'App: Travel Booking',dur:'58 phút',done:true},
-      {name:'App: E-learning Platform',dur:'60 phút',done:true},
-      {name:'App: Healthcare App',dur:'55 phút',done:true},
-      {name:'Portfolio xây dựng',dur:'75 phút',done:true},
-      {name:'Trình bày dự án',dur:'45 phút',done:false,active:true},
-      {name:'Freelancing & Career path',dur:'40 phút',done:false},
-      {name:'🏆 Bảo vệ đồ án cuối khoá',dur:'90 phút',done:false},
-    ]
-  },
-  {
-    id:'c4', name:'AWS Cloud Practitioner Essentials', teacher:'Phạm Thị D',
-    category:'DevOps', emoji:'☁️', color:'var(--sky-light)', fill:'var(--sky)',
-    totalLessons:55, tag:'b-sky', tagText:'🆕 Mới bắt đầu',
-    lessons:[
-      {name:'Giới thiệu Cloud Computing',dur:'20 phút',done:true},
-      {name:'AWS Global Infrastructure',dur:'25 phút',done:true},
-      {name:'IAM: Users, Groups, Roles',dur:'40 phút',done:true},
-      {name:'IAM Policies & Permissions',dur:'38 phút',done:true},
-      {name:'IAM Best Practices',dur:'22 phút',done:true},
-      {name:'EC2: Virtual Machines',dur:'50 phút',done:true},
-      {name:'EC2 Instance Types',dur:'30 phút',done:true},
-      {name:'Security Groups & NACL',dur:'35 phút',done:true},
-      {name:'EBS & Storage options',dur:'32 phút',done:true},
-      {name:'AMI & Launch Templates',dur:'28 phút',done:true},
-      {name:'Auto Scaling Groups',dur:'45 phút',done:true},
-      {name:'Load Balancers (ALB/NLB)',dur:'40 phút',done:true},
-      {name:'🎯 Lab: Deploy Web App trên EC2',dur:'60 phút',done:false,active:true},
-      {name:'S3: Object Storage',dur:'35 phút',done:false},
-      {name:'S3 Versioning & Lifecycle',dur:'28 phút',done:false},
-      {name:'S3 Static Website Hosting',dur:'25 phút',done:false},
-      {name:'CloudFront CDN',dur:'38 phút',done:false},
-      {name:'RDS: Managed Databases',dur:'45 phút',done:false},
-      {name:'DynamoDB: NoSQL',dur:'42 phút',done:false},
-      {name:'ElastiCache',dur:'30 phút',done:false},
-      {name:'VPC: Virtual Networks',dur:'55 phút',done:false},
-      {name:'Subnets & Route Tables',dur:'40 phút',done:false},
-      {name:'VPN & Direct Connect',dur:'35 phút',done:false},
-      {name:'Route 53: DNS',dur:'30 phút',done:false},
-      {name:'Lambda: Serverless',dur:'48 phút',done:false},
-      {name:'API Gateway',dur:'40 phút',done:false},
-      {name:'SQS & SNS',dur:'38 phút',done:false},
-      {name:'EventBridge',dur:'30 phút',done:false},
-      {name:'CloudWatch Monitoring',dur:'42 phút',done:false},
-      {name:'CloudTrail & Config',dur:'35 phút',done:false},
-      {name:'ECS & Fargate: Containers',dur:'50 phút',done:false},
-      {name:'EKS: Kubernetes on AWS',dur:'55 phút',done:false},
-      {name:'CodePipeline & CI/CD',dur:'45 phút',done:false},
-      {name:'CloudFormation: IaC',dur:'48 phút',done:false},
-      {name:'Elastic Beanstalk',dur:'35 phút',done:false},
-      {name:'Billing & Cost Management',dur:'25 phút',done:false},
-      {name:'Pricing Calculator',dur:'20 phút',done:false},
-      {name:'Cost Optimization strategies',dur:'30 phút',done:false},
-      {name:'Security Hub & GuardDuty',dur:'38 phút',done:false},
-      {name:'AWS WAF & Shield',dur:'32 phút',done:false},
-      {name:'KMS: Key Management',dur:'28 phút',done:false},
-      {name:'Secrets Manager',dur:'22 phút',done:false},
-      {name:'Well-Architected Framework',dur:'45 phút',done:false},
-      {name:'Migration Strategies',dur:'35 phút',done:false},
-      {name:'AWS Organizations',dur:'28 phút',done:false},
-      {name:'Control Tower',dur:'30 phút',done:false},
-      {name:'Rekognition & Comprehend',dur:'38 phút',done:false},
-      {name:'SageMaker intro',dur:'45 phút',done:false},
-      {name:'Athena & Glue',dur:'40 phút',done:false},
-      {name:'Kinesis Data Streams',dur:'42 phút',done:false},
-      {name:'Redshift Data Warehouse',dur:'48 phút',done:false},
-      {name:'Thi thử CLF-C02 (Part 1)',dur:'60 phút',done:false},
-      {name:'Thi thử CLF-C02 (Part 2)',dur:'60 phút',done:false},
-      {name:'Review & Giải đề',dur:'75 phút',done:false},
-      {name:'🏆 Mock Exam: CLF-C02',dur:'90 phút',done:false},
-    ]
-  },
-  {
-    id:'c5', name:'TypeScript Full Course 2025', teacher:'Ngô Minh E',
-    category:'Frontend', emoji:'🔷', color:'#dbeafe', fill:'#3b82f6',
-    totalLessons:35, tag:'b-new', tagText:'✨ Mới thêm',
-    lessons:[
-      {name:'TypeScript là gì?',dur:'15 phút',done:false,active:true},
-      {name:'Types & Interfaces',dur:'35 phút',done:false},
-      {name:'Generics',dur:'45 phút',done:false},
-      {name:'Decorators',dur:'40 phút',done:false},
-      {name:'TypeScript với React',dur:'55 phút',done:false},
-    ]
-  },
-  {
-    id:'c6', name:'Node.js & Express: Backend Development', teacher:'Võ Thanh F',
-    category:'Backend', emoji:'🟢', color:'var(--teal-light)', fill:'var(--teal)',
-    totalLessons:48, tag:'b-sky', tagText:'🆕 Mới',
-    lessons:[
-      {name:'Node.js fundamentals',dur:'30 phút',done:false,active:true},
-      {name:'Express.js basics',dur:'40 phút',done:false},
-      {name:'REST API design',dur:'45 phút',done:false},
-      {name:'JWT Authentication',dur:'50 phút',done:false},
-      {name:'MongoDB & Mongoose',dur:'55 phút',done:false},
-    ]
-  },
-  {
-    id:'c7', name:'Docker & Kubernetes Mastery', teacher:'Đinh Bảo G',
-    category:'DevOps', emoji:'🐳', color:'var(--sky-light)', fill:'var(--sky)',
-    totalLessons:40, tag:'b-sky', tagText:'⚙️ DevOps',
-    lessons:[
-      {name:'Docker basics',dur:'35 phút',done:false,active:true},
-      {name:'Dockerfile',dur:'30 phút',done:false},
-      {name:'Docker Compose',dur:'40 phút',done:false},
-      {name:'Kubernetes overview',dur:'50 phút',done:false},
-      {name:'Pods & Services',dur:'45 phút',done:false},
-    ]
-  },
-  {
-    id:'c8', name:'Figma Advanced: Design Systems', teacher:'Hoàng Yến H',
-    category:'Design', emoji:'🖌️', color:'var(--rose-light)', fill:'var(--rose)',
-    totalLessons:28, tag:'b-done', tagText:'✅ Hoàn thành',
-    lessons:[
-      {name:'Variables & Tokens',dur:'40 phút',done:true},
-      {name:'Advanced Components',dur:'50 phút',done:true},
-      {name:'Figma Dev Mode',dur:'35 phút',done:true},
-      {name:'Design Tokens export',dur:'30 phút',done:true},
-      {name:'Team Libraries',dur:'25 phút',done:true},
-    ]
-  },
-];
-
-let courseFilter='all';
-let activeCourseId=null;
-
-function getCourseProgress(course){
-  const done=course.lessons.filter(l=>l.done).length;
-  const pct=Math.round(done/course.lessons.length*100);
-  return{done,total:course.lessons.length,pct};
-}
-
-function setCourseFilter(f,el){
-  courseFilter=f;
-  document.querySelectorAll('#page-courses .prob-filter-btn').forEach(b=>b.classList.remove('active'));
-  if(el)el.classList.add('active');
-  renderCoursesPage();
-}
-
-function renderCoursesPage(){
-  const grid=document.getElementById('courses-grid');
-  if(!grid)return;
-  let list=coursesData.filter(c=>{
-    if(courseFilter==='active'){const p=getCourseProgress(c);return p.pct>0&&p.pct<100;}
-    if(courseFilter==='done'){const p=getCourseProgress(c);return p.pct===100;}
-    if(courseFilter==='frontend')return c.category==='Frontend';
-    if(courseFilter==='backend')return c.category==='Backend';
-    if(courseFilter==='data')return c.category==='Data Science';
-    return true;
-  });
-  // merge dynamic courses from localStorage
-  const saved=JSON.parse(localStorage.getItem('lf_custom_courses')||'[]');
-  if(courseFilter==='all')list=[...list,...saved];
-
-  grid.innerHTML=list.map(c=>{
-    const p=getCourseProgress(c);
-    return`<div class="course-card" onclick="openCourseDetail('${c.id}')">
-      <div class="course-card-banner" style="background:${c.color}">${c.emoji}</div>
-      <div class="course-card-body">
-        <div class="course-card-title">${c.name}</div>
-        <div class="course-card-meta">${c.teacher} · ${c.category}</div>
-        <div class="course-prog-row"><span style="font-size:12px;color:var(--text2)">Tiến độ</span><span class="course-prog-pct" style="color:${c.fill}">${p.pct}%</span></div>
-        <div class="course-prog-bar"><div class="course-prog-fill" style="width:${p.pct}%;background:${c.fill}"></div></div>
-        <div class="course-card-footer">
-          <span class="course-lessons-count">${p.done} / ${p.total} bài · ${c.lessons.length} tổng</span>
-          <span class="badge ${c.tag}">${c.tagText}</span>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function openCourseDetail(id){
-  const c=coursesData.find(x=>x.id===id);
-  if(!c)return;
-  activeCourseId=id;
-  const p=getCourseProgress(c);
-  document.getElementById('cdp-banner').style.background=c.color;
-  document.getElementById('cdp-banner').querySelector('div').style.display='flex'; // keep close btn
-  document.getElementById('cdp-banner').childNodes[0].textContent=c.emoji+' ';
-  document.getElementById('cdp-title').textContent=c.name;
-  document.getElementById('cdp-meta').textContent=`${c.teacher} · ${c.category} · ${c.totalLessons} bài học`;
-  document.getElementById('cdp-prog-label').textContent=`Tiến độ học`;
-  document.getElementById('cdp-prog-pct').textContent=`${p.pct}%`;
-  document.getElementById('cdp-prog-pct').style.color=c.fill;
-  document.getElementById('cdp-prog-fill').style.width=`${p.pct}%`;
-  document.getElementById('cdp-prog-fill').style.background=c.fill;
-  document.getElementById('cdp-prog-sub').textContent=`${p.done} / ${p.total} bài đã hoàn thành · Còn ${p.total-p.done} bài`;
-
-  const lessonsEl=document.getElementById('cdp-lessons');
-  const displayLessons=c.lessons.slice(0,Math.min(c.lessons.length,30));
-  lessonsEl.innerHTML=displayLessons.map((l,i)=>{
-    const isDone=l.done;
-    const isActive=l.active&&!isDone;
-    const isLocked=!isDone&&!isActive&&i>displayLessons.findIndex(x=>x.active)||false;
-    const cls=isDone?'done':isActive?'active-lesson':'';
-    const numCls=isDone?'ln-done':isActive?'ln-active':'ln-lock';
-    const tick=isDone?'<span class="lesson-tick">✓</span>':isActive?'<span class="lesson-play">▶</span>':'<span style="font-size:12px;color:var(--text3)">🔒</span>';
-    return`<div class="lesson-row ${cls}" onclick="markLessonDone('${id}',${i},this)">
-      <div class="lesson-num ${numCls}">${i+1}</div>
-      <div class="lesson-info"><div class="lesson-name">${l.name}</div><div class="lesson-dur">⏱ ${l.dur}</div></div>
-      ${tick}
-    </div>`;
-  }).join('');
-  if(c.lessons.length>30){
-    lessonsEl.innerHTML+=`<div style="text-align:center;padding:12px;font-size:12px;color:var(--text3);">+${c.lessons.length-30} bài nữa...</div>`;
-  }
-
-  const nextLesson=c.lessons.find(l=>!l.done);
-  document.getElementById('cdp-continue-btn').textContent=nextLesson?`▶ Tiếp tục: ${nextLesson.name.slice(0,30)}...`:'🏆 Xem lại khoá học';
-
-  document.getElementById('course-detail-overlay').classList.add('open');
-}
-
-function markLessonDone(courseId,idx,el){
-  const c=coursesData.find(x=>x.id===courseId);
-  if(!c)return;
-  const lesson=c.lessons[idx];
-  if(!lesson)return;
-  lesson.done=!lesson.done;
-  // update active
-  c.lessons.forEach((l,i)=>{if(i<=idx)l.active=false;});
-  const nextUndone=c.lessons.find((l,i)=>i>idx&&!l.done);
-  if(nextUndone)nextUndone.active=true;
-  // re-render detail
-  openCourseDetail(courseId);
-  // sync progress page
-  syncProgressPage();
-  const p=getCourseProgress(c);
-  showToast(`${lesson.done?'✅ Hoàn thành':'↩ Bỏ đánh dấu'}: ${lesson.name}`,'📚');
-  if(p.pct===100)showToast(`🎉 Chúc mừng! Bạn đã hoàn thành khoá học "${c.name}"!`,'🏆');
-}
-
-function continueLesson(){
-  if(!activeCourseId)return;
-  const c=coursesData.find(x=>x.id===activeCourseId);
-  if(!c)return;
-  const next=c.lessons.find(l=>!l.done);
-  if(next){
-    const idx=c.lessons.indexOf(next);
-    markLessonDone(activeCourseId,idx,null);
-  }
-}
-
-function closeCourseDetail(){
-  document.getElementById('course-detail-overlay').classList.remove('open');
-  renderCoursesPage();
-}
-
-function syncProgressPage(){
-  const progressBars=document.querySelectorAll('#page-progress .card:first-child > div > div');
-  progressBars.forEach(row=>{
-    const nameEl=row.querySelector('span:first-child');
-    if(!nameEl)return;
-    const name=nameEl.textContent;
-    const course=coursesData.find(c=>name.includes(c.emoji)||name.includes(c.name.split(' ')[0]));
-    if(!course)return;
-    const p=getCourseProgress(course);
-    const pctEl=row.querySelector('span:last-child');
-    const fillEl=row.querySelector('div > div');
-    if(pctEl)pctEl.textContent=`${p.pct}%`;
-    if(fillEl)fillEl.style.width=`${p.pct}%`;
-  });
-  // sync dashboard course list
-  syncDashboardCourses();
-}
-
-function syncDashboardCourses(){
-  const rows=document.querySelectorAll('#course-list .course-row');
-  const map={0:'c1',1:'c2',2:'c3',3:'c4'};
-  rows.forEach((row,i)=>{
-    const c=coursesData.find(x=>x.id===map[i]);
-    if(!c)return;
-    const p=getCourseProgress(c);
-    const fill=row.querySelector('.ci-fill');
-    const pct=row.querySelector('.ci-pct');
-    if(fill)fill.style.width=`${p.pct}%`;
-    if(pct){
-      const left=p.total-p.done;
-      pct.textContent=left===0?`${p.pct}% · Hoàn thành! 🎉`:`${p.pct}% · Còn ${left} bài`;
-    }
-  });
-}
-
-// ── SESSION TIME TRACKER ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SESSION TRACKER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 let sessionStartTime=Date.now();
-let sessionTodayBase=parseInt(localStorage.getItem('lf_session_today_base')||'0');
-const lastDate=localStorage.getItem('lf_session_date')||'';
 const todayStr=new Date().toDateString();
-if(lastDate!==todayStr){
-  sessionTodayBase=0;
-  localStorage.setItem('lf_session_today_base','0');
-  localStorage.setItem('lf_session_date',todayStr);
+if(ls('lf_session_date','')!==todayStr){
+  ls_set('lf_session_today_base',0);
+  ls_set('lf_session_date',todayStr);
 }
+let sessionTodayBase=ls('lf_session_today_base',0);
 
 function formatSessionTime(ms){
-  const totalSec=Math.floor(ms/1000);
-  const h=Math.floor(totalSec/3600);
-  const m=Math.floor((totalSec%3600)/60);
-  const s=totalSec%60;
-  return`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+  return`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
 }
 function formatHM(ms){
-  const totalSec=Math.floor(ms/1000);
-  const h=Math.floor(totalSec/3600);
-  const m=Math.floor((totalSec%3600)/60);
+  const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60);
   return h>0?`${h}h ${m}m`:`${m}m`;
 }
-
 function updateSessionDisplay(){
   const elapsed=Date.now()-sessionStartTime;
   const todayTotal=sessionTodayBase+elapsed;
@@ -2195,12 +1857,273 @@ function updateSessionDisplay(){
   const todayEl=document.getElementById('session-today');
   if(dispEl)dispEl.textContent=formatSessionTime(elapsed);
   if(todayEl)todayEl.textContent=formatHM(todayTotal);
-  localStorage.setItem('lf_session_today_base',String(Math.floor(todayTotal)));
+  ls_set('lf_session_today_base',Math.floor(todayTotal));
 }
 setInterval(updateSessionDisplay,1000);
 updateSessionDisplay();
 
-// ── CHALLENGE TIMER ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PROBLEMS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const problemsData=[
+  {id:1,name:'Two Sum',diff:'easy',tags:['Array','Hash Table'],ac:'47.2%',description:'Cho một mảng số nguyên <code>nums</code> và <code>target</code>, trả về chỉ số của hai số cộng lại bằng target.',examples:[{input:'nums = [2,7,11,15], target = 9',output:'[0,1]',explain:'nums[0]+nums[1]=9'}],constraints:['2 ≤ nums.length ≤ 10⁴'],testcases:[{input:'nums = [2,7,11,15]\ntarget = 9',expected:'[0,1]'},{input:'nums = [3,2,4]\ntarget = 6',expected:'[1,2]'}],starter:{python:'class Solution:\n    def twoSum(self, nums, target):\n        pass\n',javascript:'var twoSum = function(nums, target) {\n    \n};\n',java:'class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        return new int[]{};\n    }\n}\n',cpp:'class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        return {};\n    }\n};\n'}},
+  {id:2,name:'Add Two Numbers',diff:'medium',tags:['Linked List','Math'],ac:'40.1%',description:'Cộng hai số được biểu diễn bằng linked list ngược.',examples:[{input:'l1=[2,4,3], l2=[5,6,4]',output:'[7,0,8]'}],constraints:['1-100 nodes'],testcases:[{input:'l1=[2,4,3]\nl2=[5,6,4]',expected:'[7,0,8]'}],starter:{python:'class Solution:\n    def addTwoNumbers(self, l1, l2):\n        pass\n',javascript:'var addTwoNumbers = function(l1, l2) {\n    \n};\n',java:'class Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        return null;\n    }\n}\n',cpp:'class Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        return nullptr;\n    }\n};\n'}},
+  {id:3,name:'Longest Substring Without Repeating',diff:'medium',tags:['Sliding Window','String'],ac:'33.8%',description:'Tìm độ dài chuỗi con dài nhất không chứa ký tự lặp.',examples:[{input:'s = "abcabcbb"',output:'3'}],constraints:['s.length ≤ 50000'],testcases:[{input:'s = "abcabcbb"',expected:'3'}],starter:{python:'class Solution:\n    def lengthOfLongestSubstring(self, s):\n        pass\n',javascript:'var lengthOfLongestSubstring = function(s) {\n    \n};\n',java:'class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        return 0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        return 0;\n    }\n};\n'}},
+  {id:4,name:'Median of Two Sorted Arrays',diff:'hard',tags:['Binary Search','Array'],ac:'36.2%',description:'Tìm trung vị của hai mảng đã sắp xếp. Yêu cầu O(log(m+n)).',examples:[{input:'nums1=[1,3], nums2=[2]',output:'2.0'}],constraints:['O(log(m+n))'],testcases:[{input:'nums1=[1,3]\nnums2=[2]',expected:'2.0'}],starter:{python:'class Solution:\n    def findMedianSortedArrays(self, nums1, nums2):\n        pass\n',javascript:'var findMedianSortedArrays = function(nums1, nums2) {\n    \n};\n',java:'class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        return 0.0;\n    }\n}\n',cpp:'class Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        return 0.0;\n    }\n};\n'}},
+  {id:5,name:'Longest Palindromic Substring',diff:'medium',tags:['DP','String'],ac:'32.4%',description:'Tìm chuỗi con palindrome dài nhất.',examples:[{input:'s = "babad"',output:'"bab"'}],constraints:['1 ≤ s.length ≤ 1000'],testcases:[{input:'s = "babad"',expected:'"bab"'}],starter:{python:'class Solution:\n    def longestPalindrome(self, s):\n        pass\n',javascript:'var longestPalindrome = function(s) {\n    \n};\n',java:'class Solution {\n    public String longestPalindrome(String s) {\n        return "";\n    }\n}\n',cpp:'class Solution {\npublic:\n    string longestPalindrome(string s) {\n        return "";\n    }\n};\n'}},
+  ...[
+    {id:6,name:'ZigZag Conversion',diff:'medium',tags:['String'],ac:'45.3%'},
+    {id:7,name:'Reverse Integer',diff:'medium',tags:['Math'],ac:'27.9%'},
+    {id:8,name:'String to Integer (atoi)',diff:'medium',tags:['String'],ac:'17.6%'},
+    {id:9,name:'Palindrome Number',diff:'easy',tags:['Math'],ac:'52.1%'},
+    {id:10,name:'Regular Expression Matching',diff:'hard',tags:['DP'],ac:'28.3%'},
+    {id:11,name:'Container With Most Water',diff:'medium',tags:['Two Pointers'],ac:'54.2%'},
+    {id:12,name:'Integer to Roman',diff:'medium',tags:['Math'],ac:'62.0%'},
+    {id:13,name:'Roman to Integer',diff:'easy',tags:['Math','String'],ac:'58.9%'},
+    {id:14,name:'Longest Common Prefix',diff:'easy',tags:['String'],ac:'41.3%'},
+    {id:15,name:'3Sum',diff:'medium',tags:['Two Pointers'],ac:'32.5%'},
+    {id:16,name:'Letter Combinations of Phone',diff:'medium',tags:['Backtracking'],ac:'57.4%'},
+    {id:17,name:'Valid Parentheses',diff:'easy',tags:['Stack'],ac:'40.7%'},
+    {id:18,name:'Merge Two Sorted Lists',diff:'easy',tags:['Linked List'],ac:'62.8%'},
+    {id:19,name:'Generate Parentheses',diff:'medium',tags:['Backtracking'],ac:'73.1%'},
+    {id:20,name:'Merge k Sorted Lists',diff:'hard',tags:['Heap'],ac:'48.2%'},
+    {id:21,name:'Search in Rotated Sorted Array',diff:'medium',tags:['Binary Search'],ac:'38.5%'},
+    {id:22,name:'Find First and Last Position',diff:'medium',tags:['Binary Search'],ac:'41.7%'},
+    {id:23,name:'Climbing Stairs',diff:'easy',tags:['DP'],ac:'51.8%'},
+    {id:24,name:'Binary Tree Inorder Traversal',diff:'easy',tags:['Tree'],ac:'74.5%'},
+    {id:25,name:'Symmetric Tree',diff:'easy',tags:['Tree','BFS'],ac:'53.2%'},
+    {id:26,name:'Maximum Depth of Binary Tree',diff:'easy',tags:['Tree','DFS'],ac:'73.9%'},
+    {id:27,name:'Best Time to Buy and Sell Stock',diff:'easy',tags:['Array','DP'],ac:'54.4%'},
+    {id:28,name:'Single Number',diff:'easy',tags:['Bit Manipulation'],ac:'70.2%'},
+    {id:29,name:'Linked List Cycle',diff:'easy',tags:['Linked List'],ac:'45.9%'},
+    {id:30,name:'Min Stack',diff:'medium',tags:['Stack'],ac:'51.7%'},
+    {id:31,name:'Intersection of Linked Lists',diff:'easy',tags:['Linked List'],ac:'55.1%'},
+    {id:32,name:'Majority Element',diff:'easy',tags:['Array'],ac:'63.4%'},
+    {id:33,name:'House Robber',diff:'medium',tags:['DP'],ac:'49.8%'},
+    {id:34,name:'Reverse Linked List',diff:'easy',tags:['Linked List'],ac:'73.1%'},
+    {id:35,name:'Course Schedule',diff:'medium',tags:['Graph','Topological Sort'],ac:'46.0%'},
+    {id:36,name:'Implement Trie',diff:'medium',tags:['Trie'],ac:'62.3%'},
+    {id:37,name:'Kth Largest Element',diff:'medium',tags:['Heap'],ac:'65.3%'},
+    {id:38,name:'Number of Islands',diff:'medium',tags:['BFS','DFS'],ac:'56.7%'},
+    {id:39,name:'Product of Array Except Self',diff:'medium',tags:['Array'],ac:'64.5%'},
+    {id:40,name:'Find Median from Data Stream',diff:'hard',tags:['Heap'],ac:'51.9%'},
+  ].map(p=>({
+    ...p,
+    description:`Bài toán <b>${p.name}</b>. Đây là bài tập luyện tập lập trình.`,
+    examples:[{input:'Xem đề bài chi tiết',output:''}],
+    constraints:['Xem chi tiết'],
+    testcases:[{input:'// Test case',expected:'// Output'}],
+    starter:{
+      python:`class Solution:\n    def solve(self):\n        # ${p.name}\n        pass\n`,
+      javascript:`var solve = function() {\n    // ${p.name}\n};\n`,
+      java:`class Solution {\n    public void solve() {\n        // ${p.name}\n    }\n}\n`,
+      cpp:`class Solution {\npublic:\n    void solve() {\n        // ${p.name}\n    }\n};\n`
+    }
+  }))
+];
+
+let currentProbFilter='all';
+let currentProbSearch='';
+let currentProbId=null;
+let currentLang='python';
+let currentOutputTab='testcase';
+let submissionsHistory=[];
+
+function loadProblemsStatus(){
+  const m=ls('problems_status',{});
+  problemsData.forEach(p=>{if(m[p.id])p.status=m[p.id];else if(!p.status)p.status='none';});
+}
+function saveProblemStatus(){
+  const m={};problemsData.forEach(p=>m[p.id]=p.status);ls_set('problems_status',m);
+}
+
+function updateProblemStats(){
+  const done=problemsData.filter(p=>p.status==='done').length;
+  document.getElementById('stat-done').textContent=done;
+  document.getElementById('stat-easy').textContent=problemsData.filter(p=>p.diff==='easy'&&p.status==='done').length;
+  document.getElementById('stat-med').textContent=problemsData.filter(p=>p.diff==='medium'&&p.status==='done').length;
+  document.getElementById('stat-hard').textContent=problemsData.filter(p=>p.diff==='hard'&&p.status==='done').length;
+  document.getElementById('stat-total').textContent=problemsData.length;
+}
+
+function setProbFilter(filter,btn){
+  currentProbFilter=filter;
+  document.querySelectorAll('.prob-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProblems();
+}
+function filterProblems(val){currentProbSearch=val;renderProblems();}
+
+function toggleProblemStatus(id){
+  const prob=problemsData.find(p=>p.id===id);
+  if(!prob)return;
+  if(prob.status==='none')prob.status='try';
+  else if(prob.status==='try')prob.status='done';
+  else prob.status='none';
+  saveProblemStatus();
+  renderProblems();
+  updateProblemStats();
+}
+
+function renderProblems(){
+  const tbody=document.getElementById('prob-tbody');
+  if(!tbody)return;
+  let list=problemsData.filter(p=>{
+    if(currentProbFilter==='easy')return p.diff==='easy';
+    if(currentProbFilter==='medium')return p.diff==='medium';
+    if(currentProbFilter==='hard')return p.diff==='hard';
+    if(currentProbFilter==='done')return p.status==='done';
+    if(currentProbFilter==='todo')return p.status!=='done';
+    return true;
+  }).filter(p=>{
+    if(!currentProbSearch)return true;
+    const q=currentProbSearch.toLowerCase();
+    return p.name.toLowerCase().includes(q)||p.tags.some(t=>t.toLowerCase().includes(q));
+  });
+  tbody.innerHTML=list.map(p=>{
+    const diffHtml=p.diff==='easy'?'<span class="diff-easy">Dễ</span>':p.diff==='medium'?'<span class="diff-med">Vừa</span>':'<span class="diff-hard">Khó</span>';
+    const statusHtml=p.status==='done'?'<span class="prob-status-done" title="Đã giải">✅</span>':p.status==='try'?'<span class="prob-status-try" title="Đang thử">⚡</span>':'<span class="prob-status-none" title="Chưa làm">○</span>';
+    const tagsHtml=p.tags.map(t=>`<span class="prob-tag">${t}</span>`).join('');
+    return`<tr>
+      <td style="color:var(--text3);font-family:var(--mono);font-size:12px;">${p.id}</td>
+      <td style="cursor:pointer;" onclick="toggleProblemStatus(${p.id})" title="Nhấp để đổi">${statusHtml}</td>
+      <td><span class="prob-name-link" onclick="openProblem(${p.id})">${p.name}</span></td>
+      <td>${diffHtml}</td>
+      <td><div class="prob-tags">${tagsHtml}</div></td>
+      <td style="font-family:var(--mono);font-size:12px;color:var(--text3);">${p.ac}</td>
+    </tr>`;
+  }).join('');
+  updateProblemStats();
+}
+
+function openProblem(id){
+  const prob=problemsData.find(p=>p.id===id);
+  if(!prob)return;
+  currentProbId=id;
+  document.getElementById('editor-prob-num').textContent='#'+prob.id;
+  document.getElementById('editor-prob-title').textContent=prob.name;
+  const diffEl=document.getElementById('editor-prob-diff');
+  diffEl.innerHTML=prob.diff==='easy'?'<span class="diff-easy">Dễ</span>':prob.diff==='medium'?'<span class="diff-med">Vừa</span>':'<span class="diff-hard">Khó</span>';
+  let html=`<div class="prob-desc-section"><p>${prob.description.replace(/<code>/g,'<code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--indigo)">').replace(/\n/g,'<br>')}</p></div>`;
+  if(prob.examples&&prob.examples.length){
+    html+='<div class="prob-desc-section"><h4>Ví dụ</h4>';
+    prob.examples.forEach(ex=>{
+      html+=`<div class="prob-example"><code><b>Input:</b> ${ex.input}\n<b>Output:</b> ${ex.output}${ex.explain?'\n<b>Giải thích:</b> '+ex.explain:''}</code></div>`;
+    });
+    html+='</div>';
+  }
+  if(prob.constraints&&prob.constraints.length){
+    html+='<div class="prob-desc-section"><h4>Ràng buộc</h4><div class="prob-constraints"><ul>';
+    prob.constraints.forEach(c=>{html+=`<li>${c}</li>`;});
+    html+='</ul></div></div>';
+  }
+  document.getElementById('editor-prob-body').innerHTML=html;
+  document.getElementById('code-editor').value=(prob.starter&&prob.starter[currentLang])||'// Viết code của bạn ở đây\n';
+  renderTestCases(prob);
+  setPage('editor',null);
+  document.getElementById('page-title').textContent=`💻 ${prob.name}`;
+}
+
+function renderTestCases(prob){
+  if(currentOutputTab!=='testcase')return;
+  let html='';
+  (prob.testcases||[]).forEach((tc,i)=>{
+    html+=`<div class="testcase-row"><div class="testcase-label">Test Case ${i+1}</div><div class="testcase-val">${tc.input.replace(/\n/g,'<br>')}</div><div class="testcase-label" style="margin-top:6px;">Expected</div><div class="testcase-val">${tc.expected}</div></div>`;
+  });
+  document.getElementById('output-body').innerHTML=html||'<div style="color:#585b70;font-family:var(--mono);font-size:12px;">Chưa có test case.</div>';
+}
+
+function switchOutputTab(tab,btn){
+  currentOutputTab=tab;
+  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const prob=problemsData.find(p=>p.id===currentProbId);
+  if(tab==='testcase'&&prob)renderTestCases(prob);
+  else if(tab==='result') document.getElementById('output-body').innerHTML='<div class="result-line result-info">▶ Nhấn "Chạy" để xem kết quả</div>';
+  else if(tab==='submissions')renderSubmissions();
+}
+
+function renderSubmissions(){
+  const mine=submissionsHistory.filter(s=>s.probId===currentProbId).reverse();
+  document.getElementById('output-body').innerHTML=mine.length?mine.map(s=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #313244;"><span class="${s.pass?'result-pass':'result-fail'} result-line">${s.pass?'✅ Accepted':'❌ Wrong Answer'}</span><span style="color:#6c7086;font-size:11px;font-family:var(--mono);margin-left:auto;">${s.lang} · ${s.time}</span></div>`).join(''):'<div style="color:#585b70;font-size:12px;font-family:var(--mono);">Chưa có lần nộp.</div>';
+}
+
+function changeLang(lang){
+  const prob=problemsData.find(p=>p.id===currentProbId);
+  if(prob&&prob.starter&&prob.starter[lang]){
+    if(!confirm('Đổi ngôn ngữ sẽ reset code hiện tại. Tiếp tục?')){
+      document.getElementById('lang-select').value=currentLang;return;
+    }
+    document.getElementById('code-editor').value=prob.starter[lang];
+  }
+  currentLang=lang;
+}
+
+function runCode(){
+  const code=document.getElementById('code-editor').value.trim();
+  if(!code){showToast('Viết code trước đã!','⚠️');return;}
+  const prob=problemsData.find(p=>p.id===currentProbId);
+  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.output-tab')[1].classList.add('active');
+  currentOutputTab='result';
+  document.getElementById('output-body').innerHTML='<div class="result-line result-info">⏳ Đang chạy...</div>';
+  setTimeout(()=>{
+    const pass=Math.random()>0.35;
+    const tc=prob?prob.testcases:[];
+    let html=`<div class="result-line ${pass?'result-pass':'result-fail'}" style="font-size:13px;font-weight:700;margin-bottom:12px;">${pass?'✅ Chạy thành công!':'❌ Một số test case thất bại'}</div>`;
+    tc.forEach((t,i)=>{
+      const ok=i<tc.length-1?true:pass;
+      html+=`<div style="margin-bottom:10px;"><div class="result-line ${ok?'result-pass':'result-fail'}">${ok?'✅':'❌'} Test ${i+1}</div><div style="margin-top:4px;background:#313244;border-radius:6px;padding:8px 10px;"><div class="result-line result-info">Input: ${t.input.replace(/\n/g,' | ')}</div><div class="result-line ${ok?'result-pass':'result-fail'}">Output: ${ok?t.expected:'Wrong'}</div></div></div>`;
+    });
+    document.getElementById('output-body').innerHTML=html;
+    showToast(pass?'Code chạy thành công! 🎉':'Có test case thất bại',pass?'✅':'❌');
+  },800);
+}
+
+function submitCode(){
+  const code=document.getElementById('code-editor').value.trim();
+  if(!code){showToast('Viết code trước đã!','⚠️');return;}
+  const prob=problemsData.find(p=>p.id===currentProbId);
+  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.output-tab')[1].classList.add('active');
+  currentOutputTab='result';
+  document.getElementById('output-body').innerHTML='<div class="result-line result-info">⏳ Đang chấm bài...</div>';
+  setTimeout(()=>{
+    const accepted=Math.random()>0.3;
+    const runtime=Math.floor(Math.random()*80+20);
+    const memory=Math.floor(Math.random()*10+14);
+    const beats=Math.floor(Math.random()*30+65);
+    if(accepted&&prob&&prob.status!=='done'){prob.status='done';saveProblemStatus();updateProblemStats();}
+    const now=new Date();
+    submissionsHistory.push({probId:currentProbId,pass:accepted,lang:currentLang,time:`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`});
+    if(accepted&&prob){
+      const score=ls('lf_user_score',2840);
+      ls_set('lf_user_score',score+100);
+      const el=document.getElementById('user-score');
+      if(el)el.textContent=(score+100).toLocaleString();
+    }
+    const html=accepted?`<div class="result-line result-pass" style="font-size:15px;font-weight:700;margin-bottom:16px;">✅ Accepted</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div style="background:#313244;border-radius:6px;padding:10px 12px;"><div style="font-size:10px;color:#6c7086;font-family:var(--mono);margin-bottom:4px;">RUNTIME</div><div style="font-size:16px;font-weight:700;color:#a6e3a1;font-family:var(--mono);">${runtime} ms</div><div style="font-size:10px;color:#6c7086;">Beats ${beats}%</div></div>
+        <div style="background:#313244;border-radius:6px;padding:10px 12px;"><div style="font-size:10px;color:#6c7086;font-family:var(--mono);margin-bottom:4px;">MEMORY</div><div style="font-size:16px;font-weight:700;color:#89b4fa;font-family:var(--mono);">${memory}.2 MB</div><div style="font-size:10px;color:#6c7086;">Beats ${100-beats}%</div></div>
+      </div><div class="result-line result-pass">Tất cả test cases pass! 🎉</div>`
+    :`<div class="result-line result-fail" style="font-size:15px;font-weight:700;margin-bottom:12px;">❌ Wrong Answer</div>
+      <div style="background:#313244;border-radius:6px;padding:10px 12px;margin-bottom:8px;"><div class="result-line result-info">Test case thất bại</div></div>
+      <div class="result-line result-warn">Kiểm tra lại logic và thử lại nhé.</div>`;
+    document.getElementById('output-body').innerHTML=html;
+    showToast(accepted?`Accepted! +100 XP 🎉`:'Wrong Answer, thử lại nhé!',accepted?'🏆':'❌');
+  },1200);
+}
+
+function handleEditorKey(e){
+  if(e.key==='Tab'){e.preventDefault();const ta=e.target,s=ta.selectionStart,en=ta.selectionEnd;ta.value=ta.value.substring(0,s)+'  '+ta.value.substring(en);ta.selectionStart=ta.selectionEnd=s+2;}
+}
+
+function backToProblems(){setPage('problems',document.getElementById('nav-problems'));}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHALLENGE TIMER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 let challengeSelectedMin=5;
 let challengeInterval=null;
 let challengeEndTime=null;
@@ -2208,15 +2131,12 @@ let challengeTotalSec=0;
 
 function openChallengeModal(){
   document.getElementById('challenge-timer-modal').classList.add('open');
-  // reset to default selection
   document.querySelectorAll('.ctm-preset').forEach(b=>b.classList.remove('selected'));
   document.querySelector('.ctm-preset').classList.add('selected');
   challengeSelectedMin=5;
   document.getElementById('challenge-custom-min').value='';
 }
-function closeChallengeModal(){
-  document.getElementById('challenge-timer-modal').classList.remove('open');
-}
+function closeChallengeModal(){document.getElementById('challenge-timer-modal').classList.remove('open');}
 function selectChallengePreset(min,el){
   challengeSelectedMin=min;
   document.querySelectorAll('.ctm-preset').forEach(b=>b.classList.remove('selected'));
@@ -2233,53 +2153,71 @@ function startChallengeTimer(){
   clearInterval(challengeInterval);
   updateChallengeDisplay();
   challengeInterval=setInterval(updateChallengeDisplay,1000);
-  showToast(`⏱ Bắt đầu thử thách ${mins} phút! Chúc may mắn!`,'⚡');
+  showToast(`⏱ Bắt đầu thử thách ${mins} phút!`,'⚡');
 }
 function updateChallengeDisplay(){
   if(!challengeEndTime)return;
   const remaining=Math.max(0,Math.floor((challengeEndTime-Date.now())/1000));
-  const m=Math.floor(remaining/60);
-  const s=remaining%60;
+  const m=Math.floor(remaining/60),s=remaining%60;
   const timeStr=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   const miniStr=remaining<60?`${remaining}s`:`${m}m`;
   const isWarning=remaining<=60;
   const progress=1-remaining/challengeTotalSec;
-
   const remainEl=document.getElementById('ct-remaining-display');
   const miniEl=document.getElementById('ct-mini-display');
   const circEl=document.getElementById('ct-circle');
   if(remainEl){remainEl.textContent=timeStr;remainEl.className='ct-remaining'+(isWarning?' warning':'');}
   if(miniEl){miniEl.textContent=miniStr;miniEl.className='ct-time-text'+(isWarning?' warning':'');}
-  if(circEl)circEl.style.strokeDashoffset=94.2*progress;
-  if(isWarning&&circEl)circEl.style.stroke='#f38ba8';
-  else if(circEl)circEl.style.stroke='var(--indigo)';
-
+  if(circEl){circEl.style.strokeDashoffset=94.2*progress;circEl.style.stroke=isWarning?'#f38ba8':'var(--indigo)';}
   if(remaining<=0){
     clearInterval(challengeInterval);
     document.getElementById('challenge-timer-bar').classList.remove('active');
     const ov=document.getElementById('ct-finished-overlay');
     document.getElementById('ctf-emoji').textContent='⏰';
     document.getElementById('ctf-title').textContent='Hết giờ thử thách!';
-    document.getElementById('ctf-msg').textContent=`Bạn đã dùng hết ${Math.round(challengeTotalSec/60)} phút. Dù đã nộp bài hay chưa, hãy nhìn lại và cải thiện nhé!`;
+    document.getElementById('ctf-msg').textContent=`Bạn đã dùng hết ${Math.round(challengeTotalSec/60)} phút. Nhìn lại và cải thiện nhé!`;
     ov.classList.add('open');
     showToast('⏰ Thời gian thử thách kết thúc!','⚡');
   }
 }
 function stopChallengeTimer(){
-  clearInterval(challengeInterval);
-  challengeEndTime=null;
+  clearInterval(challengeInterval);challengeEndTime=null;
   document.getElementById('challenge-timer-bar').classList.remove('active');
-  showToast('Đã dừng thử thách thời gian','⏹');
+  showToast('Đã dừng thử thách','⏹');
 }
 
-// ── INIT ──
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INIT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 document.addEventListener('DOMContentLoaded',()=>{
+  initDefaultProgress();
   loadProblemsStatus();
-  renderProblems();
   initAuth();
-  const streakVal=parseInt(localStorage.getItem('lf_streak')||'14');
-  document.getElementById('streak-val').textContent=streakVal;
-  syncDashboardCourses();
+  renderDashboardCourses();
+  renderSchedule();
+  renderActivityChart();
+  renderProblems();
+  renderTasksPage();
+  updateTasksBadge();
+
+  // init pomodoro display
+  document.getElementById('pomo-count').textContent=pomoCount;
+  const ph=Math.floor(pomoTotalSec/3600),pm=Math.floor((pomoTotalSec%3600)/60);
+  document.getElementById('pomo-time').textContent=`${ph}h ${pm}m`;
+  renderTimer();
+
+  // user score
+  const score=ls('lf_user_score',2840);
+  const el=document.getElementById('user-score');
+  if(el)el.textContent=score.toLocaleString();
+
+  // update activity chart every minute
+  setInterval(()=>{
+    updateTodayActivity();
+    if(document.getElementById('page-dashboard').style.display!=='none'){
+      renderSchedule();
+    }
+  },60000);
 });
 </script>
 </body>
