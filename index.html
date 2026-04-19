@@ -427,7 +427,7 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     <div class="ava" id="sidebar-ava">?</div>
     <div class="ava-info">
       <p id="sidebar-username">Người dùng</p>
-      <span>Level 14 · Scholar</span>
+      <span id="sidebar-level-label">Level 1 · Newbie</span>
     </div>
     <div class="xp" onclick="doLogout()" title="Đăng xuất">Đăng xuất</div>
   </div>
@@ -795,6 +795,193 @@ nav{padding:10px 10px;flex:1;overflow-y:auto;}
     </div>
   </div>
 
+  <!-- PAGE: LEADERBOARD (placeholder) -->
+
+  <!-- PAGE: SCHEDULE (placeholder) -->
+
+  <!-- PAGE: SETTINGS -->
+  <div class="content" id="page-settings" style="display:none;">
+    <div style="max-width:700px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:18px;">
+
+      <!-- Profile Card -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">👤 Hồ sơ cá nhân</div></div>
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:20px;">
+          <div id="settings-ava" style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#5b50e8,#8bc5f5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:700;flex-shrink:0;">?</div>
+          <div style="flex:1;">
+            <div style="font-size:16px;font-weight:700;" id="settings-name">Người dùng</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="settings-email">Chưa đăng nhập</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+              <span id="settings-level-badge" style="font-size:12px;font-weight:700;background:var(--indigo-light);color:var(--indigo);border-radius:20px;padding:3px 12px;">Level 1</span>
+              <span id="settings-title-badge" style="font-size:12px;color:var(--text2);">Newbie</span>
+            </div>
+          </div>
+        </div>
+        <!-- XP Progress Bar -->
+        <div style="background:var(--bg);border-radius:var(--r);padding:14px 16px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-size:12px;font-weight:600;color:var(--text2);">⚡ Kinh nghiệm (XP)</span>
+            <span style="font-size:12px;font-family:var(--mono);color:var(--indigo);" id="settings-xp-text">0 / 500 XP</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:8px;overflow:hidden;">
+            <div id="settings-xp-bar" style="height:100%;background:linear-gradient(90deg,var(--indigo),var(--indigo-mid));border-radius:8px;transition:width .5s ease;width:0%;"></div>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:6px;" id="settings-xp-sub">Cần thêm 500 XP để lên Level 2</div>
+        </div>
+        <!-- Stats row -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;">
+          <div style="text-align:center;padding:12px;background:var(--indigo-light);border-radius:var(--r2);">
+            <div style="font-size:20px;font-weight:700;font-family:var(--mono);color:var(--indigo);" id="settings-stat-score">0</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">Tổng điểm</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:var(--teal-light);border-radius:var(--r2);">
+            <div style="font-size:20px;font-weight:700;font-family:var(--mono);color:var(--teal);" id="settings-stat-streak">0</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">Streak 🔥</div>
+          </div>
+          <div style="text-align:center;padding:12px;background:var(--amber-light);border-radius:var(--r2);">
+            <div style="font-size:20px;font-weight:700;font-family:var(--mono);color:var(--amber);" id="settings-stat-problems">0</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">Bài đã giải</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level Roadmap -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">🗺️ Lộ trình cấp độ</div></div>
+        <div id="settings-level-roadmap" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+
+      <!-- Appearance -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">🎨 Giao diện</div></div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:600;">Chế độ tối</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;">Chuyển sang giao diện tối cho mắt</div>
+            </div>
+            <label style="position:relative;display:inline-block;width:44px;height:24px;">
+              <input type="checkbox" id="toggle-dark" style="opacity:0;width:0;height:0;" onchange="applyDarkMode(this.checked)">
+              <span id="dark-slider" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--border2);border-radius:24px;transition:.3s;"><span style="position:absolute;content:'';height:18px;width:18px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s;" id="dark-knob"></span></span>
+            </label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:600;">Màu chủ đạo</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;">Chọn màu accent cho ứng dụng</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <div onclick="setAccentColor('#5b50e8','#eeedf9','#8880ef',this)" style="width:24px;height:24px;border-radius:50%;background:#5b50e8;cursor:pointer;border:2px solid #5b50e8;outline:2px solid #fff;outline-offset:1px;" title="Tím indigo" class="accent-dot selected-accent"></div>
+              <div onclick="setAccentColor('#0d9e74','#e3f5ed','#2bb88a',this)" style="width:24px;height:24px;border-radius:50%;background:#0d9e74;cursor:pointer;border:2px solid #0d9e74;" title="Xanh lá" class="accent-dot"></div>
+              <div onclick="setAccentColor('#0284c7','#e0f2fe','#38bdf8',this)" style="width:24px;height:24px;border-radius:50%;background:#0284c7;cursor:pointer;border:2px solid #0284c7;" title="Xanh dương" class="accent-dot"></div>
+              <div onclick="setAccentColor('#e04a4a','#fdeaea','#f87171',this)" style="width:24px;height:24px;border-radius:50%;background:#e04a4a;cursor:pointer;border:2px solid #e04a4a;" title="Đỏ" class="accent-dot"></div>
+              <div onclick="setAccentColor('#d97706','#fef3e2','#fbbf24',this)" style="width:24px;height:24px;border-radius:50%;background:#d97706;cursor:pointer;border:2px solid #d97706;" title="Vàng cam" class="accent-dot"></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:600;">Cỡ chữ</div>
+              <div style="font-size:11px;color:var(--text3);margin-top:2px;">Điều chỉnh kích thước chữ toàn ứng dụng</div>
+            </div>
+            <select onchange="setFontSize(this.value)" id="font-size-select" style="font-family:var(--font);font-size:12px;border:1px solid var(--border);border-radius:var(--r2);padding:6px 10px;background:var(--bg);color:var(--text1);outline:none;cursor:pointer;">
+              <option value="13">Nhỏ (13px)</option>
+              <option value="14" selected>Mặc định (14px)</option>
+              <option value="15">Vừa (15px)</option>
+              <option value="16">Lớn (16px)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pomodoro Settings -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">⏱️ Cài đặt Pomodoro</div></div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Thời gian tập trung</div><div style="font-size:11px;color:var(--text3);">Mỗi phiên Pomodoro (phút)</div></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <button onclick="adjustPomo('focus',-5)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;color:var(--text2);">−</button>
+              <span id="pomo-focus-val" style="font-size:14px;font-weight:700;font-family:var(--mono);min-width:32px;text-align:center;">25</span>
+              <button onclick="adjustPomo('focus',5)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;color:var(--text2);">+</button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Nghỉ ngắn</div><div style="font-size:11px;color:var(--text3);">Giữa các phiên</div></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <button onclick="adjustPomo('short',-1)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;color:var(--text2);">−</button>
+              <span id="pomo-short-val" style="font-size:14px;font-weight:700;font-family:var(--mono);min-width:32px;text-align:center;">5</span>
+              <button onclick="adjustPomo('short',1)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;color:var(--text2);">+</button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Nghỉ dài</div><div style="font-size:11px;color:var(--text3);">Sau 4 phiên</div></div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <button onclick="adjustPomo('long',-5)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;color:var(--text2);">−</button>
+              <span id="pomo-long-val" style="font-size:14px;font-weight:700;font-family:var(--mono);min-width:32px;text-align:center;">15</span>
+              <button onclick="adjustPomo('long',5)" style="width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:14px;font-weight:700;color:var(--text2);">+</button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Âm thanh thông báo</div><div style="font-size:11px;color:var(--text3);">Phát âm khi hết phiên</div></div>
+            <label style="position:relative;display:inline-block;width:44px;height:24px;">
+              <input type="checkbox" id="toggle-sound" checked style="opacity:0;width:0;height:0;" onchange="savePomodoroSettings()">
+              <span id="sound-slider" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--indigo);border-radius:24px;transition:.3s;"><span style="position:absolute;content:'';height:18px;width:18px;left:22px;bottom:3px;background:white;border-radius:50%;transition:.3s;" id="sound-knob"></span></span>
+            </label>
+          </div>
+          <button class="btn-primary" style="align-self:flex-end;" onclick="savePomodoroSettings();showToast('Đã lưu cài đặt Pomodoro ✅','⏱️')">Lưu cài đặt</button>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">🔔 Thông báo</div></div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Nhắc nhở học tập</div><div style="font-size:11px;color:var(--text3);">Gửi thông báo lúc giờ học</div></div>
+            <label style="position:relative;display:inline-block;width:44px;height:24px;">
+              <input type="checkbox" id="toggle-notif-study" checked style="opacity:0;width:0;height:0;" onchange="saveNotifSettings()">
+              <span id="notif-study-slider" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--indigo);border-radius:24px;transition:.3s;"><span style="position:absolute;height:18px;width:18px;left:22px;bottom:3px;background:white;border-radius:50%;transition:.3s;"></span></span>
+            </label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Nhắc bài tập sắp hết hạn</div><div style="font-size:11px;color:var(--text3);">Báo trước 1 ngày</div></div>
+            <label style="position:relative;display:inline-block;width:44px;height:24px;">
+              <input type="checkbox" id="toggle-notif-task" checked style="opacity:0;width:0;height:0;" onchange="saveNotifSettings()">
+              <span id="notif-task-slider" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--indigo);border-radius:24px;transition:.3s;"><span style="position:absolute;height:18px;width:18px;left:22px;bottom:3px;background:white;border-radius:50%;transition:.3s;"></span></span>
+            </label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Streak hàng ngày</div><div style="font-size:11px;color:var(--text3);">Nhắc duy trì streak lúc 20:00</div></div>
+            <label style="position:relative;display:inline-block;width:44px;height:24px;">
+              <input type="checkbox" id="toggle-notif-streak" checked style="opacity:0;width:0;height:0;" onchange="saveNotifSettings()">
+              <span id="notif-streak-slider" style="position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--indigo);border-radius:24px;transition:.3s;"><span style="position:absolute;height:18px;width:18px;left:22px;bottom:3px;background:white;border-radius:50%;transition:.3s;"></span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Management -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">💾 Quản lý dữ liệu</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="padding:12px;background:var(--bg);border-radius:var(--r2);display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Xuất dữ liệu học tập</div><div style="font-size:11px;color:var(--text3);margin-top:1px;">Tải xuống toàn bộ tiến độ</div></div>
+            <button class="btn-third" onclick="exportData()">📥 Xuất JSON</button>
+          </div>
+          <div style="padding:12px;background:var(--bg);border-radius:var(--r2);display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Reset tiến độ</div><div style="font-size:11px;color:var(--text3);margin-top:1px;">Xoá toàn bộ dữ liệu học tập</div></div>
+            <button onclick="resetAllData()" style="background:var(--rose-light);color:var(--rose);border:1.5px solid var(--rose);border-radius:var(--r2);padding:7px 16px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;">🗑 Reset</button>
+          </div>
+          <div style="padding:12px;background:var(--bg);border-radius:var(--r2);display:flex;align-items:center;justify-content:space-between;">
+            <div><div style="font-size:13px;font-weight:600;">Phiên bản ứng dụng</div><div style="font-size:11px;color:var(--text3);margin-top:1px;">LearnFlow v2.1.0 — Build 2026</div></div>
+            <span style="font-size:11px;font-family:var(--mono);background:var(--teal-light);color:var(--teal);border-radius:20px;padding:3px 10px;">✅ Mới nhất</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </main>
 </div>
 
@@ -1068,7 +1255,7 @@ function updateStreakOnLogin(){
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // PAGE NAVIGATION
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const allPages=['dashboard','timer','notes','tasks','progress','problems','editor','courses'];
+const allPages=['dashboard','timer','notes','tasks','progress','problems','editor','courses','settings'];
 function setPage(id,navEl){
   allPages.forEach(p=>{
     const el=document.getElementById('page-'+p);
@@ -1090,6 +1277,7 @@ function setPage(id,navEl){
   if(id==='courses')renderCoursesPage();
   if(id==='progress')renderProgressPage();
   if(id==='tasks')renderTasksPage();
+  if(id==='settings')renderSettingsPage();
   const searchBar=document.getElementById('topbar-search');
   if(searchBar)searchBar.style.display=id==='editor'?'none':'flex';
 }
@@ -1712,6 +1900,7 @@ function markLessonDone(courseId,idx){
     ls_set('lf_user_score',score+50);
     const scoreEl=document.getElementById('user-score');
     if(scoreEl)scoreEl.textContent=(score+50).toLocaleString();
+    updateLevelDisplay();
   }
 
   openCourseDetail(courseId);
@@ -2187,9 +2376,311 @@ function stopChallengeTimer(){
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// LEVEL SYSTEM — dynamic level from real XP/score
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const LEVEL_TABLE=[
+  {level:1,  title:'Newbie',      emoji:'🌱', minXP:0},
+  {level:2,  title:'Explorer',    emoji:'🔍', minXP:500},
+  {level:3,  title:'Apprentice',  emoji:'📖', minXP:1000},
+  {level:4,  title:'Student',     emoji:'🎓', minXP:1800},
+  {level:5,  title:'Learner',     emoji:'💡', minXP:2800},
+  {level:6,  title:'Scholar',     emoji:'🏫', minXP:4000},
+  {level:7,  title:'Practitioner',emoji:'🔧', minXP:5500},
+  {level:8,  title:'Developer',   emoji:'💻', minXP:7500},
+  {level:9,  title:'Expert',      emoji:'⚡', minXP:10000},
+  {level:10, title:'Master',      emoji:'🏆', minXP:13000},
+  {level:11, title:'Architect',   emoji:'🏛️', minXP:17000},
+  {level:12, title:'Sage',        emoji:'🧙', minXP:22000},
+  {level:13, title:'Legend',      emoji:'✨', minXP:28000},
+  {level:14, title:'Grandmaster', emoji:'👑', minXP:35000},
+  {level:15, title:'Mythic',      emoji:'🌟', minXP:50000},
+];
+
+function getLevelInfo(score){
+  let info=LEVEL_TABLE[0];
+  for(let i=LEVEL_TABLE.length-1;i>=0;i--){
+    if(score>=LEVEL_TABLE[i].minXP){info=LEVEL_TABLE[i];break;}
+  }
+  const nextIdx=LEVEL_TABLE.findIndex(l=>l.level===info.level)+1;
+  const nextLevel=nextIdx<LEVEL_TABLE.length?LEVEL_TABLE[nextIdx]:null;
+  const xpInLevel=score-info.minXP;
+  const xpToNext=nextLevel?nextLevel.minXP-info.minXP:1;
+  const pct=nextLevel?Math.min(100,Math.round(xpInLevel/xpToNext*100)):100;
+  return{...info,score,xpInLevel,xpToNext,pct,nextLevel};
+}
+
+function updateLevelDisplay(){
+  const score=ls('lf_user_score',2840);
+  const info=getLevelInfo(score);
+  const labelEl=document.getElementById('sidebar-level-label');
+  if(labelEl)labelEl.textContent=`Level ${info.level} · ${info.title}`;
+  // update leaderboard 'me' row level
+  const lbLvEl=document.querySelector('.lb-inf .lb-lv');
+  // find the "Bạn" row specifically
+  document.querySelectorAll('.lb-row').forEach(row=>{
+    if(row.querySelector('.me-tag')){
+      const lvEl=row.querySelector('.lb-lv');
+      if(lvEl)lvEl.textContent=`Lv.${info.level}`;
+    }
+  });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SETTINGS PAGE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderSettingsPage(){
+  const user=getCurrentUser();
+  const score=ls('lf_user_score',2840);
+  const streak=ls('lf_streak',0);
+  const info=getLevelInfo(score);
+  const solved=problemsData.filter(p=>p.status==='done').length;
+
+  // Profile
+  if(user){
+    const initials=user.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const avaEl=document.getElementById('settings-ava');
+    if(avaEl)avaEl.textContent=initials;
+    const nameEl=document.getElementById('settings-name');
+    if(nameEl)nameEl.textContent=user.name;
+    const emailEl=document.getElementById('settings-email');
+    if(emailEl)emailEl.textContent=user.email+' · Tham gia: '+(user.createdAt||'');
+  }
+
+  const lvBadge=document.getElementById('settings-level-badge');
+  const titleBadge=document.getElementById('settings-title-badge');
+  if(lvBadge)lvBadge.textContent=`${info.emoji} Level ${info.level}`;
+  if(titleBadge)titleBadge.textContent=info.title;
+
+  // XP Bar
+  const xpText=document.getElementById('settings-xp-text');
+  const xpBar=document.getElementById('settings-xp-bar');
+  const xpSub=document.getElementById('settings-xp-sub');
+  if(xpText)xpText.textContent=`${score.toLocaleString()} XP tổng cộng`;
+  if(xpBar)xpBar.style.width=info.pct+'%';
+  if(xpSub){
+    if(info.nextLevel)xpSub.textContent=`${info.xpInLevel.toLocaleString()} / ${info.xpToNext.toLocaleString()} XP — cần thêm ${(info.xpToNext-info.xpInLevel).toLocaleString()} XP để lên Level ${info.level+1}`;
+    else xpSub.textContent='🌟 Đã đạt cấp độ tối đa!';
+  }
+
+  // Stats
+  const ss=document.getElementById('settings-stat-score');
+  const sst=document.getElementById('settings-stat-streak');
+  const ssp=document.getElementById('settings-stat-problems');
+  if(ss)ss.textContent=score.toLocaleString();
+  if(sst)sst.textContent=streak;
+  if(ssp)ssp.textContent=solved;
+
+  // Level Roadmap
+  const roadmap=document.getElementById('settings-level-roadmap');
+  if(roadmap){
+    roadmap.innerHTML=LEVEL_TABLE.map(l=>{
+      const isCurrent=l.level===info.level;
+      const isDone=score>=l.minXP&&!isCurrent;
+      const isLocked=score<l.minXP;
+      const bg=isCurrent?'var(--indigo-light)':isDone?'#f0fdf4':'var(--bg)';
+      const border=isCurrent?'var(--indigo)':isDone?'#86efac':'var(--border)';
+      const opacity=isLocked?'0.5':'1';
+      return`<div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r2);border:1.5px solid ${border};background:${bg};opacity:${opacity};transition:all .15s;">
+        <div style="font-size:20px;width:28px;text-align:center;">${l.emoji}</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:${isCurrent?'700':'600'};color:${isCurrent?'var(--indigo)':'var(--text1)'};">Level ${l.level} — ${l.title}</div>
+          <div style="font-size:11px;color:var(--text3);font-family:var(--mono);">Từ ${l.minXP.toLocaleString()} XP</div>
+        </div>
+        ${isCurrent?`<span style="font-size:10px;background:var(--indigo);color:#fff;border-radius:20px;padding:2px 10px;font-weight:700;">⭐ Hiện tại</span>`:isDone?`<span style="font-size:14px;color:#16a34a;">✅</span>`:`<span style="font-size:14px;color:var(--text3);">🔒</span>`}
+      </div>`;
+    }).join('');
+  }
+
+  // Load saved Pomodoro settings
+  const pomoSettings=ls('lf_pomo_settings',{focus:25,short:5,long:15,sound:true});
+  const fv=document.getElementById('pomo-focus-val');
+  const sv=document.getElementById('pomo-short-val');
+  const lv=document.getElementById('pomo-long-val');
+  const sd=document.getElementById('toggle-sound');
+  if(fv)fv.textContent=pomoSettings.focus;
+  if(sv)sv.textContent=pomoSettings.short;
+  if(lv)lv.textContent=pomoSettings.long;
+  if(sd){
+    sd.checked=pomoSettings.sound!==false;
+    updateToggleUI('sound-slider','sound-knob',sd.checked);
+  }
+
+  // Load dark mode
+  const isDark=ls('lf_dark_mode',false);
+  const darkToggle=document.getElementById('toggle-dark');
+  if(darkToggle){
+    darkToggle.checked=isDark;
+    updateToggleUI('dark-slider','dark-knob',isDark);
+  }
+
+  // Load font size
+  const fontSize=ls('lf_font_size','14');
+  const fsSel=document.getElementById('font-size-select');
+  if(fsSel)fsSel.value=fontSize;
+
+  // Load notif settings
+  const notifSettings=ls('lf_notif_settings',{study:true,task:true,streak:true});
+  const ns=document.getElementById('toggle-notif-study');
+  const nt=document.getElementById('toggle-notif-task');
+  const nst=document.getElementById('toggle-notif-streak');
+  if(ns){ns.checked=notifSettings.study;updateSliderFromBool('notif-study-slider',notifSettings.study);}
+  if(nt){nt.checked=notifSettings.task;updateSliderFromBool('notif-task-slider',notifSettings.task);}
+  if(nst){nst.checked=notifSettings.streak;updateSliderFromBool('notif-streak-slider',notifSettings.streak);}
+}
+
+function updateToggleUI(sliderId,knobId,checked){
+  const slider=document.getElementById(sliderId);
+  const knob=document.getElementById(knobId);
+  if(slider)slider.style.background=checked?'var(--indigo)':'var(--border2)';
+  if(knob)knob.style.left=checked?'22px':'3px';
+}
+
+function updateSliderFromBool(sliderId,checked){
+  const slider=document.getElementById(sliderId);
+  if(!slider)return;
+  slider.style.background=checked?'var(--indigo)':'var(--border2)';
+  const knob=slider.querySelector('span');
+  if(knob)knob.style.left=checked?'22px':'3px';
+}
+
+function applyDarkMode(enabled){
+  ls_set('lf_dark_mode',enabled);
+  updateToggleUI('dark-slider','dark-knob',enabled);
+  const root=document.documentElement;
+  if(enabled){
+    root.style.setProperty('--bg','#1a1a2e');
+    root.style.setProperty('--surface','#16213e');
+    root.style.setProperty('--surface2','#0f3460');
+    root.style.setProperty('--border','#2a2a4a');
+    root.style.setProperty('--border2','#3a3a5a');
+    root.style.setProperty('--text1','#e8e6f0');
+    root.style.setProperty('--text2','#a09cbc');
+    root.style.setProperty('--text3','#6b6890');
+  } else {
+    root.style.setProperty('--bg','#f5f4f0');
+    root.style.setProperty('--surface','#ffffff');
+    root.style.setProperty('--surface2','#faf9f7');
+    root.style.setProperty('--border','#e8e5df');
+    root.style.setProperty('--border2','#d4cfc6');
+    root.style.setProperty('--text1','#1a1916');
+    root.style.setProperty('--text2','#6b6760');
+    root.style.setProperty('--text3','#a09c96');
+  }
+  showToast(enabled?'🌙 Đã bật chế độ tối':'☀️ Đã tắt chế độ tối','🎨');
+}
+
+function setAccentColor(main,light,mid,el){
+  ls_set('lf_accent',{main,light,mid});
+  document.documentElement.style.setProperty('--indigo',main);
+  document.documentElement.style.setProperty('--indigo-light',light);
+  document.documentElement.style.setProperty('--indigo-mid',mid);
+  document.querySelectorAll('.accent-dot').forEach(d=>{d.style.outline='none';});
+  if(el){el.style.outline='2px solid #fff';el.style.outlineOffset='1px';}
+  showToast('Đã đổi màu chủ đạo 🎨','✨');
+}
+
+function setFontSize(size){
+  ls_set('lf_font_size',size);
+  document.body.style.fontSize=size+'px';
+  showToast(`Cỡ chữ: ${size}px`,'🔤');
+}
+
+function adjustPomo(type,delta){
+  const settings=ls('lf_pomo_settings',{focus:25,short:5,long:15,sound:true});
+  const min={focus:5,short:1,long:5};
+  const max={focus:60,short:15,long:30};
+  settings[type]=Math.min(max[type],Math.max(min[type],(settings[type]||min[type])+delta));
+  ls_set('lf_pomo_settings',settings);
+  const elMap={focus:'pomo-focus-val',short:'pomo-short-val',long:'pomo-long-val'};
+  const el=document.getElementById(elMap[type]);
+  if(el)el.textContent=settings[type];
+}
+
+function savePomodoroSettings(){
+  const settings=ls('lf_pomo_settings',{focus:25,short:5,long:15,sound:true});
+  const sd=document.getElementById('toggle-sound');
+  if(sd){settings.sound=sd.checked;updateToggleUI('sound-slider','sound-knob',sd.checked);}
+  ls_set('lf_pomo_settings',settings);
+  // apply to timer
+  timerModes.focus=(settings.focus||25)*60;
+  timerModes.short=(settings.short||5)*60;
+  timerModes.long=(settings.long||15)*60;
+  showToast('Đã lưu cài đặt Pomodoro ✅','⏱️');
+}
+
+function saveNotifSettings(){
+  const ns=document.getElementById('toggle-notif-study');
+  const nt=document.getElementById('toggle-notif-task');
+  const nst=document.getElementById('toggle-notif-streak');
+  const settings={
+    study:ns?ns.checked:true,
+    task:nt?nt.checked:true,
+    streak:nst?nst.checked:true,
+  };
+  ls_set('lf_notif_settings',settings);
+  ['notif-study-slider','notif-task-slider','notif-streak-slider'].forEach((id,i)=>{
+    const vals=[settings.study,settings.task,settings.streak];
+    updateSliderFromBool(id,vals[i]);
+  });
+}
+
+function exportData(){
+  const data={
+    user:getCurrentUser(),
+    score:ls('lf_user_score',0),
+    streak:ls('lf_streak',0),
+    tasks:ls('lf_tasks',[]),
+    schedule:ls('lf_schedule',[]),
+    problems:ls('problems_status',{}),
+    activity:ls('lf_activity',[]),
+    exportedAt:new Date().toISOString()
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='learnflow_data.json';
+  a.click();
+  showToast('Đã xuất dữ liệu thành công!','📥');
+}
+
+function resetAllData(){
+  if(!confirm('⚠️ Bạn có chắc muốn xoá toàn bộ tiến độ học tập? Hành động này không thể hoàn tác!'))return;
+  if(!confirm('Xác nhận lần nữa: XOÁ TẤT CẢ dữ liệu?'))return;
+  const keysToKeep=['lf_users','lf_current'];
+  const allKeys=Object.keys(localStorage).filter(k=>k.startsWith('lf_')||k==='problems_status');
+  allKeys.forEach(k=>{if(!keysToKeep.includes(k))localStorage.removeItem(k);});
+  showToast('Đã reset dữ liệu. Làm mới trang để áp dụng.','🗑');
+  setTimeout(()=>location.reload(),1500);
+}
+
+// Apply saved settings on load
+function applyStoredSettings(){
+  const isDark=ls('lf_dark_mode',false);
+  if(isDark)applyDarkMode(true);
+  const accent=ls('lf_accent',null);
+  if(accent){
+    document.documentElement.style.setProperty('--indigo',accent.main);
+    document.documentElement.style.setProperty('--indigo-light',accent.light);
+    document.documentElement.style.setProperty('--indigo-mid',accent.mid);
+  }
+  const fontSize=ls('lf_font_size','14');
+  if(fontSize!=='14')document.body.style.fontSize=fontSize+'px';
+  // apply custom pomo times
+  const pomoSettings=ls('lf_pomo_settings',null);
+  if(pomoSettings){
+    timerModes.focus=(pomoSettings.focus||25)*60;
+    timerModes.short=(pomoSettings.short||5)*60;
+    timerModes.long=(pomoSettings.long||15)*60;
+    timerTotal=timerModes.focus;
+    timerRemaining=timerTotal;
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INIT
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 document.addEventListener('DOMContentLoaded',()=>{
+  applyStoredSettings();
   initDefaultProgress();
   loadProblemsStatus();
   initAuth();
@@ -2199,6 +2690,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   renderProblems();
   renderTasksPage();
   updateTasksBadge();
+  updateLevelDisplay();
 
   // init pomodoro display
   document.getElementById('pomo-count').textContent=pomoCount;
